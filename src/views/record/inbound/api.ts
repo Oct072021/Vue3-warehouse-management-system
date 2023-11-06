@@ -1,13 +1,12 @@
 import { Http } from '@/utils/request'
-import { Response } from '@/types/httpRes'
-import { SearchData } from './data.d'
+import { InboundData, SearchData, TotalData } from './data.d'
 
 export function fetchList(params?: SearchData) {
-	return Http.getRequest<Response>('/vue-element-admin/inbound/list', { params })
+	return Http.getRequest<InboundData[]>('/vue-element-admin/inbound/list', { params })
 }
 
 export function fetchDetail(params: string) {
-	return Http.getRequest<Response>('/vue-element-admin/inbound/detail', { params })
+	return Http.getRequest<InboundData>('/vue-element-admin/inbound/detail', { params })
 }
 
 export function createRecord(data) {
@@ -35,5 +34,5 @@ export function remove(data) {
 }
 
 export function inboundTotal(type?: string) {
-	return Http.getRequest<Response>('/vue-element-admin/inbound/total', { params: { type } })
+	return Http.getRequest<TotalData>('/vue-element-admin/inbound/total', { params: { type } })
 }

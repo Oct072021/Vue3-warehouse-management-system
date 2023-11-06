@@ -297,3 +297,5 @@ export default defineMock([
 	},
 	/**--------------------------------------------  outbound module  --end  ---------------------------------------------------------**/
 ])
+
+export { inboundArr, outboundArr }

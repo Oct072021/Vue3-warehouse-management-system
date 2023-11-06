@@ -16,3 +16,8 @@ export interface SearchData {
 	itemID?: string
 	sort?: string
 }
+
+export interface TotalData {
+	total: number[]
+	orders: number[]
+}

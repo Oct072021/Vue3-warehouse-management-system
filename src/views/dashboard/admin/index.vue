@@ -4,7 +4,7 @@
 
 		<PanelGroup
 			:profit="profit"
-			:orders="orders"
+			:orders="allOrders"
 			@handleSetLineChartData="handleSetLineChartData"
 		/>
 
@@ -76,7 +76,7 @@ const lineChartData = reactive<LineChartData>({
 })
 const nowType = ref<string>('profit')
 const profit = ref<number>()
-const orders = ref<number>()
+const allOrders = ref<number>()
 const nowDate = ref<Date>(new Date())
 
 onBeforeMount(() => {
@@ -90,7 +90,7 @@ const getInboundData = async () => {
 	const { orders, total } = res.data
 	// Get PanelGroup Data
 	profit.value! -= eval(total.join('+'))
-	orders.value += eval(orders.join('+'))
+	allOrders.value += eval(orders.join('+'))
 	// Get Chart Data
 	const nowMonth = nowDate.value.getMonth() + 1
 	const base = nowMonth > 3 && nowMonth < 9 ? nowMonth : nowMonth <= 3 ? 3 : 9
@@ -102,7 +102,7 @@ const getOutboundData = async () => {
 	const { orders, total } = res.data
 	// Get PanelGroup Data
 	profit.value = eval(total.join('+'))
-	orders.value = eval(orders.join('+'))
+	allOrders.value = eval(orders.join('+'))
 	// Get Chart Data
 	const nowMonth = nowDate.value.getMonth() + 1
 	const base = nowMonth > 3 && nowMonth < 9 ? nowMonth : nowMonth <= 3 ? 3 : 9

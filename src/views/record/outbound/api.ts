@@ -1,13 +1,12 @@
 import { Http } from '@/utils/request'
-import { Response } from '@/types/httpRes'
-import { SearchData } from './data.d'
+import { OutboundData, SearchData, TotalData } from './data.d'
 
 export function fetchList(params?: SearchData) {
-	return Http.getRequest<Response>('/vue-element-admin/outbound/list', { params })
+	return Http.getRequest<OutboundData[]>('/vue-element-admin/outbound/list', { params })
 }
 
 export function fetchDetail(params: string) {
-	return Http.getRequest<Response>('/vue-element-admin/outbound/detail', { params })
+	return Http.getRequest<OutboundData>('/vue-element-admin/outbound/detail', { params })
 }
 
 export function createArticle(data) {
@@ -35,5 +34,5 @@ export function remove(data) {
 }
 
 export function outboundTotal(type?: string) {
-	return Http.getRequest<Response>('/vue-element-admin/outbound/total', { params: { type } })
+	return Http.getRequest<TotalData>('/vue-element-admin/outbound/total', { params: { type } })
 }

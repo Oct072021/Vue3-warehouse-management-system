@@ -1,5 +1,3 @@
-import { Response } from '@/types/httpRes'
-
 import { defineStore } from 'pinia'
 
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -26,7 +24,7 @@ export const useUserStore = defineStore('user', {
 		login(userInfo: UserInfo) {
 			const { username, password } = userInfo
 			return new Promise((resolve, reject) => {
-				Http.postRequest<Response<LoginResponse>>('/vue-element-admin/user/login', {
+				Http.postRequest<LoginResponse>('/vue-element-admin/user/login', {
 					username: username.trim(),
 					password: password,
 				})
@@ -45,7 +43,7 @@ export const useUserStore = defineStore('user', {
 		// get user info
 		getInfo(): Promise<UserInfoResponse> {
 			return new Promise((resolve, reject) => {
-				Http.getRequest<Response<UserInfoResponse>>('/vue-element-admin/user/info', { params: { token: this.token } })
+				Http.getRequest<UserInfoResponse>('/vue-element-admin/user/info', { params: { token: this.token } })
 					.then(response => {
 						const { data } = response
 

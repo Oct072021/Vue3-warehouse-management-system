@@ -18,7 +18,7 @@
         :name="item.key"
       >
         <keep-alive :include="alive">
-          <tab-pane
+          <TabPane
             v-if="activeName == item.key"
             :ref="item.key"
             :key="item.key"

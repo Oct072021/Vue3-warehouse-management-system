@@ -1,8 +1,9 @@
+// import { Response } from './../types/httpRes.d';
 import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { getToken } from '@/utils/auth'
 import { useUserStore } from '@/store/user'
-import { Response } from '@/types/httpRes'
+import { Response } from '@/types/httpRes.d'
 
 // create an axios instance
 const service: AxiosInstance = axios.create({
@@ -91,19 +92,19 @@ service.interceptors.response.use(
 
 /* 导出封装的请求方法 */
 export const Http = {
-	getRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+	getRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<Response<T>> {
 		return service.get(url, config)
 	},
 
-	postRequest<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<T> {
+	postRequest<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<Response<T>> {
 		return service.post(url, data, config)
 	},
 
-	putRequest<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<T> {
+	putRequest<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<Response<T>> {
 		return service.put(url, data, config)
 	},
 
-	deleteRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+	deleteRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<Response<T>> {
 		return service.delete(url, config)
 	},
 }
