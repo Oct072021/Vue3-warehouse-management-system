@@ -59,7 +59,7 @@
 						v-model="temp.type"
 						class="filter-item"
 						placeholder="Please select"
-            style="width: 300px;"
+						style="width: 300px"
 					>
 						<el-option
 							v-for="item in tabMapOptions"
@@ -264,11 +264,11 @@ const temp = reactive<InboundData>({
 	id: undefined,
 	itemID: '',
 	specs: '',
-	quantity: 0,
-	price: 0,
+	quantity: undefined,
+	price: undefined,
 	title: '',
 	type: '',
-	mass: '',
+	mass: undefined,
 	timestamp: ''
 })
 const resetTemp = () => {
@@ -278,11 +278,10 @@ const resetTemp = () => {
 		specs: '',
 		timestamp: new Date(),
 		title: '',
-		quantity: 0,
-		price: 0,
-		total: 0,
+		quantity: undefined,
+		price: undefined,
 		type: '',
-		mass: ''
+		mass: undefined
 	})
 }
 const handleCreate = () => {
@@ -316,7 +315,6 @@ const create = (formEl: FormInstance | undefined) => {
 }
 const handleUpdate = (row: InboundData) => {
 	Object.assign(temp, row) // copy obj
-	temp.timestamp = new Date(temp.timestamp)
 	dialogStatus.value = 'update'
 	dialogFormVisible.value = true
 	nextTick(() => {

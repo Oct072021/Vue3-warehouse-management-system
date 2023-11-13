@@ -11,12 +11,12 @@ for (let i = 1; i <= 1000; i++) {
 			itemID: `@guid()`,
 			timestamp: "@date('2022/MM/dd')",
 			client: '@first',
-			specs: '@integer(1, 100)*@integer(1, 100)mm',
+			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `goods ${i} `,
 			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
 			quantity: '@integer(0, 100)',
 			price: '@float(800, 10000, 0, 2)',
-			mass: '@float(10, 50, 0, 2)kg'
+			mass: '@float(10, 50, 0, 2)'
 		})
 	)
 }
@@ -27,12 +27,12 @@ for (let i = 1; i <= 600; i++) {
 			id: i,
 			itemID: `@guid()`,
 			timestamp: "@date('2022/MM/dd')",
-			specs: '@integer(1, 100)*@integer(1, 100)mm',
+			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `inbound goods ${i} `,
 			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
 			quantity: '@integer(0, 100)',
 			price: '@float(800, 10000, 0, 2)',
-			mass: '@float(10, 50, 0, 2)kg'
+			mass: '@float(10, 50, 0, 2)'
 		})
 	)
 }
@@ -260,6 +260,7 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/outbound/create',
 		method: 'POST',
 		response(req, res, next) {
+			req.body.id = outboundArr.length + 1
 			outboundArr.unshift(req.body)
 			res.end(
 				JSON.stringify({

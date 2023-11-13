@@ -1,6 +1,6 @@
-import { DataList, Search, Total } from '../types/data.d'
+import { DataList, Search, Total } from '../types/data'
 
-export interface InboundData extends Omit<DataList, 'client'> {}
+export interface InboundData extends DataList {}
 
 export interface Inbound {
 	items: InboundData[]

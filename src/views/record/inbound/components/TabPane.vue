@@ -55,8 +55,9 @@
 						align="center"
 						:label="t(`records.specs`)"
 						width="95"
-						prop="specs"
-					/>
+					>
+						<template #default="{ row }"> {{ row.specs }}mm </template>
+					</el-table-column>
 
 					<el-table-column
 						class-name="status-col"
@@ -83,9 +84,10 @@
 					<el-table-column
 						class-name="status-col"
 						:label="t(`records.mass`)"
-						prop="mass"
 						width="90"
-					/>
+					>
+						<template #default="{ row }"> {{ row.mass }}kg </template>
+					</el-table-column>
 
 					<el-table-column
 						:label="t(`records.actions`)"
@@ -93,7 +95,7 @@
 						width="170"
 						class-name="small-padding fixed-width"
 					>
-						<template #default="{ row, $index }">
+						<template #default="{ row }">
 							<el-button
 								type="primary"
 								size="small"
@@ -160,8 +162,6 @@ const emit = defineEmits<{
 watch(
 	() => props.searchList,
 	() => {
-		console.log(2)
-
 		resetAlive_search()
 	},
 	{ deep: true }

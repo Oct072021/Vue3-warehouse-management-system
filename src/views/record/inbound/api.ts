@@ -1,5 +1,5 @@
 import { Http } from '@/utils/request'
-import { Inbound, InboundData, SearchData, TotalData } from './data.d'
+import { Inbound, InboundData, SearchData, TotalData } from './data'
 
 export function fetchList(params?: SearchData) {
 	return Http.getRequest<Inbound>('/vue-element-admin/inbound/list', { params })

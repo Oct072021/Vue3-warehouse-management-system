@@ -30,7 +30,7 @@ const config = [
 		type: 'button',
 		name: 'Search',
 		buttonType: 'primary',
-		icon: 'el-icon-search',
+		icon: 'search',
 		styles: {
 			margin: '0 10px 0 0'
 		},
@@ -40,7 +40,7 @@ const config = [
 		type: 'button',
 		name: 'Add',
 		buttonType: 'primary',
-		icon: 'el-icon-edit',
+		icon: 'edit',
 		styles: {
 			margin: '0 10px 0 0'
 		},
@@ -50,7 +50,7 @@ const config = [
 		type: 'button',
 		name: 'Export',
 		buttonType: 'primary',
-		icon: 'el-icon-download',
+		icon: 'download',
 		styles: {
 			margin: '0 10px 0 0'
 		},
