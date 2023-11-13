@@ -1,36 +1,24 @@
 import { Http } from '@/utils/request'
-import { InboundData, SearchData, TotalData } from './data.d'
+import { Inbound, InboundData, SearchData, TotalData } from './data.d'
 
 export function fetchList(params?: SearchData) {
-	return Http.getRequest<InboundData[]>('/vue-element-admin/inbound/list', { params })
+	return Http.getRequest<Inbound>('/vue-element-admin/inbound/list', { params })
 }
 
-export function fetchDetail(params: string) {
-	return Http.getRequest<InboundData>('/vue-element-admin/inbound/detail', { params })
+export function fetchDetail(id: number) {
+	return Http.getRequest<InboundData>('/vue-element-admin/inbound/detail', { params: { id } })
 }
 
-export function createRecord(data) {
-	return request({
-		url: '/vue-element-admin/inbound/create',
-		method: 'post',
-		data,
-	})
+export function createOrder(data: InboundData) {
+	return Http.postRequest('/vue-element-admin/inbound/create', data)
 }
 
-export function updateRecord(data) {
-	return request({
-		url: '/vue-element-admin/inbound/update',
-		method: 'post',
-		data,
-	})
+export function updateOrder(data: InboundData) {
+	return Http.postRequest('/vue-element-admin/inbound/update', data)
 }
 
-export function remove(data) {
-	return request({
-		url: '/vue-element-admin/inbound/remove',
-		method: 'post',
-		data,
-	})
+export function remove(id: number) {
+	return Http.postRequest('/vue-element-admin/inbound/remove', { id })
 }
 
 export function inboundTotal(type?: string) {

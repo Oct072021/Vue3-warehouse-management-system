@@ -16,7 +16,7 @@ for (let i = 1; i <= 1000; i++) {
 			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
 			quantity: '@integer(0, 100)',
 			price: '@float(800, 10000, 0, 2)',
-			mass: '@float(10, 50, 0, 2)kg',
+			mass: '@float(10, 50, 0, 2)kg'
 		})
 	)
 }
@@ -32,7 +32,7 @@ for (let i = 1; i <= 600; i++) {
 			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
 			quantity: '@integer(0, 100)',
 			price: '@float(800, 10000, 0, 2)',
-			mass: '@float(10, 50, 0, 2)kg',
+			mass: '@float(10, 50, 0, 2)kg'
 		})
 	)
 }
@@ -64,11 +64,11 @@ export default defineMock([
 					data: {
 						total: mockList.length,
 						items: pageList,
-						allItems: mockList,
-					},
+						allItems: mockList
+					}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -98,11 +98,11 @@ export default defineMock([
 					code: 20000,
 					data: {
 						total: totalArr,
-						orders: ordersArr,
-					},
+						orders: ordersArr
+					}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -115,26 +115,28 @@ export default defineMock([
 					res.end(
 						JSON.stringify({
 							code: 20000,
-							data: item,
+							data: item
 						})
 					)
 				}
 			}
-		},
+		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/create',
 		method: 'POST',
 		response(req, res, next) {
+			req.body.id = inboundArr.length + 1
 			inboundArr.unshift(req.body)
 			res.end(
 				JSON.stringify({
 					code: 20000,
-					data: 'success',
+					message: 'success',
+					data: {}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -146,10 +148,11 @@ export default defineMock([
 			res.end(
 				JSON.stringify({
 					code: 20000,
-					data: 'success',
+					message: 'success',
+					data: {}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -161,10 +164,11 @@ export default defineMock([
 			res.end(
 				JSON.stringify({
 					code: 20000,
-					data: 'success',
+					message: 'success',
+					data: {}
 				})
 			)
-		},
+		}
 	},
 	/**--------------------------------------------  inbound module  --end  ----------------------------------------------------------**/
 
@@ -194,11 +198,11 @@ export default defineMock([
 					data: {
 						total: mockList.length,
 						items: pageList,
-						allItems: mockList,
-					},
+						allItems: mockList
+					}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -227,11 +231,11 @@ export default defineMock([
 					code: 20000,
 					data: {
 						total: totalArr,
-						orders: ordersArr,
-					},
+						orders: ordersArr
+					}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -244,12 +248,12 @@ export default defineMock([
 					res.end(
 						JSON.stringify({
 							code: 20000,
-							data: item,
+							data: item
 						})
 					)
 				}
 			}
-		},
+		}
 	},
 
 	{
@@ -260,10 +264,11 @@ export default defineMock([
 			res.end(
 				JSON.stringify({
 					code: 20000,
-					data: 'success',
+					message: 'success',
+					data: {}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -275,10 +280,11 @@ export default defineMock([
 			res.end(
 				JSON.stringify({
 					code: 20000,
-					data: 'success',
+					message: 'success',
+					data: {}
 				})
 			)
-		},
+		}
 	},
 
 	{
@@ -290,11 +296,12 @@ export default defineMock([
 			res.end(
 				JSON.stringify({
 					code: 20000,
-					data: 'success',
+					message: 'success',
+					data: {}
 				})
 			)
-		},
-	},
+		}
+	}
 	/**--------------------------------------------  outbound module  --end  ---------------------------------------------------------**/
 ])
 

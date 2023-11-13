@@ -33,7 +33,7 @@ const props = withDefaults(
 		className: 'chart',
 		width: '100%',
 		height: '350px',
-		autoResize: true,
+		autoResize: true
 	}
 )
 
@@ -97,30 +97,30 @@ const setOptions = ({ inbound, outbound }: ChartData) => {
 			data: monthArr.value,
 			boundaryGap: false,
 			axisTick: {
-				show: false,
-			},
+				show: false
+			}
 		},
 		grid: {
 			left: 10,
 			right: 10,
 			bottom: 20,
 			top: 30,
-			containLabel: true,
+			containLabel: true
 		},
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'cross',
+				type: 'cross'
 			},
-			padding: [5, 10],
+			padding: [5, 10]
 		},
 		yAxis: {
 			axisTick: {
-				show: false,
-			},
+				show: false
+			}
 		},
 		legend: {
-			data: [i18nInbound, i18nOutbound],
+			data: [i18nInbound, i18nOutbound]
 		},
 		series: [
 			{
@@ -129,14 +129,14 @@ const setOptions = ({ inbound, outbound }: ChartData) => {
 					color: '#FF005A',
 					lineStyle: {
 						color: '#FF005A',
-						width: 2,
-					},
+						width: 2
+					}
 				},
 				smooth: true,
 				type: 'line',
 				data: inbound,
 				animationDuration: 2800,
-				animationEasing: 'cubicInOut',
+				animationEasing: 'cubicInOut'
 			},
 			{
 				name: i18nOutbound,
@@ -146,17 +146,17 @@ const setOptions = ({ inbound, outbound }: ChartData) => {
 					color: '#3888fa',
 					lineStyle: {
 						color: '#3888fa',
-						width: 2,
+						width: 2
 					},
 					areaStyle: {
-						color: '#f3f8ff',
-					},
+						color: '#f3f8ff'
+					}
 				},
 				data: outbound,
 				animationDuration: 2800,
-				animationEasing: 'quadraticOut',
-			},
-		],
+				animationEasing: 'quadraticOut'
+			}
+		]
 	})
 }
 </script>

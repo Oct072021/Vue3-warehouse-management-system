@@ -1,23 +1,7 @@
-export interface OutboundData {
-	id: number
-	itenID: string
-	mass: string
-	price: number
-	specs: string
-	quantity: number
-	timestamp: string
-	title: string
-	total: string
-	type: string
-}
+import { DataList, Search, Total } from '../types/data.d'
 
-export interface SearchData {
-	title?: string
-	itemID?: string
-	sort?: string
-}
+export interface OutboundData extends DataList {}
 
-export interface TotalData {
-	total: number[]
-	orders: number[]
-}
+export interface SearchData extends Search {}
+
+export interface TotalData extends Total {}

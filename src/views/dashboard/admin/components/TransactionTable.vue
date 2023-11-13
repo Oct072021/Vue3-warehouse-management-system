@@ -37,7 +37,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const list = ref<InboundData | null>(null)
+const list = ref<InboundData[] | null>(null)
 
 onBeforeMount(() => {
 	fetchData()
@@ -45,6 +45,8 @@ onBeforeMount(() => {
 
 const fetchData = () => {
 	fetchList().then(response => {
+    console.log(response.data.items);
+    
 		list.value = response.data.items.slice(3, 11)
 	})
 }

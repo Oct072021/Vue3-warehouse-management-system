@@ -17,6 +17,6 @@
     },
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/utils/validate.js", "src/utils/common.js", "src/utils/common.js"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/utils/validate.js", "src/utils/common.ts", "src/utils/common.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

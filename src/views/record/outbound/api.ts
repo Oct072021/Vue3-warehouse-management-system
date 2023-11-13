@@ -9,28 +9,16 @@ export function fetchDetail(params: string) {
 	return Http.getRequest<OutboundData>('/vue-element-admin/outbound/detail', { params })
 }
 
-export function createArticle(data) {
-	return request({
-		url: '/vue-element-admin/outbound/create',
-		method: 'post',
-		data,
-	})
+export function createOrder(data: OutboundData) {
+	return Http.postRequest('/vue-element-admin/outbound/create', data)
 }
 
-export function updateArticle(data) {
-	return request({
-		url: '/vue-element-admin/outbound/update',
-		method: 'post',
-		data,
-	})
+export function updateArticle(data: OutboundData) {
+	return Http.postRequest('/vue-element-admin/outbound/update', data)
 }
 
-export function remove(data) {
-	return request({
-		url: '/vue-element-admin/outbound/remove',
-		method: 'post',
-		data,
-	})
+export function remove(data: number) {
+	return Http.postRequest('/vue-element-admin/outbound/remove', { data })
 }
 
 export function outboundTotal(type?: string) {
