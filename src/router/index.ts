@@ -5,9 +5,37 @@ import Layout from '@/layout/index.vue'
 import recordRouter from './modules/record'
 
 export const constantRoutes: RouteRecordRaw[] = [
+	// {
+	// 	path: '/redirect',
+	// 	component: Layout,
+	// 	meta: { hidden: true },
+	// 	children: [
+	// 		{
+	// 			path: '/redirect/:path(.*)',
+	// 			component: () => import('@/views/redirect/index.vue')
+	// 		}
+	// 	]
+	// },
+
 	{
 		path: '/login',
 		component: () => import('@/views/login/index.vue'),
+		meta: { hidden: true }
+	},
+	{
+		path: '/auth-redirect',
+		component: () => import('@/views/login/auth-redirect.vue'),
+		meta: { hidden: true }
+	},
+
+	{
+		path: '/404',
+		component: () => import('@/views/error-page/404.vue'),
+		meta: { hidden: true }
+	},
+	{
+		path: '/401',
+		component: () => import('@/views/error-page/401.vue'),
 		meta: { hidden: true }
 	},
 
@@ -21,6 +49,32 @@ export const constantRoutes: RouteRecordRaw[] = [
 				component: () => import('@/views/dashboard/index.vue'),
 				name: 'Dashboard',
 				meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+			}
+		]
+	},
+	// {
+	// 	path: '/profile',
+	// 	component: Layout,
+	// 	redirect: '/profile/index',
+	// 	meta: { hidden: true },
+	// 	children: [
+	// 		{
+	// 			path: 'index',
+	// 			component: () => import('@/views/profile/index.vue'),
+	// 			name: 'Profile',
+	// 			meta: { title: 'Profile', icon: 'user', noCache: true }
+	// 		}
+	// 	]
+	// },
+
+	{
+		path: 'external-link',
+		component: Layout,
+		children: [
+			{
+				path: 'https://github.com/Oct072021/Vue3-warehouse-management-system',
+				component: () => {},
+				meta: { title: 'ExternalLink', icon: 'link' }
 			}
 		]
 	}
