@@ -51,7 +51,7 @@ import ScrollPane from './ScrollPane.vue'
 
 import path from 'path-browserify'
 
-import { computed, nextTick, onBeforeMount, onMounted, provide, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
@@ -62,7 +62,6 @@ import { TagsView } from '@/store/tagsView/data.d'
 emit: ['click.middle', 'contextmenu.prevent']
 
 const tagRef = ref()
-
 
 const { t } = useI18n()
 
@@ -100,7 +99,7 @@ watch(visible, value => {
 	}
 })
 
-onBeforeMount(() => {
+onMounted(() => {
 	initTags()
 	addTags()
 })

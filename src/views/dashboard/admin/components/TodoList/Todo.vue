@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Directive, VNode, nextTick, ref } from 'vue'
+import { Directive, nextTick, ref } from 'vue'
 
 import { TodoItem } from './data.d'
 
@@ -43,7 +43,7 @@ const vFocus: Directive = {
 				el.focus()
 			})
 		}
-	},
+	}
 }
 
 const props = withDefaults(
@@ -53,7 +53,7 @@ const props = withDefaults(
 	{
 		todo: () => {
 			return {}
-		},
+		}
 	}
 )
 const emit = defineEmits<{
@@ -81,7 +81,7 @@ const doneEdit = (e: Event) => {
 	} else if (editing.value) {
 		editTodo({
 			todo,
-			value,
+			value
 		})
 		editing.value = false
 	}

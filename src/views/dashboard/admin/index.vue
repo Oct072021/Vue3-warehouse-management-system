@@ -62,26 +62,23 @@ import { inboundTotal } from '@/views/record/inbound/api'
 
 import { LineChartData } from './data.d'
 
-import { onBeforeMount, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 const lineChartData = reactive<LineChartData>({
 	profit: {
 		inbound: [],
-		outbound: [],
+		outbound: []
 	},
 	orders: {
 		inbound: [],
-		outbound: [],
-	},
+		outbound: []
+	}
 })
 const nowType = ref<string>('profit')
 const profit = ref<number>()
 const allOrders = ref<number>()
 const nowDate = ref<Date>(new Date())
 
-onBeforeMount(() => {
-	getData()
-})
 const handleSetLineChartData = (type: string) => {
 	nowType.value = type
 }
@@ -115,6 +112,9 @@ const getData = () => {
 		getInboundData()
 	})
 }
+
+// created --init data
+getData()
 </script>
 
 <style lang="scss" scoped>

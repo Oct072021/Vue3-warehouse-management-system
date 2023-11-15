@@ -32,20 +32,19 @@
 import { fetchList } from '@/views/record/inbound/api'
 import { InboundData } from '@/views/record/inbound/data.d'
 
-import { onBeforeMount, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
 const list = ref<InboundData[] | null>(null)
 
-onBeforeMount(() => {
-	fetchData()
-})
-
 const fetchData = () => {
 	fetchList().then(response => {
 		list.value = response.data.items.slice(3, 11)
 	})
 }
+
+// created --init data
+fetchData()
 </script>

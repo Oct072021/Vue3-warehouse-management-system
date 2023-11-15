@@ -5,17 +5,17 @@ import Layout from '@/layout/index.vue'
 import recordRouter from './modules/record'
 
 export const constantRoutes: RouteRecordRaw[] = [
-	// {
-	// 	path: '/redirect',
-	// 	component: Layout,
-	// 	meta: { hidden: true },
-	// 	children: [
-	// 		{
-	// 			path: '/redirect/:path(.*)',
-	// 			component: () => import('@/views/redirect/index.vue')
-	// 		}
-	// 	]
-	// },
+	{
+		path: '/redirect',
+		component: Layout,
+		meta: { hidden: true },
+		children: [
+			{
+				path: '/redirect/:path(.*)',
+				component: () => import('@/views/redirect/index.vue')
+			}
+		]
+	},
 
 	{
 		path: '/login',
@@ -52,6 +52,7 @@ export const constantRoutes: RouteRecordRaw[] = [
 			}
 		]
 	},
+  
 	// {
 	// 	path: '/profile',
 	// 	component: Layout,
