@@ -19,7 +19,7 @@
 			append-to-body
 			align-center
 		>
-			<template #title>
+			<template #header>
 				<span style="padding-right: 10px">{{ t(`errorLog.errorReport`) }}</span>
 			</template>
 

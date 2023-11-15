@@ -1,4 +1,4 @@
-import { ScssVariables } from "@/styles/element-variables.scss"
+import { ScssVariables } from "@/styles/element-variables.module.scss"
 
 export interface SettingsState {
   [index: string]: any

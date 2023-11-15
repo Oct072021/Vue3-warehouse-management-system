@@ -68,7 +68,7 @@ export const constantRoutes: RouteRecordRaw[] = [
 	// },
 
 	{
-		path: 'external-link',
+		path: '/external-link',
 		component: Layout,
 		children: [
 			{

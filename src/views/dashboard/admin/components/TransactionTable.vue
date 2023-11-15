@@ -45,8 +45,6 @@ onBeforeMount(() => {
 
 const fetchData = () => {
 	fetchList().then(response => {
-    console.log(response.data.items);
-    
 		list.value = response.data.items.slice(3, 11)
 	})
 }
