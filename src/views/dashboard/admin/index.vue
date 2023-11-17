@@ -57,8 +57,8 @@ import TransactionTable from './components/TransactionTable.vue'
 import TodoList from './components/TodoList/index.vue'
 import BoxCard from './components/BoxCard.vue'
 
-import { outboundTotal } from '@/views/record/outbound/api'
-import { inboundTotal } from '@/views/record/inbound/api'
+import { outboundTotal } from '@/views/charts/outbound/api'
+import { inboundTotal } from '@/views/charts/inbound/api'
 
 import { LineChartData } from './data.d'
 

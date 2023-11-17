@@ -1,5 +1,5 @@
 import { Http } from '@/utils/request'
-import { Inbound, InboundData, SearchData, TotalData } from './data'
+import { Inbound, InboundData, SearchData } from './data'
 
 export function fetchList(params?: SearchData) {
 	return Http.getRequest<Inbound>('/vue-element-admin/inbound/list', { params })
@@ -19,8 +19,4 @@ export function updateOrder(data: InboundData) {
 
 export function remove(id: number) {
 	return Http.postRequest('/vue-element-admin/inbound/remove', { id })
-}
-
-export function inboundTotal(type?: string) {
-	return Http.getRequest<TotalData>('/vue-element-admin/inbound/total', { params: { type } })
 }

@@ -3,6 +3,8 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
 
 import recordRouter from './modules/record'
+import stockRouter from './modules/stock'
+import chartsRouter from './modules/charts'
 
 export const constantRoutes: RouteRecordRaw[] = [
 	{
@@ -52,7 +54,7 @@ export const constantRoutes: RouteRecordRaw[] = [
 			}
 		]
 	},
-  
+
 	// {
 	// 	path: '/profile',
 	// 	component: Layout,
@@ -94,7 +96,45 @@ export const asyncRoutes: RouteRecordRaw[] = [
 			}
 		]
 	},
-	recordRouter
+
+	// {
+	// 	path: '/permission',
+	// 	component: Layout,
+	// 	name: 'Permission',
+	// 	meta: {
+	// 		title: 'Permission',
+	// 		icon: 'lock',
+	// 		alwaysShow: true // will always show the root menu
+	// 	},
+	// 	children: [
+	// 		{
+	// 			path: 'directive',
+	// 			component: () => import('@/views/permission/directive/index.vue'),
+	// 			name: 'DirectivePermission',
+	// 			meta: {
+	// 				title: 'DirectivePermission',
+	// 				roles: ['admin', 'dataOperator', 'accountant']
+	// 			}
+	// 		},
+	// 		{
+	// 			path: 'role',
+	// 			component: () => import('@/views/permission/role/index.vue'),
+	// 			name: 'RolePermission',
+	// 			meta: {
+	// 				title: 'RolePermission',
+	// 				roles: ['admin']
+	// 			}
+	// 		}
+	// 	]
+	// },
+
+	/** when your routing map is too long, you can split it into small modules **/
+	chartsRouter,
+	// stockRouter,
+	recordRouter,
+
+	// 404 page must be placed at the end !!!
+	// { path: '*', redirect: '/404', meta: { hidden: true } }
 ]
 
 const router = createRouter({

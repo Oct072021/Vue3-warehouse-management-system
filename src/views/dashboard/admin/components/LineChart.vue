@@ -71,7 +71,6 @@ onBeforeUnmount(() => {
 })
 
 const initChart = () => {
-	chart.value = echarts.init(document.getElementById('charts'), 'macarons')
 	getMonthArr()
 	setOptions(props.chartData)
 }
@@ -86,9 +85,11 @@ const getMonthArr = () => {
 }
 
 const setOptions = ({ inbound, outbound }: ChartData) => {
-	if (!chart.value) {
-		chart.value = echarts.init(document.getElementById('charts'), 'macarons')
+	if (chart.value) {
+		chart.value.dispose()
+		chart.value = null
 	}
+	chart.value = echarts.init(document.getElementById('charts'), 'macarons')
 	const i18nInbound = t(`dashboard.inbound`)
 	const i18nOutbound = t(`dashboard.outbound`)
 
