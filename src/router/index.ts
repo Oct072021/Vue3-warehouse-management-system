@@ -130,7 +130,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
 
 	/** when your routing map is too long, you can split it into small modules **/
 	chartsRouter,
-	// stockRouter,
+	stockRouter,
 	recordRouter,
 
 	// 404 page must be placed at the end !!!

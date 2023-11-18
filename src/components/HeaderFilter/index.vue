@@ -73,7 +73,7 @@ const listQuery = reactive<SearchList>({})
 watch(
 	listQuery,
 	debounce(
-		function (val:SearchList) {
+		function (val: SearchList) {
 			emit('buttonClick', val, 'search')
 		},
 		0.5 * 1000,
