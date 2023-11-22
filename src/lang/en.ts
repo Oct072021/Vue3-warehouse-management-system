@@ -18,7 +18,7 @@ export default {
 		ExternalLink: 'External Link',
 		Financial: 'Financial',
 		income: 'income',
-		expend: 'expend',
+		expend: 'expend'
 	},
 
 	// login page
@@ -32,7 +32,7 @@ export default {
 		thirdparty: 'Or connect with',
 		thirdpartyTips: 'Please combine you own business simulation! ! !',
 		wechat: 'Wechat',
-		qq: 'QQ',
+		qq: 'QQ'
 	},
 
 	// Dashboard page
@@ -44,13 +44,13 @@ export default {
 		month: 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec',
 		itemID: 'ItemID',
 		total: 'Total',
-		from: 'From',
+		area: 'Area',
 		todoList: 'Add to Todo List',
 		item: 'item',
 		left: 'left',
 		all: 'all',
 		active: 'active',
-		completed: 'completed',
+		completed: 'completed'
 	},
 
 	// permission page
@@ -64,7 +64,7 @@ export default {
 		operations: 'Operations',
 		menus: 'menus',
 		roles: 'Your Roles',
-		switchRoles: 'Switch Roles',
+		switchRoles: 'Switch Roles'
 	},
 
 	// errorLog page
@@ -76,14 +76,14 @@ export default {
 		url: 'URL',
 		message: 'Message',
 		stack: 'Stack',
-		errorReport: 'Error Report',
+		errorReport: 'Error Report'
 	},
 
 	// charts page
 	charts: {
 		turnover: 'turnover',
 		orders: 'orders',
-		month: 'month',
+		month: 'month'
 	},
 
 	// stock page
@@ -94,7 +94,7 @@ export default {
 		quantity: 'Quantity',
 		mass: 'Mass',
 		actions: 'Actions',
-		warehouse: 'Warehouse',
+		warehouse: 'Warehouse'
 	},
 
 	// records page
@@ -109,7 +109,7 @@ export default {
 		mass: 'Mass',
 		actions: 'Actions',
 		warehouse: 'Warehouse',
-		client: 'Client',
+		client: 'Client'
 	},
 
 	settings: {
@@ -117,7 +117,7 @@ export default {
 		color: 'Theme Color',
 		tagsView: 'Open Tags-View',
 		fix: 'Fixed Header',
-		logo: 'Sidebar Logo',
+		logo: 'Sidebar Logo'
 	},
 
 	headers: {
@@ -125,7 +125,9 @@ export default {
 		Export: 'Export',
 		Add: 'Add',
 		sort: 'Sort',
-		type: 'type',
+		area: 'Area',
+		title: 'Title',
+		itemID: 'ItemID'
 	},
 
 	tips: {
@@ -136,7 +138,7 @@ export default {
 		createMsg_success: 'Created Successfully!',
 		deleteMsg_fail: 'Delete Fail!',
 		updateMsg_fail: 'Update Fail!',
-		createMsg_fail: 'Created Fail!',
+		createMsg_fail: 'Created Fail!'
 	},
 
 	button: {
@@ -145,6 +147,6 @@ export default {
 		submit: 'Submit',
 		cancel: 'Cancel',
 		confirm: 'Confirm',
-		scan: 'Scan',
-	},
+		scan: 'Scan'
+	}
 }

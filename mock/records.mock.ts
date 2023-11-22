@@ -13,7 +13,7 @@ for (let i = 1; i <= 1000; i++) {
 			client: '@first',
 			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `goods ${i} `,
-			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
+			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			quantity: '@integer(0, 100)',
 			price: '@float(800, 10000, 0, 2)',
 			mass: '@float(10, 50, 0, 2)'
@@ -29,7 +29,7 @@ for (let i = 1; i <= 600; i++) {
 			timestamp: "@date('2022/MM/dd')",
 			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `inbound goods ${i} `,
-			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
+			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			quantity: '@integer(0, 100)',
 			price: '@float(800, 10000, 0, 2)',
 			mass: '@float(10, 50, 0, 2)'
@@ -43,10 +43,10 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/inbound/list',
 		method: 'GET',
 		response(req, res, next) {
-			const { itemID, type, title, page = 1, limit = 20, sort } = req.query
+			const { itemID, area, title, page = 1, limit = 20, sort } = req.query
 			// simulate search
 			let mockList = inboundArr.filter(item => {
-				if (type && item.type !== type) return false
+				if (area && item.area !== area) return false
 				if (title && item.title.indexOf(title) < 0) return false
 				if (itemID && item.itemID.indexOf(itemID) < 0) return false
 				return true
@@ -75,9 +75,9 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/inbound/total',
 		method: 'GET',
 		response(req, res, next) {
-			const { type } = req.query
+			const { area } = req.query
 			let mockList = inboundArr.filter(item => {
-				if (type && item.type !== type) return false
+				if (area && item.area !== area) return false
 				return true
 			})
 			const totalArr: any[] = []
@@ -177,10 +177,10 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/outbound/list',
 		method: 'GET',
 		response(req, res, next) {
-			const { itemID, type, title, page = 1, limit = 20, sort } = req.query
+			const { itemID, area, title, page = 1, limit = 20, sort } = req.query
 			// simulate search
 			let mockList = outboundArr.filter(item => {
-				if (type && item.type !== type) return false
+				if (area && item.area !== area) return false
 				if (title && item.title.indexOf(title) < 0) return false
 				if (itemID && item.itemID.indexOf(itemID) < 0) return false
 				return true
@@ -209,9 +209,9 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/outbound/total',
 		method: 'GET',
 		response(req, res, next) {
-			const { type } = req.query
+			const { area } = req.query
 			let mockList = outboundArr.filter(item => {
-				if (type && item.type !== type) return false
+				if (area && item.area !== area) return false
 				return true
 			})
 			const totalArr: any[] = []

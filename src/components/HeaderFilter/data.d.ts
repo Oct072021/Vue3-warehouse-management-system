@@ -3,5 +3,5 @@ export interface SearchList {
 	title?: string
 	itemID?: string
 	sort?: string
-	type?: string
+	area?: string
 }

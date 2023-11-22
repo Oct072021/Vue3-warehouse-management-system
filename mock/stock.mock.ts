@@ -10,7 +10,7 @@ for (let i = 1; i <= 700; i++) {
 			itemID: `@guid()`,
 			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `stock ${i} `,
-			'type|1': ['GZ', 'SH', 'BJ', 'SZ'],
+			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			quantity: '@integer(0, 100)',
 			mass: '@float(10, 50, 0, 2)'
 		})
@@ -22,10 +22,10 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/stock/list',
 		method: 'GET',
 		response(req, res, next) {
-			const { type, title, page = 1, limit = 20, sort } = req.query
+			const { area, title, page = 1, limit = 20, sort } = req.query
 			// simulate search
 			let mockList = stockArr.filter(item => {
-				if (type && item.type !== type) return false
+				if (area && item.area !== area) return false
 				if (title && item.title.indexOf(title) < 0) return false
 				return true
 			})

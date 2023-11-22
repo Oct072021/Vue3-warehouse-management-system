@@ -6,7 +6,7 @@ export interface StockData {
 	itemID: string
 	specs: string | undefined
 	title: string
-	type: string
+	area: string
 	quantity: number | undefined
 	mass: number | undefined
 }
@@ -16,7 +16,7 @@ export interface SearchList implements Pagination {
 	page?: number
 	title?: string
 	sort?: string
-	type?: string
+	area?: string
 }
 export interface Options {
 	[index: string]: string

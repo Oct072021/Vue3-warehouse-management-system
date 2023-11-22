@@ -37,7 +37,7 @@
 					>
 						<template #default="{ row }">
 							<span>{{ row.title }}</span>
-							<el-tag>{{ row.type }}</el-tag>
+							<el-tag>{{ row.area }}</el-tag>
 						</template>
 					</el-table-column>
 
@@ -140,11 +140,11 @@ const aliveStore = useAliveStore()
 
 const props = withDefaults(
 	defineProps<{
-		type?: string
+		area?: string
 		searchList?: SearchData
 	}>(),
 	{
-		type: 'GZ',
+		area: 'area-1',
 		searchList: () => {
 			return {
 				sort: '+id',
@@ -175,7 +175,7 @@ let listQuery = reactive<SearchData>({
 	sort: '+id',
 	title: undefined,
 	itemID: undefined,
-	type: props.type
+	area: props.area
 })
 const loading = ref<boolean>(false)
 const total = ref<number>(0)

@@ -54,7 +54,7 @@ watch(
 	{ deep: true }
 )
 
-const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
+const initChart = (data: AllData) => {
 	if (chart.value) {
 		chart.value.dispose()
 		chart.value = null
@@ -106,7 +106,7 @@ const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
 			textStyle: {
 				color: '#90979c'
 			},
-			data: ['GZ', 'SZ', 'BJ', 'SH']
+			data: ['area-1', 'area-2', 'area-3', 'area-4']
 		},
 		calculable: true,
 		xAxis: [
@@ -183,7 +183,7 @@ const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
 		],
 		series: [
 			{
-				name: 'GZ',
+				name: 'area-1',
 				type: chartType.value[index.value],
 				stack: 'total',
 				symbolSize: 10,
@@ -201,10 +201,10 @@ const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
 						return p.value > 0 ? p.value : ''
 					}
 				},
-				data: GZ[index.value ? 'orders' : 'total']
+				data: data['area-1'][index.value ? 'orders' : 'total']
 			},
 			{
-				name: 'SZ',
+				name: 'area-2',
 				type: chartType.value[index.value],
 				stack: 'total',
 				symbolSize: 10,
@@ -220,10 +220,10 @@ const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
 						return p.value > 0 ? p.value : ''
 					}
 				},
-				data: SZ[index.value ? 'orders' : 'total']
+				data: data['area-2'][index.value ? 'orders' : 'total']
 			},
 			{
-				name: 'BJ',
+				name: 'area-3',
 				type: chartType.value[index.value],
 				stack: 'total',
 				symbolSize: 10,
@@ -239,10 +239,10 @@ const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
 						return p.value > 0 ? p.value : ''
 					}
 				},
-				data: BJ[index.value ? 'orders' : 'total']
+				data: data['area-3'][index.value ? 'orders' : 'total']
 			},
 			{
-				name: 'SH',
+				name: 'area-4',
 				type: chartType.value[index.value],
 				stack: 'total',
 				symbolSize: 10,
@@ -258,7 +258,7 @@ const initChart = ({ GZ, SZ, BJ, SH }: AllData) => {
 						return p.value > 0 ? p.value : ''
 					}
 				},
-				data: SH[index.value ? 'orders' : 'total']
+				data: data['area-4'][index.value ? 'orders' : 'total']
 			}
 		]
 	})

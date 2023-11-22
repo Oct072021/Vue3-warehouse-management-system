@@ -9,15 +9,15 @@ const config = [
 	},
 	{
 		type: 'select',
-		name: 'type',
+		name: 'area',
 		styles: {
 			width: '140px'
 		},
 		options: [
-			{ key: 'GZ', label: 'GuangZhou(GZ)' },
-			{ key: 'SZ', label: 'ShenZhen(SZ)' },
-			{ key: 'SH', label: 'ShangHai(SH)' },
-			{ key: 'BJ', label: 'BeiJing(BJ)' }
+			{ key: 'area-1', label: 'area-1' },
+			{ key: 'area-2', label: 'area-2' },
+			{ key: 'area-3', label: 'area-3' },
+			{ key: 'area-4', label: 'area-4' }
 		]
 	},
 	{

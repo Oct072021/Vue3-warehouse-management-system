@@ -1,6 +1,6 @@
 import { Pagination } from '@/types/pagination.d'
 
-// public interface && type
+// public interface && area
 export interface DataList {
 	[index: string]: any
 	id: number | undefined
@@ -8,7 +8,7 @@ export interface DataList {
 	timestamp: string
 	specs: string
 	title: string
-	type: string
+	area: string
 	quantity: number | undefined
 	price: number | undefined
 	mass: number | undefined
@@ -20,7 +20,7 @@ export interface Search implements Pagination {
 	title?: string
 	itemID?: string
 	sort?: string
-	type?: string
+	area?: string
 }
 
 export interface Total {

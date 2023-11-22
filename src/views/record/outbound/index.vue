@@ -28,7 +28,7 @@
 						v-if="activeName == item.key"
 						ref="TabPaneRef"
 						:key="item.key"
-						:type="item.key"
+						:area="item.key"
 						:search-list="list"
 						@create="showCreatedTimes"
 						@handleUpdate="handleUpdate"
@@ -52,10 +52,10 @@
 			>
 				<el-form-item
 					:label="t(`records.warehouse`)"
-					prop="type"
+					prop="area"
 				>
 					<el-select
-						v-model="temp.type"
+						v-model="temp.area"
 						class="filter-item"
 						placeholder="Please select"
 					>
@@ -171,7 +171,7 @@ const aliveComp = computed(() => {
 
 // form rules
 const rules = reactive({
-	type: [{ required: true, message: 'type is required', trigger: 'change' }],
+	area: [{ required: true, message: 'area is required', trigger: 'change' }],
 	itemID: [{ required: true, message: 'itemID is required', trigger: 'blur' }],
 	title: [{ required: true, message: 'title is required', trigger: 'blur' }],
 	client: [{ required: true, message: 'client is required', trigger: 'blur' }],
@@ -182,14 +182,14 @@ const rules = reactive({
 })
 // warehouse info
 const tabMapOptions = ref<{ [index: string]: string }[]>([
-	{ key: 'GZ', label: 'GuangZhou' },
-	{ key: 'SZ', label: 'ShenZhen' },
-	{ key: 'SH', label: 'ShangHai' },
-	{ key: 'BJ', label: 'BeiJing' }
+	{ key: 'area-1', label: 'area-1' },
+	{ key: 'area-2', label: 'area-2' },
+	{ key: 'area-3', label: 'area-3' },
+	{ key: 'area-4', label: 'area-4' }
 ])
 
 // init view
-const activeName = ref<string>('GZ')
+const activeName = ref<string>('area-1')
 watch(activeName, (val: string) => {
 	router.push(`${route.path}?tab=${val}`)
 })
@@ -276,7 +276,7 @@ const temp = reactive<OutboundData>({
 	price: undefined,
 	client: '',
 	title: '',
-	type: '',
+	area: '',
 	mass: undefined,
 	timestamp: ''
 })
@@ -290,7 +290,7 @@ const resetTemp = () => {
 		client: '',
 		quantity: undefined,
 		price: undefined,
-		type: '',
+		area: '',
 		mass: undefined
 	})
 }

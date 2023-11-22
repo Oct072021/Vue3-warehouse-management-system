@@ -8,7 +8,7 @@
 				<el-input
 					v-if="item.type === 'input'"
 					v-model="listQuery[item.name]"
-					:placeholder="$t(`stock.${item.name}`)"
+					:placeholder="t(`headers.${item.name}`)"
 					:style="item.styles"
 					class="filter-item"
 					@keyup.enter="buttonClick(item.event)"
@@ -17,7 +17,7 @@
 				<el-select
 					v-if="item.type === 'select'"
 					v-model="listQuery[item.name]"
-					:placeholder="$t(`headers.${item.name}`)"
+					:placeholder="t(`headers.${item.name}`)"
 					:style="item.styles"
 					class="filter-item"
 					@change="buttonClick(item.event)"
@@ -38,7 +38,7 @@
 					:type="item.buttonType"
 					:icon="item.icon"
 					@click="buttonClick(item.event)"
-					>{{ $t(`headers.${item.name}`) }}</el-button
+					>{{ t(`headers.${item.name}`) }}</el-button
 				>
 			</div>
 		</div>
@@ -51,6 +51,7 @@ import { debounce } from '@/utils/index'
 
 import { Directive, reactive, watch } from 'vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
 
 import { SearchList } from './data.d'
 
@@ -58,6 +59,7 @@ emits: ['keyup.enter']
 
 const vWaves: Directive = waves
 
+const { t } = useI18n()
 const props = withDefaults(
 	defineProps<{
 		configData?: any[]

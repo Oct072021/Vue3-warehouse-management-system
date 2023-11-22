@@ -48,7 +48,7 @@
 								@click="handleUpdate(row)"
 								>{{ row.title }}</span
 							>
-							<el-tag>{{ row.type }}</el-tag>
+							<el-tag>{{ row.area }}</el-tag>
 						</template>
 					</el-table-column>
 
@@ -115,10 +115,10 @@
 			>
 				<el-form-item
 					:label="t(`stock.warehouse`)"
-					prop="type"
+					prop="area"
 				>
 					<el-select
-						v-model="temp.type"
+						v-model="temp.area"
 						class="filter-item"
 						placeholder="Please select"
 					>
@@ -199,7 +199,7 @@ const { t } = useI18n()
 
 // form rules
 const rules = reactive({
-	type: [{ required: true, message: 'type is required', trigger: 'change' }],
+	area: [{ required: true, message: 'area is required', trigger: 'change' }],
 	itemID: [{ required: true, message: 'itemID is required', trigger: 'blur' }],
 	title: [{ required: true, message: 'title is required', trigger: 'blur' }],
 	specs: [{ required: true, message: 'specs is required', trigger: 'blur' }],
@@ -208,10 +208,10 @@ const rules = reactive({
 })
 // warehouse info
 const calendarTypeOptions = ref<Options[]>([
-	{ key: 'GZ', display_name: 'GuangZhou' },
-	{ key: 'SZ', display_name: 'ShenZhen' },
-	{ key: 'SH', display_name: 'ShangHai' },
-	{ key: 'BJ', display_name: 'BeiJing' }
+	{ key: 'area-1', display_name: 'area-1' },
+	{ key: 'area-2', display_name: 'area-2' },
+	{ key: 'area-3', display_name: 'area-3' },
+	{ key: 'area-4', display_name: 'area-4' }
 ])
 
 // header event
@@ -229,7 +229,7 @@ const listQuery = reactive<SearchList>({
 	page: 1,
 	limit: 20,
 	title: undefined,
-	type: undefined,
+	area: undefined,
 	sort: '+id'
 })
 watch(
@@ -287,7 +287,7 @@ const temp = reactive<StockData>({
 	specs: undefined,
 	quantity: undefined,
 	title: '',
-	type: '',
+	area: '',
 	mass: undefined
 })
 const resetTemp = () => {
@@ -297,7 +297,7 @@ const resetTemp = () => {
 		specs: undefined,
 		quantity: undefined,
 		title: '',
-		type: '',
+		area: '',
 		mass: undefined
 	})
 }

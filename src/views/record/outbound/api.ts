@@ -20,7 +20,3 @@ export function updateOrder(data: OutboundData) {
 export function remove(id: number) {
 	return Http.postRequest('/vue-element-admin/outbound/remove', { id })
 }
-
-export function outboundTotal(type?: string) {
-	return Http.getRequest<TotalData>('/vue-element-admin/outbound/total', { params: { type } })
-}

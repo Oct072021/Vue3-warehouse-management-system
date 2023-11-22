@@ -7,22 +7,22 @@
 			:label="t(`dashboard.itemID`)"
 			min-width="200"
 		>
-			<template #default="scope">{{ scope.row.itemID }}</template>
+			<template #default="{ row }">{{ row.itemID }}</template>
 		</el-table-column>
 		<el-table-column
 			:label="t(`dashboard.total`)"
 			width="195"
 			align="center"
 		>
-			<template #default="scope">¥{{ (scope.row.price * scope.row.quantity).toFixed(1) }}</template>
+			<template #default="{ row }">¥{{ (row.price * row.quantity).toFixed(1) }}</template>
 		</el-table-column>
 		<el-table-column
-			:label="t(`dashboard.from`)"
+			:label="t(`dashboard.area`)"
 			width="100"
 			align="center"
 		>
-			<template #default="scope">
-				<el-tag>{{ scope.row.type }}</el-tag>
+			<template #default="{ row }">
+				<el-tag>{{ row.area }}</el-tag>
 			</template>
 		</el-table-column>
 	</el-table>

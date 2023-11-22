@@ -18,7 +18,7 @@ export default {
 		ExternalLink: '外链',
 		Financial: '财务管理',
 		income: '收入',
-		expend: '支出',
+		expend: '支出'
 	},
 
 	// login page
@@ -32,7 +32,7 @@ export default {
 		thirdparty: '第三方登录',
 		thirdpartyTips: '结合业务进行模拟！！！',
 		wechat: '微信登录',
-		qq: 'QQ登录',
+		qq: 'QQ登录'
 	},
 
 	// Dashboard page
@@ -44,13 +44,13 @@ export default {
 		month: '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
 		itemID: '商品ID',
 		total: '总价',
-		from: '仓库',
+		area: '库区',
 		todoList: '添加备忘',
 		item: '项',
 		left: '未完成',
 		all: '全部',
 		active: '待做',
-		completed: '已完成',
+		completed: '已完成'
 	},
 
 	// permission page
@@ -64,7 +64,7 @@ export default {
 		operations: '操作',
 		menus: '权限菜单',
 		roles: '你的权限',
-		switchRoles: '切换权限',
+		switchRoles: '切换权限'
 	},
 
 	// errorLog page
@@ -76,14 +76,14 @@ export default {
 		url: '接口地址',
 		message: '报错详情',
 		stack: '堆栈',
-		errorReport: '错误上报',
+		errorReport: '错误上报'
 	},
 
 	// charts page
 	charts: {
 		turnover: '营业额',
 		orders: '订单量',
-		month: '月',
+		month: '月'
 	},
 
 	// stock page
@@ -94,7 +94,7 @@ export default {
 		quantity: '数量',
 		mass: '商品质量',
 		actions: '操作',
-		warehouse: '仓库',
+		warehouse: '仓库'
 	},
 
 	// records page
@@ -109,7 +109,7 @@ export default {
 		mass: '商品质量',
 		actions: '操作',
 		warehouse: '仓库',
-		client: '客户',
+		client: '客户'
 	},
 
 	settings: {
@@ -117,7 +117,7 @@ export default {
 		color: '主题颜色',
 		tagsView: '打开标签视图',
 		fix: '固定头部',
-		logo: '侧边栏图标',
+		logo: '侧边栏图标'
 	},
 
 	headers: {
@@ -125,7 +125,9 @@ export default {
 		Export: '导出',
 		Add: '添加',
 		sort: '排序',
-		type: '仓库',
+		area: '库区',
+		title: '商品名称',
+		itemID: '商品ID'
 	},
 
 	tips: {
@@ -136,7 +138,7 @@ export default {
 		createMsg_success: '创建成功!',
 		deleteMsg_fail: '删除失败!',
 		updateMsg_fail: '更新失败!',
-		createMsg_fail: '创建失败!',
+		createMsg_fail: '创建失败!'
 	},
 
 	button: {
@@ -145,6 +147,6 @@ export default {
 		submit: '确定',
 		cancel: '取消',
 		confirm: '确定',
-		scan: '扫描',
-	},
+		scan: '扫描'
+	}
 }

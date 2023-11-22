@@ -30,21 +30,21 @@ const { t } = useI18n()
 
 const value = ref<boolean>(true)
 
-const warehouse = ref<string[]>(['GZ', 'SZ', 'BJ', 'SH'])
+const warehouse = ref<string[]>(['area-1', 'area-2', 'area-3', 'area-4'])
 const data = reactive<AllData>({
-	GZ: {
+	'area-1': {
 		total: [],
 		orders: []
 	},
-	SZ: {
+	'area-2': {
 		total: [],
 		orders: []
 	},
-	BJ: {
+	'area-3': {
 		total: [],
 		orders: []
 	},
-	SH: {
+	'area-4': {
 		total: [],
 		orders: []
 	}
