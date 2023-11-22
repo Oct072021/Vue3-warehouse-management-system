@@ -89,49 +89,53 @@ export const asyncRoutes: RouteRecordRaw[] = [
 		component: Layout,
 		children: [
 			{
-				path: 'log',
+				path: '',
 				component: () => import('@/views/error-log/index.vue'),
 				name: 'ErrorLog',
-				meta: { title: 'ErrorLog', icon: 'bug', roles: ['admin'] }
+				meta: {
+					title: 'ErrorLog',
+					icon: 'bug',
+					roles: ['admin']
+				}
 			}
 		]
 	},
 
-	// {
-	// 	path: '/permission',
-	// 	component: Layout,
-	// 	name: 'Permission',
-	// 	meta: {
-	// 		title: 'Permission',
-	// 		icon: 'lock',
-	// 		alwaysShow: true // will always show the root menu
-	// 	},
-	// 	children: [
-	// 		{
-	// 			path: 'directive',
-	// 			component: () => import('@/views/permission/directive/index.vue'),
-	// 			name: 'DirectivePermission',
-	// 			meta: {
-	// 				title: 'DirectivePermission',
-	// 				roles: ['admin', 'dataOperator', 'accountant']
-	// 			}
-	// 		},
-	// 		{
-	// 			path: 'role',
-	// 			component: () => import('@/views/permission/role/index.vue'),
-	// 			name: 'RolePermission',
-	// 			meta: {
-	// 				title: 'RolePermission',
-	// 				roles: ['admin']
-	// 			}
-	// 		}
-	// 	]
-	// },
+	{
+		path: '/permission',
+		component: Layout,
+		name: 'Permission',
+		meta: {
+			title: 'Permission',
+			icon: 'lock',
+			alwaysShow: true // will always show the root menu
+		},
+		children: [
+			{
+				path: 'directive',
+				component: () => import('@/views/permission/directive.vue'),
+				name: 'DirectivePermission',
+				meta: {
+					title: 'DirectivePermission',
+					roles: ['admin', 'dataOperator', 'accountant']
+				}
+			},
+			{
+				path: 'role',
+				component: () => import('@/views/permission/role/index.vue'),
+				name: 'RolePermission',
+				meta: {
+					title: 'RolePermission',
+					roles: ['admin']
+				}
+			}
+		]
+	},
 
 	/** when your routing map is too long, you can split it into small modules **/
 	chartsRouter,
 	stockRouter,
-	recordRouter,
+	recordRouter
 
 	// 404 page must be placed at the end !!!
 	// { path: '*', redirect: '/404', meta: { hidden: true } }

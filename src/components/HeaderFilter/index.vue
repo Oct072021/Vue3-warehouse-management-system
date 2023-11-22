@@ -46,15 +46,17 @@
 </template>
 
 <script lang="ts" setup>
-// import waves from '@/directive/waves' // waves directive
+import { waves } from '@/directive/waves' // waves directive
 import { debounce } from '@/utils/index'
 
-import { reactive, watch } from 'vue'
+import { Directive, reactive, watch } from 'vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import { SearchList } from './data.d'
 
 emits: ['keyup.enter']
+
+const vWaves: Directive = waves
 
 const props = withDefaults(
 	defineProps<{

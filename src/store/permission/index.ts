@@ -11,11 +11,11 @@ import { PermissionState } from './data.d'
  * @param route
  */
 function hasPermission(roles: string[], route: RouteRecordRaw) {
-  if (route.meta && route.meta.roles) {
-    return roles.some((role: string) => (route.meta!.roles as string[]).includes(role))
-  } else {
-    return true
-  }
+	if (route.meta && route.meta.roles) {
+		return roles.some((role: string) => (route.meta!.roles as string[]).includes(role))
+	} else {
+		return true
+	}
 }
 
 /**
@@ -24,40 +24,40 @@ function hasPermission(roles: string[], route: RouteRecordRaw) {
  * @param roles
  */
 export function filterAsyncRoutes(routes: RouteRecordRaw[], roles: string[]) {
-  const res: RouteRecordRaw[] = []
+	const res: RouteRecordRaw[] = []
 
-  routes.forEach((route: RouteRecordRaw) => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        // recursion
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
-      }
-      res.push(tmp)
-    }
-  })
+	routes.forEach((route: RouteRecordRaw) => {
+		const tmp = { ...route }
+		if (hasPermission(roles, tmp)) {
+			if (tmp.children) {
+				// recursion
+				tmp.children = filterAsyncRoutes(tmp.children, roles)
+			}
+			res.push(tmp)
+		}
+	})
 
-  return res
+	return res
 }
 
 export const usePermissionStore = defineStore('permission', {
-  state: (): PermissionState => ({
-    routes: [],
-    addRoutes: [],
-  }),
-  actions: {
-    generateRoutes(roles: string[]) {
-      return new Promise<RouteRecordRaw[]>((resolve) => {
-        let accessedRoutes
-        if (roles.includes('admin')) {
-          accessedRoutes = asyncRoutes || []
-        } else {
-          accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-        }
-        this.addRoutes = accessedRoutes
-        this.routes = constantRoutes.concat(accessedRoutes)
-        resolve(accessedRoutes)
-      })
-    },
-  },
+	state: (): PermissionState => ({
+		routes: [],
+		addRoutes: []
+	}),
+	actions: {
+		generateRoutes(roles: string[]) {
+			return new Promise<RouteRecordRaw[]>(resolve => {
+				let accessedRoutes: RouteRecordRaw[]
+				if (roles.includes('admin')) {
+					accessedRoutes = asyncRoutes || []
+				} else {
+					accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+				}
+				this.addRoutes = accessedRoutes
+				this.routes = constantRoutes.concat(accessedRoutes)
+				resolve(accessedRoutes)
+			})
+		}
+	}
 })

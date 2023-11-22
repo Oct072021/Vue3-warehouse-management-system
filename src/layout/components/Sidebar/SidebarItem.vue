@@ -60,9 +60,6 @@ import AppLink from './Link.vue'
 import { RouteRecordRaw } from 'vue-router'
 import { ref } from 'vue'
 
-// import FixiOSBug from './FixiOSBug.vue'
-// mixins: [FixiOSBug]
-
 const props = withDefaults(
 	defineProps<{
 		item: RouteRecordRaw
@@ -95,7 +92,7 @@ const hasOneShowingChild = (children: RouteRecordRaw[] = [], parent: RouteRecord
 
 	// Show parent if there are no child router to display
 	if (showingChildren.length === 0) {
-		onlyOneChild.value = { ...parent, path: '' }
+		onlyOneChild.value = { ...parent, path: '', noShowingChildren: true }
 		return true
 	}
 
@@ -111,6 +108,4 @@ const resolvePath = (routePath: string) => {
 	}
 	return path.resolve(props.basePath, routePath)
 }
-
-// generateTitle,
 </script>
