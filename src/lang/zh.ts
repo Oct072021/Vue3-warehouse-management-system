@@ -1,7 +1,7 @@
 export default {
 	// route list(sideBar)
 	route: {
-		Dashboard: '仪表盘',
+		Dashboard: '首页',
 		Permission: '权限控制',
 		RolePermission: '角色权限',
 		DirectivePermission: '指令权限',

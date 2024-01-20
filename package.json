@@ -38,6 +38,7 @@
 		"@types/path-browserify": "^1.0.1",
 		"@vitejs/plugin-vue": "^3.0.0",
 		"@vue/compiler-sfc": "^3.1.2",
+		"autoprefixer": "^10.4.16",
 		"husky": "^8.0.3",
 		"mockjs": "^1.1.0",
 		"prettier": "3.0.3",
