@@ -28,7 +28,7 @@
 
 			<el-form-item prop="username">
 				<span class="svg-container">
-					<svg-icon icon-class="user" />
+					<SvgIcon icon-class="user" />
 				</span>
 				<el-input
 					ref="usernameRef"

@@ -1,5 +1,5 @@
 <template>
-	<div v-if="!item.meta || !item.meta.hidden">
+	<template v-if="!item.meta || !item.meta.hidden">
 		<template
 			v-if="
 				hasOneShowingChild(item.children, item) &&
@@ -17,8 +17,10 @@
 				>
 					<Item
 						:icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-						:title="generateTitle(onlyOneChild.meta.title)"
 					/>
+					<template #title>
+						<span>{{ generateTitle(onlyOneChild.meta.title) }}</span>
+					</template>
 				</el-menu-item>
 			</AppLink>
 		</template>
@@ -33,8 +35,8 @@
 				<Item
 					v-if="item.meta"
 					:icon="item.meta && (item.meta.icon as string)"
-					:title="generateTitle(item.meta.title as string)"
 				/>
+				<span >{{ item.meta && generateTitle(item.meta.title as string) }}</span>
 			</template>
 			<SidebarItem
 				v-for="child in item.children"
@@ -45,7 +47,7 @@
 				class="nest-menu"
 			/>
 		</el-sub-menu>
-	</div>
+	</template>
 </template>
 
 <script lang="ts" setup>

@@ -194,7 +194,7 @@ const getList = async (pagination?: Pagination) => {
 }
 getList()
 
-// edit/delete order
+// edit\delete order
 const handleUpdate = (row: InboundData) => {
 	emit('handleUpdate', row)
 }
