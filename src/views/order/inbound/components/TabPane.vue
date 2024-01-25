@@ -17,34 +17,23 @@
 					draggable
 				>
 					<el-table-column
-						v-loading="loading"
+						min-width="130px"
+						:label="t(`orders.orderID`)"
+						prop="orderID"
 						align="center"
-						label="#"
-						width="65"
-						element-loading-text="请给我点时间！"
-						prop="id"
 					/>
 
 					<el-table-column
-						width="180px"
-						:label="t(`records.itemID`)"
-						prop="itemID"
+						min-width="130px"
+						:label="t(`orders.title`)"
+						align="center"
+						prop="title"
 					/>
 
 					<el-table-column
-						min-width="100px"
-						:label="t(`records.title`)"
-					>
-						<template #default="{ row }">
-							<span>{{ row.title }}</span>
-							<el-tag>{{ row.area }}</el-tag>
-						</template>
-					</el-table-column>
-
-					<el-table-column
-						width="120px"
+						min-width="120px"
 						align="center"
-						:label="t(`records.date`)"
+						:label="t(`orders.date`)"
 					>
 						<template #default="scope">
 							<span>{{ parseTime(scope.row.timestamp, '{y}-{m}-{d}') }}</span>
@@ -52,50 +41,61 @@
 					</el-table-column>
 
 					<el-table-column
-						align="center"
-						:label="t(`records.specs`)"
-						width="95"
+						class-name="status-col"
+						:label="t(`orders.type`)"
+						min-width="120"
 					>
-						<template #default="{ row }"> {{ row.specs }}mm </template>
+						<template #default="{ row }">
+							{{ type[row.type] }}
+						</template>
 					</el-table-column>
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.quantity`)"
-						prop="quantity"
-						width="90"
+						:label="t(`orders.supplier`)"
+						prop="supplier"
+						min-width="110"
 					/>
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.price`)"
-						prop="price"
-						width="80"
+						:label="t(`orders.documenter`)"
+						prop="documenter"
+						min-width="120"
 					/>
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.total`)"
-						width="110"
+						:label="t(`orders.status`)"
+						min-width="120"
 					>
-						<template #default="{ row }">{{ (row.price * row.quantity).toFixed(2) }}</template>
+						<template #default="{ row }">
+							<el-tag :type="status[row.status][1]">
+								{{ status[row.status][0] }}
+							</el-tag>
+						</template>
 					</el-table-column>
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.mass`)"
-						width="90"
-					>
-						<template #default="{ row }"> {{ row.mass }}kg </template>
-					</el-table-column>
+						:label="t(`orders.auditor`)"
+						min-width="110"
+						prop="auditor"
+					/>
 
 					<el-table-column
-						:label="t(`records.actions`)"
+						:label="t(`orders.actions`)"
 						align="center"
-						width="170"
+						min-width="270"
 						class-name="small-padding fixed-width"
 					>
 						<template #default="{ row }">
+							<el-button
+								type="info"
+								size="small"
+								@click="toDetail(row.id)"
+								>{{ t(`button.detail`) }}</el-button
+							>
 							<el-button
 								type="primary"
 								size="small"
@@ -103,11 +103,17 @@
 								>{{ t(`button.edit`) }}</el-button
 							>
 							<el-button
-								v-if="row.status != 'deleted'"
 								size="small"
 								type="danger"
 								@click="handleRemove(row.id)"
 								>{{ t(`button.delete`) }}</el-button
+							>
+							<el-button
+								v-if="row.status === 0"
+								size="small"
+								type="warning"
+								@click="handleAudit(row.id)"
+								>{{ t(`button.audit`) }}</el-button
 							>
 						</template>
 					</el-table-column>
@@ -129,10 +135,11 @@ import i18n from '@/lang'
 import { useAliveStore } from '@/store/alive'
 
 import { ElNotification } from 'element-plus'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed, inject } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { parseTime } from '@/utils'
+import { useMap } from '../mixin'
 
 const { t } = useI18n()
 
@@ -147,9 +154,9 @@ const props = withDefaults(
 		area: 'area-1',
 		searchList: () => {
 			return {
-				sort: '+id',
-				title: undefined,
-				itemID: undefined
+				status: undefined,
+				type: undefined,
+				orderID: undefined
 			}
 		}
 	}
@@ -157,6 +164,8 @@ const props = withDefaults(
 const emit = defineEmits<{
 	(e: 'create', value: InboundData[]): void
 	(e: 'handleUpdate', value: InboundData): void
+	(e: 'toDetail', value: number): void
+	(e: 'handleAudit', value: number): void
 }>()
 
 watch(
@@ -167,14 +176,17 @@ watch(
 	{ deep: true }
 )
 
+// variable mapping
+const { type, status } = useMap()
+
 // init view
 const list = ref<InboundData[] | null>(null)
 let listQuery = reactive<SearchData>({
 	page: 1,
 	limit: 10,
-	sort: '+id',
-	title: undefined,
-	itemID: undefined,
+	type: undefined,
+	status: undefined,
+	orderID: undefined,
 	area: props.area
 })
 const loading = ref<boolean>(false)
@@ -212,6 +224,14 @@ const handleRemove = async (id: number) => {
 	}
 }
 
+const toDetail = (id: number) => {
+	emit('toDetail', id)
+}
+
+const handleAudit = (id: number) => {
+	emit('handleAudit', id)
+}
+
 // reset keep-alive
 const resetAlive_search = () => {
 	// To clear keep-alive cache,ensure the operation of the search function
@@ -227,3 +247,4 @@ defineExpose({
 	resetAlive_search
 })
 </script>
+<style lang="scss" scoped></style>

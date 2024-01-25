@@ -8,7 +8,7 @@ for (let i = 1; i <= 1000; i++) {
 	outboundArr.push(
 		Mock.mock({
 			id: i,
-			itemID: `@guid()`,
+			orderID: `@guid()`,
 			timestamp: "@date('2022/MM/dd')",
 			client: '@first',
 			specs: '@integer(1, 100)*@integer(1, 100)',
@@ -22,17 +22,33 @@ for (let i = 1; i <= 1000; i++) {
 }
 
 for (let i = 1; i <= 600; i++) {
+	const production: any[] = []
+	for (let j = 1; j <= 5; j++) {
+		production.push({
+			productionID: `00018${j}`,
+			productionName: `电源${j}`,
+			specs: '@integer(1, 100)*@integer(1, 100)',
+			quantity: '@integer(0, 100)',
+			price: '@float(200, 500, 0, 2)'
+		})
+	}
 	inboundArr.push(
 		Mock.mock({
 			id: i,
-			itemID: `@guid()`,
+			orderID: `RKD${10000 + i}`,
 			timestamp: "@date('2022/MM/dd')",
-			specs: '@integer(1, 100)*@integer(1, 100)',
-			title: `inbound goods ${i} `,
+			title: `设备箱 ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
-			quantity: '@integer(0, 100)',
-			price: '@float(800, 10000, 0, 2)',
-			mass: '@float(10, 50, 0, 2)'
+			type: '@integer(0, 1)',
+			supplier: 'xx科技',
+			documenter: 'Sekiro',
+			status: '@integer(0, 2)',
+			auditor: 'Sam',
+			contact: 'Higgs',
+			number: 12345678912,
+			remark: '无',
+			reason: 'xxxxxxxx',
+			production
 		})
 	)
 }
@@ -43,18 +59,15 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/inbound/list',
 		method: 'GET',
 		response(req, res, next) {
-			const { itemID, area, title, page = 1, limit = 20, sort } = req.query
+			const { orderID, area, type, page = 1, limit = 20, status } = req.query
 			// simulate search
 			let mockList = inboundArr.filter(item => {
 				if (area && item.area !== area) return false
-				if (title && item.title.indexOf(title) < 0) return false
-				if (itemID && item.itemID.indexOf(itemID) < 0) return false
+				if (type && ('' + item.type).indexOf(type) < 0) return false
+				if (status && ('' + item.status).indexOf(status) < 0) return false
+				if (orderID && item.orderID.indexOf(orderID) < 0) return false
 				return true
 			})
-			// sort
-			if (sort === '-id') {
-				mockList = mockList.reverse()
-			}
 
 			// Pagination
 			const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
@@ -124,6 +137,24 @@ export default defineMock([
 	},
 
 	{
+		url: '/dev-api/vue-element-admin/inbound/audit',
+		method: 'PUT',
+		response(req, res, next) {
+			const { detail, status } = req.body
+			const index = inboundArr.findIndex(v => v.id === detail.id)
+			detail.status = status
+			inboundArr.splice(index, 1, detail)
+			res.end(
+				JSON.stringify({
+					code: 20000,
+					data: {},
+					message: 'success'
+				})
+			)
+		}
+	},
+
+	{
 		url: '/dev-api/vue-element-admin/inbound/create',
 		method: 'POST',
 		response(req, res, next) {
@@ -177,12 +208,12 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/outbound/list',
 		method: 'GET',
 		response(req, res, next) {
-			const { itemID, area, title, page = 1, limit = 20, sort } = req.query
+			const { orderID, area, title, page = 1, limit = 20, sort } = req.query
 			// simulate search
 			let mockList = outboundArr.filter(item => {
 				if (area && item.area !== area) return false
 				if (title && item.title.indexOf(title) < 0) return false
-				if (itemID && item.itemID.indexOf(itemID) < 0) return false
+				if (orderID && item.orderID.indexOf(orderID) < 0) return false
 				return true
 			})
 			// sort

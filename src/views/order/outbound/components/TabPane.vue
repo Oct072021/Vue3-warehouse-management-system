@@ -24,16 +24,16 @@
 						element-loading-text="请给我点时间！"
 						prop="id"
 					/>
-
+        
 					<el-table-column
 						width="180px"
-						:label="t(`records.itemID`)"
-						prop="itemID"
+						:label="t(`orders.orderID`)"
+						prop="orderID"
 					/>
 
 					<el-table-column
 						min-width="160px"
-						:label="t(`records.title`)"
+						:label="t(`orders.title`)"
 					>
 						<template #default="{ row }">
 							<span>{{ row.title }}</span>
@@ -44,7 +44,7 @@
 					<el-table-column
 						width="120px"
 						align="center"
-						:label="t(`records.date`)"
+						:label="t(`orders.date`)"
 					>
 						<template #default="{ row }">
 							<span>{{ parseTime(row.timestamp, '{y}-{m}-{d}') }}</span>
@@ -54,13 +54,13 @@
 					<el-table-column
 						width="90"
 						align="center"
-						:label="t(`records.client`)"
+						:label="t(`orders.client`)"
 						prop="client"
 					/>
 
 					<el-table-column
 						align="center"
-						:label="t(`records.specs`)"
+						:label="t(`orders.specs`)"
 						width="95"
 					>
 						<template #default="{ row }"> {{ row.specs }}mm </template>
@@ -68,21 +68,21 @@
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.quantity`)"
+						:label="t(`orders.quantity`)"
 						prop="quantity"
 						width="80"
 					/>
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.price`)"
+						:label="t(`orders.price`)"
 						prop="price"
 						width="80"
 					/>
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.total`)"
+						:label="t(`orders.total`)"
 						width="90"
 					>
 						<template #default="{ row }">{{ (row.price * row.quantity).toFixed(2) }}</template>
@@ -90,14 +90,14 @@
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`records.mass`)"
+						:label="t(`orders.mass`)"
 						width="90"
 					>
 						<template #default="{ row }"> {{ row.mass }}kg </template>
 					</el-table-column>
 
 					<el-table-column
-						:label="t(`records.actions`)"
+						:label="t(`orders.actions`)"
 						align="center"
 						width="170"
 						class-name="small-padding fixed-width"
@@ -156,7 +156,7 @@ const props = withDefaults(
 			return {
 				sort: '+id',
 				title: undefined,
-				itemID: undefined
+				orderID: undefined
 			}
 		}
 	}
@@ -181,7 +181,7 @@ let listQuery = reactive<SearchData>({
 	limit: 10,
 	sort: '+id',
 	title: undefined,
-	itemID: undefined,
+	orderID: undefined,
 	area: props.area
 })
 const loading = ref<boolean>(false)

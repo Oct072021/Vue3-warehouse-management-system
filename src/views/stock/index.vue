@@ -32,8 +32,8 @@
 					/>
 
 					<el-table-column
-						:label="t(`stock.itemID`)"
-						prop="itemID"
+						:label="t(`stock.orderID`)"
+						prop="orderID"
 						width="200px"
 						align="center"
 					/>
@@ -131,9 +131,9 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item
-					:label="t(`stock.itemID`)"
-					prop="itemID"
-					>{{ temp.itemID }}</el-form-item
+					:label="t(`stock.orderID`)"
+					prop="orderID"
+					>{{ temp.orderID }}</el-form-item
 				>
 				<el-form-item
 					:label="t(`stock.title`)"
@@ -200,7 +200,7 @@ const { t } = useI18n()
 // form rules
 const rules = reactive({
 	area: [{ required: true, message: 'area is required', trigger: 'change' }],
-	itemID: [{ required: true, message: 'itemID is required', trigger: 'blur' }],
+	orderID: [{ required: true, message: 'orderID is required', trigger: 'blur' }],
 	title: [{ required: true, message: 'title is required', trigger: 'blur' }],
 	specs: [{ required: true, message: 'specs is required', trigger: 'blur' }],
 	quantity: [{ required: true, message: 'quantity is required', trigger: 'blur' }],
@@ -261,7 +261,7 @@ const getList = async () => {
 }
 
 // sort
-const sortChange = (data: { [index: string]: any }) => {
+const sortChange = (data: StockData) => {
 	const { prop, order } = data
 	if (prop === 'id') {
 		sortByID(order)
@@ -283,7 +283,7 @@ const getSortClass = function (key: string) {
 // update
 const temp = reactive<StockData>({
 	id: undefined,
-	itemID: '',
+	orderID: '',
 	specs: undefined,
 	quantity: undefined,
 	title: '',
@@ -293,7 +293,7 @@ const temp = reactive<StockData>({
 const resetTemp = () => {
 	Object.assign(temp, {
 		id: undefined,
-		itemID: '',
+		orderID: '',
 		specs: undefined,
 		quantity: undefined,
 		title: '',
@@ -352,8 +352,8 @@ const downloadLoading = ref<boolean>(false)
 const handleDownload = throttle(function () {
 	downloadLoading.value = true
 	import('@/vendor/Export2Excel').then(excel => {
-		const tHeader = ['itemID', 'title', 'specs', 'quantity', 'mass']
-		const filterVal = ['itemID', 'title', 'specs', 'quantity', 'mass']
+		const tHeader = ['orderID', 'title', 'specs', 'quantity', 'mass']
+		const filterVal = ['orderID', 'title', 'specs', 'quantity', 'mass']
 		const data = formatJson(filterVal)
 		excel.export_json_to_excel({
 			header: tHeader,

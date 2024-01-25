@@ -12,7 +12,7 @@ export default {
 		page404: '404',
 		ErrorLog: 'Error Log',
 		Stock: 'Stock',
-		Record: 'Record',
+		Order: 'order',
 		Inbound: 'inbound',
 		Outbound: 'outbound',
 		ExternalLink: 'External Link',
@@ -42,7 +42,7 @@ export default {
 		inbound: 'inbound',
 		outbound: 'outbound',
 		month: 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec',
-		itemID: 'ItemID',
+		orderID: 'orderID',
 		total: 'Total',
 		area: 'Area',
 		todoList: 'Add to Todo List',
@@ -88,7 +88,7 @@ export default {
 
 	// stock page
 	stock: {
-		itemID: 'ItemID',
+		orderID: 'orderID',
 		title: 'Title',
 		specs: 'Specs',
 		quantity: 'Quantity',
@@ -97,9 +97,9 @@ export default {
 		warehouse: 'Warehouse'
 	},
 
-	// records page
-	records: {
-		itemID: 'ItemID',
+	// orders page
+	orders: {
+		orderID: 'OrderID',
 		title: 'Title',
 		date: 'Date',
 		specs: 'Specs',
@@ -109,7 +109,25 @@ export default {
 		mass: 'Mass',
 		actions: 'Actions',
 		warehouse: 'Warehouse',
-		client: 'Client'
+		client: 'Client',
+		type: 'Type',
+		normal: 'Normal',
+		return: 'Return',
+		supplier: 'Supplier',
+		documenter: 'Documenter',
+		auditor: 'Auditor',
+		status: 'Status',
+		wait: 'Wait',
+		success: 'Success',
+		fail: 'Fail',
+		number: 'Number',
+		contact: 'Contact',
+		remark: 'Remark',
+		reason: 'Reason',
+		productionName: 'Production',
+		area: 'Area',
+		detail: 'Order Detail',
+		audit: 'Order Audit'
 	},
 
 	settings: {
@@ -124,10 +142,10 @@ export default {
 		Search: 'Search',
 		Export: 'Export',
 		Add: 'Add',
-		sort: 'Sort',
+		type: 'Type',
 		area: 'Area',
-		title: 'Title',
-		itemID: 'ItemID'
+		status: 'Status',
+		orderID: 'orderID'
 	},
 
 	tips: {
@@ -136,6 +154,7 @@ export default {
 		deleteMsg_success: 'Delete Successfully!',
 		updateMsg_success: 'Update Successfully!',
 		createMsg_success: 'Created Successfully!',
+		audit_success: 'Audit Completed!',
 		deleteMsg_fail: 'Delete Fail!',
 		updateMsg_fail: 'Update Fail!',
 		createMsg_fail: 'Created Fail!'
@@ -147,6 +166,10 @@ export default {
 		submit: 'Submit',
 		cancel: 'Cancel',
 		confirm: 'Confirm',
-		scan: 'Scan'
+		scan: 'Scan',
+		audit: 'Audit',
+		detail: 'Detail',
+		pass: 'Pass',
+		noPass: 'No Pass'
 	}
 }

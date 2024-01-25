@@ -31,7 +31,7 @@
 .fixed-width {
   .el-button--small {
     padding: 13px 10px;
-    min-width: 60px;
+    // min-width: 60px;
   }
 }
 
@@ -52,6 +52,16 @@
   left: 0;
   position: relative;
   margin: 0 auto;
+
+  .el-dialog__header {
+    background-color: rgb(245, 245, 245);
+    margin-right: 0;
+
+    .el-dialog__title {
+      font-weight: 600;
+      color: rgb(144, 147, 153);
+    }
+  }
 }
 
 // refine element ui upload

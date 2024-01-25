@@ -12,7 +12,7 @@ import { useUserStore } from '@/store/user'
 
 import { computed, ref } from 'vue'
 
-const comps: { [index: string]: any } = { admin, editor }
+const comps = { admin, editor }
 
 const userStore = useUserStore()
 

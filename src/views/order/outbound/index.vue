@@ -51,7 +51,7 @@
 				style="width: 400px; margin-left: 50px"
 			>
 				<el-form-item
-					:label="t(`records.warehouse`)"
+					:label="t(`orders.warehouse`)"
 					prop="area"
 				>
 					<el-select
@@ -68,25 +68,25 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.itemID`)"
-					prop="itemID"
+					:label="t(`orders.orderID`)"
+					prop="orderID"
 				>
-					<el-input v-model="temp.itemID" />
+					<el-input v-model="temp.orderID" />
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.title`)"
+					:label="t(`orders.title`)"
 					prop="title"
 				>
 					<el-input v-model="temp.title" />
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.client`)"
+					:label="t(`orders.client`)"
 					prop="client"
 				>
 					<el-input v-model="temp.client" />
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.specs`)"
+					:label="t(`orders.specs`)"
 					prop="specs"
 				>
 					<el-input v-model="temp.specs">
@@ -94,19 +94,19 @@
 					</el-input>
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.quantity`)"
+					:label="t(`orders.quantity`)"
 					prop="quantity"
 				>
 					<el-input v-model="temp.quantity" />
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.price`)"
+					:label="t(`orders.price`)"
 					prop="price"
 				>
 					<el-input v-model="temp.price" />
 				</el-form-item>
 				<el-form-item
-					:label="t(`records.mass`)"
+					:label="t(`orders.mass`)"
 					prop="mass"
 				>
 					<el-input v-model="temp.mass">
@@ -172,7 +172,7 @@ const aliveComp = computed(() => {
 // form rules
 const rules = reactive({
 	area: [{ required: true, message: 'area is required', trigger: 'change' }],
-	itemID: [{ required: true, message: 'itemID is required', trigger: 'blur' }],
+	orderID: [{ required: true, message: 'orderID is required', trigger: 'blur' }],
 	title: [{ required: true, message: 'title is required', trigger: 'blur' }],
 	client: [{ required: true, message: 'client is required', trigger: 'blur' }],
 	specs: [{ required: true, message: 'specs is required', trigger: 'blur' }],
@@ -201,7 +201,7 @@ if (tab) {
 // header event
 const list = reactive<Search>({
 	title: undefined,
-	itemID: undefined,
+	orderID: undefined,
 	sort: '+id'
 })
 const buttonClick = (data: SearchData, e: string) => {
@@ -231,8 +231,8 @@ const downloadLoading = ref<boolean>(false)
 const handleDownload = throttle(function () {
 	downloadLoading.value = true
 	import('@/vendor/Export2Excel').then(excel => {
-		const tHeader = ['itemID', 'title', 'data', 'specs', 'quantity', 'price', 'mass']
-		const filterVal = ['itemID', 'title', 'timestamp', 'specs', 'quantity', 'price', 'mass']
+		const tHeader = ['orderID', 'title', 'data', 'specs', 'quantity', 'price', 'mass']
+		const filterVal = ['orderID', 'title', 'timestamp', 'specs', 'quantity', 'price', 'mass']
 		const data = formatJson(filterVal)
 		excel.export_json_to_excel({
 			header: tHeader,
@@ -270,7 +270,7 @@ const textMap = reactive<{ [index: string]: string }>({
 })
 const temp = reactive<OutboundData>({
 	id: undefined,
-	itemID: '',
+	orderID: '',
 	specs: '',
 	quantity: undefined,
 	price: undefined,
@@ -283,7 +283,7 @@ const temp = reactive<OutboundData>({
 const resetTemp = () => {
 	Object.assign(temp, {
 		id: undefined,
-		itemID: '',
+		orderID: '',
 		specs: '',
 		timestamp: new Date(),
 		title: '',

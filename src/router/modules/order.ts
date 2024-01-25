@@ -4,23 +4,23 @@ import Layout from '@/layout/index.vue'
 import { RouteRecordRaw } from 'vue-router'
 
 const recordRouter:RouteRecordRaw = {
-  path: '/record',
+  path: '/order',
   component: Layout,
   meta: {
-    title: 'Record',
+    title: 'Order',
     icon: 'tab',
     roles: ['admin', 'dataOperator']
   },
   children: [
     {
       path: 'inbound',
-      component: () => import('@/views/record/inbound/index.vue'),
+      component: () => import('@/views/order/inbound/index.vue'),
       name: 'inbound',
       meta: { title: 'Inbound' }
     },
     {
       path: 'outbound',
-      component: () => import('@/views/record/outbound/index.vue'),
+      component: () => import('@/views/order/outbound/index.vue'),
       name: 'outbound',
       meta: { title: 'Outbound' }
     }

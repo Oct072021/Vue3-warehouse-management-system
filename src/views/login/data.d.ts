@@ -1,5 +1,4 @@
 export interface LoginForm {
-  [index: string]: any
-  username: string
-  password: string
+	username: string
+	password: string
 }

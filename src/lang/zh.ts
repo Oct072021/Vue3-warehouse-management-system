@@ -12,7 +12,7 @@ export default {
 		page404: '404',
 		ErrorLog: '错误日志',
 		Stock: '库存管理',
-		Record: '订单管理',
+		Order: '订单管理',
 		Inbound: '入库订单',
 		Outbound: '出库订单',
 		ExternalLink: '外链',
@@ -42,7 +42,7 @@ export default {
 		inbound: '入库',
 		outbound: '出库',
 		month: '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
-		itemID: '商品ID',
+		orderID: '订单ID',
 		total: '总价',
 		area: '库区',
 		todoList: '添加备忘',
@@ -88,28 +88,45 @@ export default {
 
 	// stock page
 	stock: {
-		itemID: '商品ID',
-		title: '商品名称',
-		specs: '商品规格',
+		orderID: '订单ID',
+		title: '产品名称',
+		specs: '产品规格',
 		quantity: '数量',
-		mass: '商品质量',
+		mass: '产品质量',
 		actions: '操作',
 		warehouse: '仓库'
 	},
 
-	// records page
-	records: {
-		itemID: '商品ID',
-		title: '商品名称',
+	// orders page
+	orders: {
+		orderID: '订单ID',
+		title: '产品',
 		date: '日期',
-		specs: '商品规格',
+		specs: '产品规格',
 		quantity: '数量',
 		price: '价格',
 		total: '总价',
-		mass: '商品质量',
 		actions: '操作',
 		warehouse: '仓库',
-		client: '客户'
+		client: '客户',
+		type: '入库类型',
+		normal: '正常入库',
+		return: '退货入库',
+		supplier: '供应商',
+		documenter: '制单人',
+		auditor: '审核人',
+		status: '订单状态',
+		wait: '等待审核',
+		success: '审核成功',
+		fail: '审核失败',
+		number: '电话',
+		contact: '联系人',
+		remark: '备注',
+		reason: '审核原因',
+		productionName: '产品名称',
+		area: '库区',
+		detail: '入库单详情',
+		audit: '入库单审核'
 	},
 
 	settings: {
@@ -124,10 +141,10 @@ export default {
 		Search: '搜索',
 		Export: '导出',
 		Add: '添加',
-		sort: '排序',
+		type: '单据类型',
 		area: '库区',
-		title: '商品名称',
-		itemID: '商品ID'
+		status: '订单状态',
+		orderID: '订单ID'
 	},
 
 	tips: {
@@ -136,6 +153,7 @@ export default {
 		deleteMsg_success: '删除成功!',
 		updateMsg_success: '更新成功!',
 		createMsg_success: '创建成功!',
+		audit_success: '审核完成!',
 		deleteMsg_fail: '删除失败!',
 		updateMsg_fail: '更新失败!',
 		createMsg_fail: '创建失败!'
@@ -147,6 +165,10 @@ export default {
 		submit: '确定',
 		cancel: '取消',
 		confirm: '确定',
-		scan: '扫描'
+		scan: '扫描',
+		audit: '审核',
+		detail: '查看',
+		pass: '审核通过',
+		noPass: '审核不通过'
 	}
 }

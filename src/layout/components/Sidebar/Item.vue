@@ -18,7 +18,7 @@ export default {
 
 			if (icon) {
 				if (icon.includes('el-icon')) {
-					const icons: { [index: string]: any } = ElementPlusIconsVue
+					const icons= ElementPlusIconsVue
 					const compName = icon.charAt(8).toUpperCase() + icon.slice(9)
 					const temp = h(ElIcon, {}, [h(icons[compName])])
 					vnodes.push(temp)

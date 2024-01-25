@@ -7,7 +7,7 @@ for (let i = 1; i <= 700; i++) {
 	stockArr.push(
 		Mock.mock({
 			id: i,
-			itemID: `@guid()`,
+			orderID: `@guid()`,
 			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `stock ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],

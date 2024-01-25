@@ -9,7 +9,7 @@ const config = [
 	},
 	{
 		type: 'input',
-		name: 'itemID',
+		name: 'orderID',
 		styles: {
 			width: '200px'
 		},

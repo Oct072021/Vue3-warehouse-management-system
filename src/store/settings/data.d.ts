@@ -1,7 +1,6 @@
 import { ScssVariables } from "@/styles/element-variables.module.scss"
 
-export interface SettingsState {
-  [index: string]: any
+export interface SettingsState { 
   theme: string
   showSettings: boolean
   tagsView: boolean

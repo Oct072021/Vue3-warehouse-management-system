@@ -25,7 +25,7 @@
 					<el-option
 						v-for="opt in item.options"
 						:key="opt.key"
-						:label="opt.label"
+						:label="t(`${item.page}.${opt.label}`)"
 						:value="opt.key"
 					/>
 				</el-select>
@@ -38,8 +38,8 @@
 					:type="item.buttonType"
 					:icon="item.icon"
 					@click="buttonClick(item.event)"
-					>{{ t(`headers.${item.name}`) }}</el-button
-				>
+					>{{ t(`headers.${item.name}`) }}
+				</el-button>
 			</div>
 		</div>
 	</div>

@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 import Layout from '@/layout/index.vue'
 
-import recordRouter from './modules/record'
+import orderRouter from './modules/order'
 import stockRouter from './modules/stock'
 import chartsRouter from './modules/charts'
 
@@ -135,7 +135,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
 	/** when your routing map is too long, you can split it into small modules **/
 	chartsRouter,
 	stockRouter,
-	recordRouter
+	orderRouter
 
 	// 404 page must be placed at the end !!!
 	// { path: '*', redirect: '/404', meta: { hidden: true } }

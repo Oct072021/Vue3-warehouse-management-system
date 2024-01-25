@@ -4,10 +4,10 @@
 		style="width: 100%; padding-top: 15px"
 	>
 		<el-table-column
-			:label="t(`dashboard.itemID`)"
+			:label="t(`dashboard.orderID`)"
 			min-width="200"
 		>
-			<template #default="{ row }">{{ row.itemID }}</template>
+			<template #default="{ row }">{{ row.orderID }}</template>
 		</el-table-column>
 		<el-table-column
 			:label="t(`dashboard.total`)"
@@ -29,8 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import { fetchList } from '@/views/record/inbound/api'
-import { InboundData } from '@/views/record/inbound/data.d'
+import { fetchList } from '@/views/order/inbound/api'
+import { InboundData } from '@/views/order/inbound/data.d'
 
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'

@@ -1,7 +1,6 @@
-export interface SearchList {
-	[index: string]: any
+export interface SearchList {	
 	title?: string
-	itemID?: string
+	orderID?: string
 	sort?: string
 	area?: string
 }

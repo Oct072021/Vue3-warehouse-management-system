@@ -1,9 +1,8 @@
 import { Pagination } from '@/types/pagination.d'
 
-export interface StockData {
-	[index: string]: any
+export interface StockData {	
 	id: number | undefined
-	itemID: string
+	orderID: string
 	specs: string | undefined
 	title: string
 	area: string
