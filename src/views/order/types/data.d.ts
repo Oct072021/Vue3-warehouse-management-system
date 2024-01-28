@@ -7,10 +7,10 @@ export interface BaseData {
 	timestamp: string
 	title: string
 	area: string
-	type: number
+	type: number | undefined
 	supplier: string
 	documenter: string
-	status: number
+	status: number 
 	auditor: string
 }
 
@@ -23,9 +23,10 @@ export interface Detail {
 }
 
 interface Production {
-	productionID: number
+	productionID: string
 	productionName: string
-	specs: string
+	specs1: string
+  specs2: string
 	quantity: number | undefined
 	price: number | undefined
 }

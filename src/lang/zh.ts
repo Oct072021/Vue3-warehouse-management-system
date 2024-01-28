@@ -123,10 +123,14 @@ export default {
 		contact: '联系人',
 		remark: '备注',
 		reason: '审核原因',
+		productionID: '产品编码',
 		productionName: '产品名称',
 		area: '库区',
 		detail: '入库单详情',
-		audit: '入库单审核'
+		audit: '入库单审核',
+		inboundProduction: '入库产品信息',
+		create: '新增入库单',
+		update: '更新入库单'
 	},
 
 	settings: {
@@ -153,6 +157,7 @@ export default {
 		deleteMsg_success: '删除成功!',
 		updateMsg_success: '更新成功!',
 		createMsg_success: '创建成功!',
+		submit_success: '提交成功!',
 		audit_success: '审核完成!',
 		deleteMsg_fail: '删除失败!',
 		updateMsg_fail: '更新失败!',
@@ -162,13 +167,17 @@ export default {
 	button: {
 		edit: '编辑',
 		delete: '删除',
-		submit: '确定',
+		submit: '提交',
 		cancel: '取消',
 		confirm: '确定',
 		scan: '扫描',
 		audit: '审核',
 		detail: '查看',
 		pass: '审核通过',
-		noPass: '审核不通过'
-	}
+		noPass: '审核不通过',
+		createProduction: '新增产品'
+	},
+
+	AutoGeneration: '可自动生成',
+	require: '为必填'
 }

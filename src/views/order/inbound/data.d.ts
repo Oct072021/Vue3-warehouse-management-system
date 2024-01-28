@@ -3,9 +3,9 @@ import { AuditData, BaseData, Detail, Search, Total } from '../types/data'
 
 export type InboundData = BaseData
 
-export type InboundDetail = Omit<BaseData & Detail, 'title' | 'auditor'>
+export type InboundDetail = Omit<BaseData & Detail, 'title'>
 
-export interface CreateAndUpdate extends Omit<InboundData, 'id'> {}
+export interface CreateAndUpdate extends Omit<InboundData, 'id' | 'auditor' | 'status'> {}
 
 export interface Inbound {
 	items: InboundData[]
@@ -21,3 +21,5 @@ export interface Audit {
 	status: number
 	detail: InboundDetail
 }
+
+export type Order = Omit<BaseData & Detail, 'status' | 'auditor' | 'reason' | 'id'>

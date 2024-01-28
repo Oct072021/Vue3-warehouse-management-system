@@ -27,11 +27,15 @@ for (let i = 1; i <= 600; i++) {
 		production.push({
 			productionID: `00018${j}`,
 			productionName: `电源${j}`,
-			specs: '@integer(1, 100)*@integer(1, 100)',
+			specs1: '@integer(1, 20)cm',
+			specs2: '@integer(1, 20)cm',
 			quantity: '@integer(0, 100)',
 			price: '@float(200, 500, 0, 2)'
 		})
 	}
+	const status = Mock.Random.integer(0, 2)
+	const auditor = status === 0 ? '' : 'Sam'
+	const reason = status === 0 ? '' : 'xxxxxxxxx'
 	inboundArr.push(
 		Mock.mock({
 			id: i,
@@ -42,12 +46,12 @@ for (let i = 1; i <= 600; i++) {
 			type: '@integer(0, 1)',
 			supplier: 'xx科技',
 			documenter: 'Sekiro',
-			status: '@integer(0, 2)',
-			auditor: 'Sam',
+			status,
+			auditor,
 			contact: 'Higgs',
 			number: 12345678912,
 			remark: '无',
-			reason: 'xxxxxxxx',
+			reason,
 			production
 		})
 	)
@@ -159,6 +163,8 @@ export default defineMock([
 		method: 'POST',
 		response(req, res, next) {
 			req.body.id = inboundArr.length + 1
+			req.body['status'] = 0
+			req.body.orderID = `RKD${10000 + inboundArr.length + 1}`
 			inboundArr.unshift(req.body)
 			res.end(
 				JSON.stringify({
@@ -188,9 +194,9 @@ export default defineMock([
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/remove',
-		method: 'POST',
+		method: 'DELETE',
 		response(req, res, next) {
-			const index = inboundArr.findIndex(v => v.id === req.body.id)
+			const index = inboundArr.findIndex(v => v.id === req.query.id)
 			inboundArr.splice(index, 1)
 			res.end(
 				JSON.stringify({

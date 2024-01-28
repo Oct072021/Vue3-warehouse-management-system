@@ -1,15 +1,18 @@
-import { InboundData, SearchData, CreateAndUpdate, Audit } from './data'
+import { InboundData, SearchData, CreateAndUpdate, Audit, Order } from './data'
 
 import { audit, createOrder, fetchDetail, fetchList, remove, updateOrder } from './api'
+import { useUserStore } from '@/store/user'
 
-export async function createInboundOrder(orderInfo: CreateAndUpdate) {
-	orderInfo.timestamp = +new Date(orderInfo.timestamp) + '' // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+const userStroe = useUserStore()
+
+export async function createInboundOrder(orderInfo: Order) {
+	orderInfo['timestamp'] = +new Date() + '' // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
 
 	const res = await createOrder(orderInfo)
 	return res
 }
 
-export async function updateInboundOrder(orderInfo: CreateAndUpdate) {
+export async function updateInboundOrder(orderInfo: Order) {
 	const res = await updateOrder(orderInfo)
 	return res
 }
@@ -26,9 +29,6 @@ export async function removeInboundOrder(id: number) {
 
 export async function getDetail(id: number) {
 	const res = await fetchDetail(id)
-	if (res.data.status === 0) {
-		res.data.reason = ''
-	}
 	return res
 }
 
@@ -36,6 +36,8 @@ export async function auditOrder(obj: Audit) {
 	if (obj.detail.reason === '') {
 		obj.detail.reason = '无'
 	}
+	obj.detail.auditor = userStroe.roles[0]
+
 	const res = await audit(obj)
 	return res
 }

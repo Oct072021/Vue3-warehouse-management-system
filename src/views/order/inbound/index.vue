@@ -19,7 +19,7 @@
 			type="border-card"
 		>
 			<el-tab-pane
-				v-for="item in tabMapOptions"
+				v-for="item in area"
 				:key="item.key"
 				:label="item.label"
 				:name="item.key"
@@ -48,7 +48,6 @@
 		>
 			<el-form
 				ref="dataForm"
-				:rules="rules"
 				:model="temp"
 				label-position="left"
 			>
@@ -67,7 +66,7 @@
 							:label="t(`orders.type`) + ':'"
 							prop="type"
 						>
-							{{ type[temp.type] }}
+							{{ type[temp.type!] }}
 						</el-form-item>
 					</el-col>
 
@@ -148,7 +147,7 @@
 							prop="reason"
 						>
 							<el-input
-								v-if="temp.status === 0"
+								v-if="dialogStatus === 'audit'"
 								v-model="temp.reason"
 								:rows="3"
 								type="textarea"
@@ -168,6 +167,13 @@
 				>
 					<el-table-column
 						min-width="100px"
+						:label="t(`orders.productionID`)"
+						align="center"
+						prop="productionID"
+					/>
+
+					<el-table-column
+						min-width="100px"
 						:label="t(`orders.productionName`)"
 						align="center"
 						prop="productionName"
@@ -178,7 +184,7 @@
 						:label="t(`orders.specs`)"
 						min-width="95"
 					>
-						<template #default="{ row }"> {{ row.specs }}mm </template>
+						<template #default="{ row }"> {{ `${row.specs1} × ${row.specs2}` }} </template>
 					</el-table-column>
 
 					<el-table-column
@@ -249,8 +255,6 @@ import HeaderFilter from '@/components/HeaderFilter/index.vue'
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
 
-import { config } from './config'
-
 import { CreateAndUpdate, InboundData, InboundDetail, SearchData } from './data.d'
 import { Search } from '../types/data'
 
@@ -262,6 +266,7 @@ import i18n from '@/lang'
 import { useRoute, useRouter } from 'vue-router'
 import { ElNotification, FormInstance } from 'element-plus'
 
+import { config } from './config'
 import { useMap } from './mixin'
 
 const { t } = useI18n()
@@ -275,26 +280,8 @@ const aliveComp = computed(() => {
 	return aliveStore.aliveComp
 })
 
-// form rules
-const rules = reactive({
-	area: [{ required: true, message: 'area is required', trigger: 'change' }],
-	orderID: [{ required: true, message: 'orderID is required', trigger: 'blur' }],
-	title: [{ required: true, message: 'title is required', trigger: 'blur' }],
-	specs: [{ required: true, message: 'specs is required', trigger: 'blur' }],
-	quantity: [{ required: true, message: 'quantity is required', trigger: 'blur' }],
-	price: [{ required: true, message: 'price is required', trigger: 'blur' }],
-	mass: [{ required: true, message: 'mass is required', trigger: 'blur' }]
-})
-// warehouse info
-const tabMapOptions = ref<{ [index: string]: string }[]>([
-	{ key: 'area-1', label: 'area-1' },
-	{ key: 'area-2', label: 'area-2' },
-	{ key: 'area-3', label: 'area-3' },
-	{ key: 'area-4', label: 'area-4' }
-])
-
 // variable mapping
-const { type, status, title } = useMap()
+const { type, status, title, area } = useMap()
 
 // init view
 const activeName = ref<string>('area-1')
@@ -385,58 +372,15 @@ const temp = reactive<InboundDetail>({
 	remark: '',
 	contact: '',
 	reason: '',
-	production: []
+	production: [],
+	auditor: ''
 })
-// const resetTemp = () => {
-// 	Object.assign(temp, {
-// 		id: undefined,
-// 		orderID: '',
-// 		specs: '',
-// 		timestamp: new Date(),
-// 		title: '',
-// 		quantity: undefined,
-// 		price: undefined,
-// 		area: '',
-// 		mass: undefined
-// 	})
-// }
-// const handleCreate = () => {
-// 	resetTemp()
-// 	dialogStatus.value = 'create'
-// 	dialogFormVisible.value = true
-// 	nextTick(() => {
-// 		dataForm.value.clearValidate()
-// 	})
-// }
-// const create = (formEl: FormInstance | undefined) => {
-// 	if (!formEl) return
-// 	formEl.validate(async valid => {
-// 		if (valid) {
-// 			const res = await createInboundOrder(temp)
-
-// 			if (res.code === 20000) {
-// 				dialogFormVisible.value = false
-// 				ElNotification({
-// 					title: 'Success',
-// 					// @ts-ignore
-// 					message: i18n.global.t(`tips.createMsg_success`),
-// 					type: 'success',
-// 					duration: 2000
-// 				})
-// 				// refresh the view
-// 				handleFilter()
-// 			}
-// 		}
-// 	})
-// }
-// const handleUpdate = (row: InboundData) => {
-// 	Object.assign(temp, row) // copy obj
-// 	dialogStatus.value = 'update'
-// 	dialogFormVisible.value = true
-// 	nextTick(() => {
-// 		dataForm.value.clearValidate()
-// 	})
-// }
+const handleCreate = () => {
+	router.push({ path: '/order/create_update' })
+}
+const handleUpdate = (id: number) => {
+	router.push({ path: '/order/create_update', query: { id } })
+}
 // const update = (formEl: FormInstance | undefined) => {
 // 	if (!formEl) return
 // 	formEl.validate(async valid => {

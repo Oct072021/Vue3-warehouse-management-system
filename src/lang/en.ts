@@ -124,10 +124,14 @@ export default {
 		contact: 'Contact',
 		remark: 'Remark',
 		reason: 'Reason',
+		productionID: 'ProductionID',
 		productionName: 'Production',
 		area: 'Area',
 		detail: 'Order Detail',
-		audit: 'Order Audit'
+		audit: 'Order Audit',
+		inboundProduction: 'Inbound Production',
+		create: 'Create Inbound Order',
+		update: 'Update Inbound Order'
 	},
 
 	settings: {
@@ -154,6 +158,7 @@ export default {
 		deleteMsg_success: 'Delete Successfully!',
 		updateMsg_success: 'Update Successfully!',
 		createMsg_success: 'Created Successfully!',
+		submit_success: 'Submit Successfully!',
 		audit_success: 'Audit Completed!',
 		deleteMsg_fail: 'Delete Fail!',
 		updateMsg_fail: 'Update Fail!',
@@ -170,6 +175,10 @@ export default {
 		audit: 'Audit',
 		detail: 'Detail',
 		pass: 'Pass',
-		noPass: 'No Pass'
-	}
+		noPass: 'No Pass',
+		createProduction: 'Create New Production'
+	},
+
+	AutoGeneration: 'Auto Generation',
+	require: 'is required'
 }

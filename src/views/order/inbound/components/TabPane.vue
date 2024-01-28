@@ -99,7 +99,7 @@
 							<el-button
 								type="primary"
 								size="small"
-								@click="handleUpdate(row)"
+								@click="handleUpdate(row.id)"
 								>{{ t(`button.edit`) }}</el-button
 							>
 							<el-button
@@ -163,7 +163,7 @@ const props = withDefaults(
 )
 const emit = defineEmits<{
 	(e: 'create', value: InboundData[]): void
-	(e: 'handleUpdate', value: InboundData): void
+	(e: 'handleUpdate', value: number): void
 	(e: 'toDetail', value: number): void
 	(e: 'handleAudit', value: number): void
 }>()
@@ -207,8 +207,8 @@ const getList = async (pagination?: Pagination) => {
 getList()
 
 // edit\delete order
-const handleUpdate = (row: InboundData) => {
-	emit('handleUpdate', row)
+const handleUpdate = (id: number) => {
+	emit('handleUpdate', id)
 }
 const handleRemove = async (id: number) => {
 	const res = await removeInboundOrder(id)
