@@ -247,7 +247,7 @@
 </template>
 
 <script lang="ts" setup>
-import { auditOrder, createInboundOrder, getDetail, updateInboundOrder } from './service'
+import { auditOrder, createInboundOrder, getAllData, getDetail, updateInboundOrder } from './service'
 
 import TabPane from './components/TabPane.vue'
 import HeaderFilter from '@/components/HeaderFilter/index.vue'
@@ -255,7 +255,7 @@ import HeaderFilter from '@/components/HeaderFilter/index.vue'
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
 
-import { CreateAndUpdate, InboundData, InboundDetail, SearchData } from './data.d'
+import { InboundData, InboundDetail, SearchData } from './data.d'
 import { Search } from '../types/data'
 
 import { useAliveStore } from '@/store/alive'
@@ -315,19 +315,22 @@ const buttonClick = (data: SearchData, e: string) => {
 
 // mount times
 const createdTimes = ref<number>(0)
-const showCreatedTimes = (data: InboundData[]) => {
+const showCreatedTimes = () => {
 	createdTimes.value++
-	allData.value = data
 }
 
 // export data
 const allData = ref<InboundData[] | null>(null)
 const downloadLoading = ref<boolean>(false)
-const handleDownload = throttle(function () {
+const handleDownload = throttle(async function () {
 	downloadLoading.value = true
+
+	const res = await getAllData(activeName.value)
+	allData.value = res.data
+
 	import('@/vendor/Export2Excel').then(excel => {
-		const tHeader = ['orderID', 'title', 'data', 'specs', 'quantity', 'price', 'mass']
-		const filterVal = ['orderID', 'title', 'timestamp', 'specs', 'quantity', 'price', 'mass']
+		const tHeader = ['orderID', 'title', 'data', 'type', 'supplier', 'documenter', 'status', 'auditor']
+		const filterVal = ['orderID', 'title', 'timestamp', 'type', 'supplier', 'documenter', 'status', 'auditor']
 		const data = formatJson(filterVal)
 		excel.export_json_to_excel({
 			header: tHeader,
@@ -340,10 +343,15 @@ const handleDownload = throttle(function () {
 const formatJson = (filterVal: string[]) => {
 	return allData.value!.map(v =>
 		filterVal.map(j => {
-			if (j === 'timestamp') {
-				return parseTime(v[j])
-			} else {
-				return v[j]
+			switch (j) {
+				case 'timestamp':
+					return parseTime(v[j], '{y}-{m}-{d}')
+				case 'type':
+					return type.value[v[j as string]]
+				case 'status':
+					return status.value[v[j]][0]
+				default:
+					return v[j]
 			}
 		})
 	)
@@ -381,27 +389,6 @@ const handleCreate = () => {
 const handleUpdate = (id: number) => {
 	router.push({ path: '/order/create_update', query: { id } })
 }
-// const update = (formEl: FormInstance | undefined) => {
-// 	if (!formEl) return
-// 	formEl.validate(async valid => {
-// 		if (valid) {
-// 			const res = await updateInboundOrder(temp)
-
-// 			if (res.code === 20000) {
-// 				dialogFormVisible.value = false
-// 				ElNotification({
-// 					title: 'Success',
-// 					// @ts-ignore
-// 					message: i18n.global.t(`tips.updateMsg_success`),
-// 					type: 'success',
-// 					duration: 2000
-// 				})
-// 				// refresh the view
-// 				handleFilter()
-// 			}
-// 		}
-// 	})
-// }
 
 // order detail
 const toDetail = async (id: number) => {

@@ -40,7 +40,3 @@ export interface Search implements Pagination {
 	area?: string
 }
 
-export interface Total {
-	total: number[]
-	orders: number[]
-}

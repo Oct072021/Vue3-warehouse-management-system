@@ -1,5 +1,5 @@
 import { Http } from '@/utils/request'
-import { Inbound, InboundData, SearchData, CreateAndUpdate, InboundDetail, Audit, Order } from './data.d'
+import { Inbound, InboundData, SearchData, InboundDetail, Audit, Order, Export } from './data.d'
 
 export function fetchList(params?: SearchData) {
 	return Http.getRequest<Inbound>('/vue-element-admin/inbound/list', { params })
@@ -7,6 +7,10 @@ export function fetchList(params?: SearchData) {
 
 export function fetchDetail(id: number) {
 	return Http.getRequest<InboundDetail>('/vue-element-admin/inbound/detail', { params: { id } })
+}
+
+export function fetchAllData(area: string) {
+	return Http.getRequest<Export[]>('/vue-element-admin/inbound/all', { params: { area } })
 }
 
 export function createOrder(data: Order) {

@@ -11,5 +11,3 @@ export interface Outbound {
 }
 
 export interface SearchData extends Search {}
-
-export interface TotalData extends Total {}

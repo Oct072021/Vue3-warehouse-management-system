@@ -1,6 +1,6 @@
-import { InboundData, SearchData, CreateAndUpdate, Audit, Order } from './data'
+import { InboundData, SearchData, Audit, Order } from './data'
 
-import { audit, createOrder, fetchDetail, fetchList, remove, updateOrder } from './api'
+import { audit, createOrder, fetchAllData, fetchDetail, fetchList, remove, updateOrder } from './api'
 import { useUserStore } from '@/store/user'
 
 const userStroe = useUserStore()
@@ -39,5 +39,10 @@ export async function auditOrder(obj: Audit) {
 	obj.detail.auditor = userStroe.roles[0]
 
 	const res = await audit(obj)
+	return res
+}
+
+export async function getAllData(area: string) {
+	const res = await fetchAllData(area)
 	return res
 }

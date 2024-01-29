@@ -80,9 +80,28 @@ export default defineMock([
 					code: 20000,
 					data: {
 						total: mockList.length,
-						items: pageList,
-						allItems: mockList
+						items: pageList
 					}
+				})
+			)
+		}
+	},
+
+	{
+		url: '/dev-api/vue-element-admin/inbound/all',
+		method: 'GET',
+		response(req, res, next) {
+			const { area } = req.query
+			// simulate search
+			let mockList = inboundArr.filter(item => {
+				if (area && item.area !== area) return false
+				return true
+			})
+
+			res.end(
+				JSON.stringify({
+					code: 20000,
+					data: mockList
 				})
 			)
 		}

@@ -103,17 +103,17 @@
 								>{{ t(`button.edit`) }}</el-button
 							>
 							<el-button
-								size="small"
-								type="danger"
-								@click="handleRemove(row.id)"
-								>{{ t(`button.delete`) }}</el-button
-							>
-							<el-button
 								v-if="row.status === 0"
 								size="small"
 								type="warning"
 								@click="handleAudit(row.id)"
 								>{{ t(`button.audit`) }}</el-button
+							>
+							<el-button
+								size="small"
+								type="danger"
+								@click="handleRemove(row.id)"
+								>{{ t(`button.delete`) }}</el-button
 							>
 						</template>
 					</el-table-column>
@@ -162,7 +162,7 @@ const props = withDefaults(
 	}
 )
 const emit = defineEmits<{
-	(e: 'create', value: InboundData[]): void
+	(e: 'create'): void
 	(e: 'handleUpdate', value: number): void
 	(e: 'toDetail', value: number): void
 	(e: 'handleAudit', value: number): void
@@ -202,7 +202,7 @@ const getList = async (pagination?: Pagination) => {
 	list.value = res.data.items
 	loading.value = false
 	total.value = res.data.total
-	emit('create', res.data.allItems) // return all data
+	emit('create')
 }
 getList()
 
@@ -215,7 +215,6 @@ const handleRemove = async (id: number) => {
 	if (res.code === 20000) {
 		ElNotification({
 			title: 'Success',
-			// @ts-ignore
 			message: i18n.global.t(`tips.deleteMsg_success`),
 			type: 'success',
 			duration: 2000
