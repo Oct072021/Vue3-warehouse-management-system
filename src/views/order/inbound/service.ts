@@ -1,4 +1,4 @@
-import { InboundData, SearchData, Audit, Order } from './data'
+import { SearchData, Audit, Order } from './data'
 
 import { audit, createOrder, fetchAllData, fetchDetail, fetchList, remove, updateOrder } from './api'
 import { useUserStore } from '@/store/user'

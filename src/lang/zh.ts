@@ -112,6 +112,8 @@ export default {
 		type: '入库类型',
 		normal: '正常入库',
 		return: '退货入库',
+		sell: '采购出库',
+		purchase: '销售出库',
 		supplier: '供应商',
 		documenter: '制单人',
 		auditor: '审核人',

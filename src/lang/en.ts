@@ -113,6 +113,8 @@ export default {
 		type: 'Type',
 		normal: 'Normal',
 		return: 'Return',
+		sell: 'Sell',
+		purchase: 'Purchase',
 		supplier: 'Supplier',
 		documenter: 'Documenter',
 		auditor: 'Auditor',

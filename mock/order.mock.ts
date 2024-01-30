@@ -5,18 +5,37 @@ const outboundArr: any[] = []
 const inboundArr: any[] = []
 
 for (let i = 1; i <= 1000; i++) {
+	const production: any[] = []
+	for (let j = 1; j <= 5; j++) {
+		production.push({
+			productionID: `00018${j}`,
+			productionName: `电源${j}`,
+			specs1: '@integer(1, 20)cm',
+			specs2: '@integer(1, 20)cm',
+			quantity: '@integer(0, 100)',
+			price: '@float(200, 500, 0, 2)'
+		})
+	}
+	const status = Mock.Random.integer(0, 2)
+	const auditor = status === 0 ? '' : 'Sam'
+	const reason = status === 0 ? '' : 'xxxxxxxxx'
 	outboundArr.push(
 		Mock.mock({
 			id: i,
-			orderID: `@guid()`,
+			orderID: `RKD${10000 + i}`,
 			timestamp: "@date('2022/MM/dd')",
-			client: '@first',
-			specs: '@integer(1, 100)*@integer(1, 100)',
-			title: `goods ${i} `,
+			title: `设备箱 ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
-			quantity: '@integer(0, 100)',
-			price: '@float(800, 10000, 0, 2)',
-			mass: '@float(10, 50, 0, 2)'
+			type: '@integer(0, 1)',
+			documenter: 'Sekiro',
+			client: '66科技',
+			status,
+			auditor,
+			contact: 'Higgs',
+			number: 12345678912,
+			remark: '无',
+			reason,
+			production
 		})
 	)
 }
@@ -233,18 +252,15 @@ export default defineMock([
 		url: '/dev-api/vue-element-admin/outbound/list',
 		method: 'GET',
 		response(req, res, next) {
-			const { orderID, area, title, page = 1, limit = 20, sort } = req.query
+			const { orderID, area, type, page = 1, limit = 20, status } = req.query
 			// simulate search
 			let mockList = outboundArr.filter(item => {
 				if (area && item.area !== area) return false
-				if (title && item.title.indexOf(title) < 0) return false
+				if (type && ('' + item.type).indexOf(type) < 0) return false
+				if (status && ('' + item.status).indexOf(status) < 0) return false
 				if (orderID && item.orderID.indexOf(orderID) < 0) return false
 				return true
 			})
-			// sort
-			if (sort === '-id') {
-				mockList = mockList.reverse()
-			}
 			// Pagination
 			const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
 
@@ -253,9 +269,28 @@ export default defineMock([
 					code: 20000,
 					data: {
 						total: mockList.length,
-						items: pageList,
-						allItems: mockList
+						items: pageList
 					}
+				})
+			)
+		}
+	},
+
+	{
+		url: '/dev-api/vue-element-admin/inbound/all',
+		method: 'GET',
+		response(req, res, next) {
+			const { area } = req.query
+			// simulate search
+			let mockList = outboundArr.filter(item => {
+				if (area && item.area !== area) return false
+				return true
+			})
+
+			res.end(
+				JSON.stringify({
+					code: 20000,
+					data: mockList
 				})
 			)
 		}
@@ -313,10 +348,30 @@ export default defineMock([
 	},
 
 	{
+		url: '/dev-api/vue-element-admin/outbound/audit',
+		method: 'PUT',
+		response(req, res, next) {
+			const { detail, status } = req.body
+			const index = outboundArr.findIndex(v => v.id === detail.id)
+			detail.status = status
+			outboundArr.splice(index, 1, detail)
+			res.end(
+				JSON.stringify({
+					code: 20000,
+					data: {},
+					message: 'success'
+				})
+			)
+		}
+	},
+
+	{
 		url: '/dev-api/vue-element-admin/outbound/create',
 		method: 'POST',
 		response(req, res, next) {
 			req.body.id = outboundArr.length + 1
+			req.body['status'] = 0
+			req.body.orderID = `RKD${10000 + outboundArr.length + 1}`
 			outboundArr.unshift(req.body)
 			res.end(
 				JSON.stringify({
@@ -346,9 +401,10 @@ export default defineMock([
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/remove',
-		method: 'POST',
+		method: 'DELETE',
 		response(req, res, next) {
-			const index = outboundArr.findIndex(v => v.id === req.body.id)
+			const index = outboundArr.findIndex(v => v.id === req.query.id)
+      
 			outboundArr.splice(index, 1)
 			res.end(
 				JSON.stringify({

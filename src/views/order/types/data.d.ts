@@ -8,7 +8,6 @@ export interface BaseData {
 	title: string
 	area: string
 	type: number | undefined
-	supplier: string
 	documenter: string
 	status: number 
 	auditor: string

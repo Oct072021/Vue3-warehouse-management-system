@@ -1,14 +1,6 @@
 const config = [
 	{
 		type: 'input',
-		name: 'title',
-		styles: {
-			width: '200px'
-		},
-		event: 'search'
-	},
-	{
-		type: 'input',
 		name: 'orderID',
 		styles: {
 			width: '200px'
@@ -17,13 +9,27 @@ const config = [
 	},
 	{
 		type: 'select',
-		name: 'sort',
+		name: 'type',
 		styles: {
 			width: '150px'
 		},
-		sortOptions: [
-			{ label: 'ID Ascending', key: '+id' },
-			{ label: 'ID Descending', key: '-id' }
+		page: 'orders',
+		options: [
+			{ label: 'purchase', key: 0 },
+			{ label: 'sell', key: 1 }
+		]
+	},
+	{
+		type: 'select',
+		name: 'status',
+		styles: {
+			width: '150px'
+		},
+		page: 'orders',
+		options: [
+			{ label: 'wait', key: 0 },
+			{ label: 'success', key: 1 },
+			{ label: 'fail', key: 2 }
 		]
 	},
 	{

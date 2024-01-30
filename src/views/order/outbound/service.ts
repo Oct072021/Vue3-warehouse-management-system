@@ -1,25 +1,48 @@
-import { OutboundData, SearchData } from './data.d'
+import { SearchData, Audit, Order } from './data'
 
-import { createOrder, fetchList, remove, updateOrder } from './api'
+import { audit, createOrder, fetchAllData, fetchDetail, fetchList, remove, updateOrder } from './api'
+import { useUserStore } from '@/store/user'
 
-export function createOutboundOrder(orderInfo: OutboundData) {
-	orderInfo.timestamp = +new Date(orderInfo.timestamp) + '' // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+const userStroe = useUserStore()
 
-	const res = createOrder(orderInfo)
+export async function createOutboundOrder(orderInfo: Order) {
+	orderInfo['timestamp'] = +new Date() + '' // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+
+	const res = await createOrder(orderInfo)
 	return res
 }
 
-export function updateOutboundOrder(orderInfo: OutboundData) {
-	const res = updateOrder(orderInfo)
+export async function updateOutboundOrder(orderInfo: Order) {
+	const res = await updateOrder(orderInfo)
 	return res
 }
 
-export function getOutboundOrders(searchList?: SearchData) {
-	const res = fetchList(searchList)
+export async function getOutboundOrders(searchList?: SearchData) {
+	const res = await fetchList(searchList)
 	return res
 }
 
-export function removeOutboundOrder(id: number) {
-	const res = remove(id)
+export async function removeOutboundOrder(id: number) {
+	const res = await remove(id)
+	return res
+}
+
+export async function getDetail(id: number) {
+	const res = await fetchDetail(id)
+	return res
+}
+
+export async function auditOrder(obj: Audit) {
+	if (obj.detail.reason === '') {
+		obj.detail.reason = '无'
+	}
+	obj.detail.auditor = userStroe.roles[0]
+
+	const res = await audit(obj)
+	return res
+}
+
+export async function getAllData(area: string) {
+	const res = await fetchAllData(area)
 	return res
 }

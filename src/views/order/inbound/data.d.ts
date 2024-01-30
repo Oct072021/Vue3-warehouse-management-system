@@ -1,22 +1,24 @@
 import { InboundData } from './data.d'
 import { AuditData, BaseData, Detail, Search } from '../types/data'
 
-export type InboundData = BaseData
+export interface InboundData extends BaseData {
+	supplier: string
+}
 
-export type InboundDetail = Omit<BaseData & Detail, 'title'>
+export type InboundDetail = Omit<InboundData & Detail, 'title'>
 
 export interface Inbound {
 	items: InboundData[]
 	total: number
 }
 
-export interface SearchData extends Search {}
+export type SearchData = Search
 
 export interface Audit {
 	status: number
 	detail: InboundDetail
 }
 
-export type Order = Omit<BaseData & Detail, 'status' | 'auditor' | 'reason' | 'id'>
+export type Order = Omit<InboundData & Detail, 'status' | 'auditor' | 'reason' | 'id'>
 
-export type Export = Omit<BaseData & Detail>
+export type Export = InboundData & Detail

@@ -135,7 +135,7 @@ import i18n from '@/lang'
 import { useAliveStore } from '@/store/alive'
 
 import { ElNotification } from 'element-plus'
-import { reactive, ref, watch, computed, inject } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { parseTime } from '@/utils'

@@ -247,7 +247,7 @@
 </template>
 
 <script lang="ts" setup>
-import { auditOrder, createInboundOrder, getAllData, getDetail, updateInboundOrder } from './service'
+import { auditOrder, getAllData, getDetail } from './service'
 
 import TabPane from './components/TabPane.vue'
 import HeaderFilter from '@/components/HeaderFilter/index.vue'
@@ -260,11 +260,11 @@ import { Search } from '../types/data'
 
 import { useAliveStore } from '@/store/alive'
 
-import { computed, nextTick, reactive, ref, watch, provide } from 'vue'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import i18n from '@/lang'
 import { useRoute, useRouter } from 'vue-router'
-import { ElNotification, FormInstance } from 'element-plus'
+import { ElNotification } from 'element-plus'
 
 import { config } from './config'
 import { useMap } from './mixin'
@@ -384,10 +384,10 @@ const temp = reactive<InboundDetail>({
 	auditor: ''
 })
 const handleCreate = () => {
-	router.push({ path: '/order/create_update' })
+	router.push({ path: '/order/inbound/create_update' })
 }
 const handleUpdate = (id: number) => {
-	router.push({ path: '/order/create_update', query: { id } })
+	router.push({ path: '/order/inbound/create_update', query: { id } })
 }
 
 // order detail

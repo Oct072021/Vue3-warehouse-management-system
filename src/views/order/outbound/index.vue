@@ -7,6 +7,7 @@
 			title="Tab with keep-alive"
 			type="success"
 		/>
+
 		<HeaderFilter
 			:config-data="config"
 			@buttonClick="buttonClick"
@@ -18,7 +19,7 @@
 			type="border-card"
 		>
 			<el-tab-pane
-				v-for="item in tabMapOptions"
+				v-for="item in area"
 				:key="item.key"
 				:label="item.label"
 				:name="item.key"
@@ -32,104 +33,212 @@
 						:search-list="list"
 						@create="showCreatedTimes"
 						@handleUpdate="handleUpdate"
+						@toDetail="toDetail"
+						@handleAudit="handleAudit"
 					/>
 				</keep-alive>
 			</el-tab-pane>
 		</el-tabs>
 
 		<el-dialog
-			:title="textMap[dialogStatus]"
+			:title="title[dialogStatus]"
 			v-model="dialogFormVisible"
 			align-center
+			width="900px"
 		>
 			<el-form
 				ref="dataForm"
-				:rules="rules"
 				:model="temp"
 				label-position="left"
-				label-width="110px"
-				style="width: 400px; margin-left: 50px"
 			>
-				<el-form-item
-					:label="t(`orders.warehouse`)"
-					prop="area"
+				<el-row :gutter="20">
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.orderID`) + ':'"
+							prop="orderID"
+						>
+							{{ temp.orderID }}
+						</el-form-item>
+					</el-col>
+
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.type`) + ':'"
+							prop="type"
+						>
+							{{ type[temp.type!] }}
+						</el-form-item>
+					</el-col>
+
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.status`) + ':'"
+							prop="status"
+						>
+							<el-tag :type="status[temp.status][1]">
+								{{ status[temp.status][0] }}
+							</el-tag>
+						</el-form-item>
+					</el-col>
+				</el-row>
+
+				<el-row :gutter="20">
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.client`) + ':'"
+							prop="client"
+						>
+							{{ temp.client }}
+						</el-form-item>
+					</el-col>
+
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.contact`) + ':'"
+							prop="contact"
+						>
+							{{ temp.contact }}
+						</el-form-item>
+					</el-col>
+
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.number`) + ':'"
+							prop="number"
+						>
+							{{ temp.number }}
+						</el-form-item>
+					</el-col>
+				</el-row>
+
+				<el-row :gutter="20">
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.documenter`) + ':'"
+							prop="documenter"
+						>
+							{{ temp.documenter }}
+						</el-form-item>
+					</el-col>
+
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.date`) + ':'"
+							prop="timestamp"
+						>
+							{{ temp.timestamp }}
+						</el-form-item>
+					</el-col>
+
+					<el-col :span="8">
+						<el-form-item
+							:label="t(`orders.remark`) + ':'"
+							prop="remark"
+						>
+							{{ temp.remark }}
+						</el-form-item>
+					</el-col>
+				</el-row>
+
+				<el-row>
+					<el-col :span="20">
+						<el-form-item
+							:label="t(`orders.reason`) + ':'"
+							prop="reason"
+						>
+							<el-input
+								v-if="dialogStatus === 'audit'"
+								v-model="temp.reason"
+								:rows="3"
+								type="textarea"
+							/>
+							<span v-else>{{ temp.reason }}</span>
+						</el-form-item>
+					</el-col>
+				</el-row>
+
+				<el-table
+					:data="temp.production"
+					border
+					fit
+					highlight-current-row
+					header-cell-class-name="table_header"
+					style="width: 100%"
 				>
-					<el-select
-						v-model="temp.area"
-						class="filter-item"
-						placeholder="Please select"
+					<el-table-column
+						min-width="100px"
+						:label="t(`orders.productionID`)"
+						align="center"
+						prop="productionID"
+					/>
+
+					<el-table-column
+						min-width="100px"
+						:label="t(`orders.productionName`)"
+						align="center"
+						prop="productionName"
+					/>
+
+					<el-table-column
+						align="center"
+						:label="t(`orders.specs`)"
+						min-width="95"
 					>
-						<el-option
-							v-for="item in tabMapOptions"
-							:key="item.key"
-							:label="item.label"
-							:value="item.key"
-						/>
-					</el-select>
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.orderID`)"
-					prop="orderID"
-				>
-					<el-input v-model="temp.orderID" />
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.title`)"
-					prop="title"
-				>
-					<el-input v-model="temp.title" />
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.client`)"
-					prop="client"
-				>
-					<el-input v-model="temp.client" />
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.specs`)"
-					prop="specs"
-				>
-					<el-input v-model="temp.specs">
-						<template #append>mm</template>
-					</el-input>
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.quantity`)"
-					prop="quantity"
-				>
-					<el-input v-model="temp.quantity" />
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.price`)"
-					prop="price"
-				>
-					<el-input v-model="temp.price" />
-				</el-form-item>
-				<el-form-item
-					:label="t(`orders.mass`)"
-					prop="mass"
-				>
-					<el-input v-model="temp.mass">
-						<template #append>kg</template>
-					</el-input>
-				</el-form-item>
+						<template #default="{ row }"> {{ `${row.specs1} × ${row.specs2}` }} </template>
+					</el-table-column>
+
+					<el-table-column
+						class-name="status-col"
+						:label="t(`orders.price`)"
+						prop="price"
+						min-width="80"
+					/>
+
+					<el-table-column
+						class-name="status-col"
+						:label="t(`orders.quantity`)"
+						min-width="80"
+					>
+						<template #default="{ row }">
+							{{ row.quantity + ' /件' }}
+						</template>
+					</el-table-column>
+
+					<el-table-column
+						class-name="status-col"
+						:label="t(`orders.total`)"
+						min-width="90"
+					>
+						<template #default="{ row }">
+							{{ (row.price * row.quantity).toFixed(2) }}
+						</template>
+					</el-table-column>
+
+					<el-table-column
+						class-name="status-col"
+						:label="t(`orders.area`)"
+						min-width="105"
+					>
+						{{ temp.area }}
+					</el-table-column>
+				</el-table>
 			</el-form>
+
 			<template #footer>
-				<div
-					slot="footer"
-					class="dialog-footer"
-				>
-					<el-button
-						type="success"
-						style="float: left"
-						>{{ t(`button.scan`) }}</el-button
-					>
-					<el-button @click="dialogFormVisible = false">{{ t(`button.delete`) }}</el-button>
-					<el-button
-						type="primary"
-						@click="dialogStatus === 'create' ? create(dataForm) : update(dataForm)"
-						>{{ t(`button.confirm`) }}</el-button
-					>
+				<div class="dialog-footer">
+					<template v-if="dialogStatus === 'audit'">
+						<el-button
+							type="success"
+							@click="audit(temp, 1)"
+							>{{ t(`button.pass`) }}</el-button
+						>
+						<el-button
+							type="danger"
+							@click="audit(temp, 2)"
+							>{{ t(`button.noPass`) }}</el-button
+						>
+					</template>
+					<el-button @click="dialogFormVisible = false">{{ t(`button.cancel`) }}</el-button>
 				</div>
 			</template>
 		</el-dialog>
@@ -137,7 +246,7 @@
 </template>
 
 <script lang="ts" setup>
-import { createOutboundOrder, updateOutboundOrder } from './service'
+import { auditOrder, getAllData, getDetail } from './service'
 
 import TabPane from './components/TabPane.vue'
 import HeaderFilter from '@/components/HeaderFilter/index.vue'
@@ -145,9 +254,7 @@ import HeaderFilter from '@/components/HeaderFilter/index.vue'
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
 
-import { config } from './config'
-
-import { OutboundData, SearchData } from './data.d'
+import { OutboundData, OutboundDetail, SearchData } from './data.d'
 import { Search } from '../types/data'
 
 import { useAliveStore } from '@/store/alive'
@@ -156,7 +263,10 @@ import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import i18n from '@/lang'
 import { useRoute, useRouter } from 'vue-router'
-import { ElNotification, FormInstance } from 'element-plus'
+import { ElNotification } from 'element-plus'
+
+import { config } from './config'
+import { useMap } from './mixin'
 
 const { t } = useI18n()
 
@@ -169,24 +279,8 @@ const aliveComp = computed(() => {
 	return aliveStore.aliveComp
 })
 
-// form rules
-const rules = reactive({
-	area: [{ required: true, message: 'area is required', trigger: 'change' }],
-	orderID: [{ required: true, message: 'orderID is required', trigger: 'blur' }],
-	title: [{ required: true, message: 'title is required', trigger: 'blur' }],
-	client: [{ required: true, message: 'client is required', trigger: 'blur' }],
-	specs: [{ required: true, message: 'specs is required', trigger: 'blur' }],
-	quantity: [{ required: true, message: 'quantity is required', trigger: 'blur' }],
-	price: [{ required: true, message: 'price is required', trigger: 'blur' }],
-	mass: [{ required: true, message: 'mass is required', trigger: 'blur' }]
-})
-// warehouse info
-const tabMapOptions = ref<{ [index: string]: string }[]>([
-	{ key: 'area-1', label: 'area-1' },
-	{ key: 'area-2', label: 'area-2' },
-	{ key: 'area-3', label: 'area-3' },
-	{ key: 'area-4', label: 'area-4' }
-])
+// variable mapping
+const { type, status, title, area } = useMap()
 
 // init view
 const activeName = ref<string>('area-1')
@@ -199,10 +293,11 @@ if (tab) {
 }
 
 // header event
+// header event
 const list = reactive<Search>({
-	title: undefined,
+	type: undefined,
 	orderID: undefined,
-	sort: '+id'
+	status: undefined
 })
 const buttonClick = (data: SearchData, e: string) => {
 	switch (e) {
@@ -220,19 +315,22 @@ const buttonClick = (data: SearchData, e: string) => {
 
 // mount times
 const createdTimes = ref<number>(0)
-const showCreatedTimes = (data: OutboundData[]) => {
+const showCreatedTimes = () => {
 	createdTimes.value++
-	allData.value = data
 }
 
 // export data
 const allData = ref<OutboundData[] | null>(null)
 const downloadLoading = ref<boolean>(false)
-const handleDownload = throttle(function () {
+const handleDownload = throttle(async function () {
 	downloadLoading.value = true
+
+	const res = await getAllData(activeName.value)
+	allData.value = res.data
+
 	import('@/vendor/Export2Excel').then(excel => {
-		const tHeader = ['orderID', 'title', 'data', 'specs', 'quantity', 'price', 'mass']
-		const filterVal = ['orderID', 'title', 'timestamp', 'specs', 'quantity', 'price', 'mass']
+		const tHeader = ['orderID', 'title', 'data', 'type', 'client', 'documenter', 'status', 'auditor']
+		const filterVal = ['orderID', 'title', 'timestamp', 'type', 'client', 'documenter', 'status', 'auditor']
 		const data = formatJson(filterVal)
 		excel.export_json_to_excel({
 			header: tHeader,
@@ -245,10 +343,15 @@ const handleDownload = throttle(function () {
 const formatJson = (filterVal: string[]) => {
 	return allData.value!.map(v =>
 		filterVal.map(j => {
-			if (j === 'timestamp') {
-				return parseTime(v[j])
-			} else {
-				return v[j]
+			switch (j) {
+				case 'timestamp':
+					return parseTime(v[j], '{y}-{m}-{d}')
+				case 'type':
+					return type.value[v[j as string]]
+				case 'status':
+					return status.value[v[j]][0]
+				default:
+					return v[j]
 			}
 		})
 	)
@@ -264,93 +367,63 @@ const handleFilter = () => {
 const dataForm = ref()
 const dialogStatus = ref<string>('')
 const dialogFormVisible = ref<boolean>(false)
-const textMap = reactive<{ [index: string]: string }>({
-	update: 'Edit',
-	create: 'Create'
-})
-const temp = reactive<OutboundData>({
-	id: undefined,
+const temp = reactive<OutboundDetail>({
+	id: -1,
 	orderID: '',
-	specs: '',
-	quantity: undefined,
-	price: undefined,
-	client: '',
-	title: '',
+	status: -1,
 	area: '',
-	mass: undefined,
-	timestamp: ''
+	type: -1,
+	timestamp: '',
+	client: '',
+	documenter: '',
+	number: undefined,
+	remark: '',
+	contact: '',
+	reason: '',
+	production: [],
+	auditor: ''
 })
-const resetTemp = () => {
-	Object.assign(temp, {
-		id: undefined,
-		orderID: '',
-		specs: '',
-		timestamp: new Date(),
-		title: '',
-		client: '',
-		quantity: undefined,
-		price: undefined,
-		area: '',
-		mass: undefined
-	})
-}
 const handleCreate = () => {
-	resetTemp()
-	dialogStatus.value = 'create'
+	router.push({ path: '/order/outbound/create_update' })
+}
+const handleUpdate = (id: number) => {
+	router.push({ path: '/order/outbound/create_update', query: { id } })
+}
+
+// order detail
+const toDetail = async (id: number) => {
+	const res = await getDetail(id)
+	Object.assign(temp, res.data)
+	dialogStatus.value = 'detail'
 	dialogFormVisible.value = true
 	nextTick(() => {
 		dataForm.value.clearValidate()
 	})
 }
-const create = (formEl: FormInstance | undefined) => {
-	if (!formEl) return
-	formEl.validate(async valid => {
-		if (valid) {
-			const res = await createOutboundOrder(temp)
 
-			if (res.code === 20000) {
-				dialogFormVisible.value = false
-				ElNotification({
-					title: 'Success',
-					// @ts-ignore
-					message: i18n.global.t(`tips.createMsg_success`),
-					type: 'success',
-					duration: 2000
-				})
-				// refresh the view
-				handleFilter()
-			}
-		}
-	})
-}
-const handleUpdate = (row: OutboundData) => {
-	Object.assign(temp, row) // copy obj
-	dialogStatus.value = 'update'
+// audit
+const handleAudit = async (id: number) => {
+	const res = await getDetail(id)
+	Object.assign(temp, res.data)
+	dialogStatus.value = 'audit'
 	dialogFormVisible.value = true
 	nextTick(() => {
 		dataForm.value.clearValidate()
 	})
 }
-const update = (formEl: FormInstance | undefined) => {
-	if (!formEl) return
-	formEl.validate(async valid => {
-		if (valid) {
-			const res = await updateOutboundOrder(temp)
-
-			if (res.code === 20000) {
-				dialogFormVisible.value = false
-				ElNotification({
-					title: 'Success',
-					// @ts-ignore
-					message: i18n.global.t(`tips.updateMsg_success`),
-					type: 'success',
-					duration: 2000
-				})
-				// refresh the view
-				handleFilter()
-			}
-		}
-	})
+const audit = async (detail: OutboundDetail, status: number) => {
+	const res = await auditOrder({ detail, status })
+	if (res.code === 20000) {
+		dialogFormVisible.value = false
+		ElNotification({
+			title: 'Success',
+			message: i18n.global.t(`tips.audit_success`),
+			type: 'success',
+			duration: 2000
+		})
+		// refresh the view
+		handleFilter()
+	}
 }
 </script>
 
