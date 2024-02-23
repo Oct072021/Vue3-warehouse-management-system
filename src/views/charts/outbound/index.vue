@@ -24,7 +24,7 @@ import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { AllData } from '../types/data.d'
-import { outboundTotal } from './api'
+import { getOutboundTotal } from './service'
 
 const { t } = useI18n()
 
@@ -51,7 +51,7 @@ const data = reactive<AllData>({
 })
 const getData = () => {
 	warehouse.value.forEach(async item => {
-		const res = await outboundTotal(item)
+		const res = await getOutboundTotal(item)
 		// data[item] = res.data
 		const { total, orders } = res.data
 		data[item].total = total
