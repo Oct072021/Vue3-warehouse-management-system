@@ -1,5 +1,5 @@
 export interface AllData {
-	[index: string]: Data
+	[index: string]: Omit<Data,'type'>
 }
 
 export interface Data {

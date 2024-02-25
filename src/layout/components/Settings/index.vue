@@ -4,15 +4,6 @@
 			<h3 class="drawer-title">{{ t(`settings.title`) }}</h3>
 
 			<div class="drawer-item">
-				<span>{{ t(`settings.color`) }}</span>
-				<!-- <theme-picker
-          style="height: 26px; margin: 0 8px 0 0"
-          @change="themeChange"
-        /> -->
-				theme-picker暂停开发
-			</div>
-
-			<div class="drawer-item">
 				<span>{{ t(`settings.tagsView`) }}</span>
 				<el-switch
 					v-model="tagsView"
@@ -45,8 +36,6 @@ import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-// import ThemePicker from '@/components/ThemePicker/index.vue'
-
 const { t } = useI18n()
 
 const settingsStore = useSettingsStore()
@@ -75,10 +64,6 @@ const sidebarLogo = computed({
 		settingsStore.changeSetting({ key: 'sidebarLogo', value: val })
 	}
 })
-
-const themeChange = (val: boolean) => {
-	settingsStore.changeSetting({ key: 'theme', value: val })
-}
 </script>
 
 <style lang="scss" scoped>
