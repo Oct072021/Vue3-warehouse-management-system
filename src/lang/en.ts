@@ -50,7 +50,8 @@ export default {
 		left: 'left',
 		all: 'all',
 		active: 'active',
-		completed: 'completed'
+		completed: 'completed',
+    inboundType:'Inbound Type'
 	},
 
 	// permission page

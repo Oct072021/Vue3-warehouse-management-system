@@ -1,8 +1,8 @@
 import { Http } from '@/utils/request'
-import { SearchList, StockData } from './data.d'
+import { SearchList, Stock, StockData } from './data.d'
 
 export function fetchList(params?: SearchList) {
-	return Http.getRequest<StockData>('/vue-element-admin/stock/list', { params })
+	return Http.getRequest<Stock>('/vue-element-admin/stock/list', { params })
 }
 
 export function fetchDetail(id: number) {

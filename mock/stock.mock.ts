@@ -42,7 +42,6 @@ export default defineMock([
 					data: {
 						total: mockList.length,
 						items: pageList,
-						allItems: mockList
 					}
 				})
 			)

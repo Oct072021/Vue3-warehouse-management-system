@@ -21,7 +21,7 @@
 				:xl="{ span: 12 }"
 				style="padding-right: 8px; margin-bottom: 30px"
 			>
-				<TransactionTable />
+				<CircleChart :data="inboundType" />
 			</el-col>
 
 			<el-col
@@ -53,12 +53,12 @@
 import GithubCorner from '@/components/GithubCorner/index.vue'
 import PanelGroup from './components/PanelGroup.vue'
 import LineChart from './components/LineChart.vue'
-import TransactionTable from './components/TransactionTable.vue'
+import CircleChart from './components/CircleChart.vue'
 import TodoList from './components/TodoList/index.vue'
 import BoxCard from './components/BoxCard.vue'
 
-import { outboundTotal } from '@/views/charts/outbound/api'
-import { inboundTotal } from '@/views/charts/inbound/api'
+import { getOutboundTotal } from '@/views/charts/outbound/service'
+import { getInboundTotal } from '@/views/charts/inbound/service'
 
 import { LineChartData } from './data.d'
 
@@ -78,24 +78,30 @@ const nowType = ref<string>('profit')
 const profit = ref<number>()
 const allOrders = ref<number>()
 const nowDate = ref<Date>(new Date())
+const inboundType = reactive<{ [index: string]: number }>({})
 
 const handleSetLineChartData = (type: string) => {
 	nowType.value = type
 }
 const getInboundData = async () => {
-	const res = await inboundTotal()
-	const { orders, total } = res.data
+	const res = await getInboundTotal()
+
+	const { orders, total, type } = res.data
 	// Get PanelGroup Data
 	profit.value! -= eval(total.join('+'))
 	allOrders.value += eval(orders.join('+'))
-	// Get Chart Data
+	// Get LineChart Data
 	const nowMonth = nowDate.value.getMonth() + 1
 	const base = nowMonth > 3 && nowMonth < 9 ? nowMonth : nowMonth <= 3 ? 3 : 9
 	lineChartData.profit.inbound = total.slice(base - 3, base + 3)
 	lineChartData.orders.inbound = orders.slice(base - 3, base + 3)
+
+	// Get CircleChart Data
+	Object.assign(inboundType, type)
 }
 const getOutboundData = async () => {
-	const res = await outboundTotal()
+	const res = await getOutboundTotal()
+
 	const { orders, total } = res.data
 	// Get PanelGroup Data
 	profit.value = eval(total.join('+'))

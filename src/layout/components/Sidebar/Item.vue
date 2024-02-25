@@ -11,14 +11,14 @@ export default {
 			default: ''
 		}
 	},
-	setup(props, { slots }) {
+	setup(props: any) {
 		const render = () => {
 			const { icon } = props
 			const vnodes: VNode[] = []
 
 			if (icon) {
 				if (icon.includes('el-icon')) {
-					const icons= ElementPlusIconsVue
+					const icons = ElementPlusIconsVue
 					const compName = icon.charAt(8).toUpperCase() + icon.slice(9)
 					const temp = h(ElIcon, {}, [h(icons[compName])])
 					vnodes.push(temp)

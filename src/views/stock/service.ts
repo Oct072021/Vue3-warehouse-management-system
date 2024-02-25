@@ -1,8 +1,8 @@
 import { fetchList, remove, updateInfo } from './api'
 import { SearchList, StockData } from './data.d'
 
-export function getStockData(searchList?: SearchList) {
-	const res = fetchList(searchList)
+export async function getStockData(searchList?: SearchList) {
+	const res =await fetchList(searchList)
 	return res
 }
 

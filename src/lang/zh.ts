@@ -50,7 +50,8 @@ export default {
 		left: '未完成',
 		all: '全部',
 		active: '待做',
-		completed: '已完成'
+		completed: '已完成',
+		inboundType: '入库类型数据'
 	},
 
 	// permission page

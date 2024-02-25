@@ -144,16 +144,29 @@ export default defineMock([
 				ordersArr.push(monthData.length)
 				// Get the monthly inbound total amount
 				let temp = 0
-				monthData.forEach(item => (temp += parseFloat(item.price * item.quantity + '')))
+				monthData.forEach(item => {
+					let totalPrice = 0
+					item.production.forEach(prod => {
+						totalPrice += parseFloat(prod.price * prod.quantity + '')
+					})
+					temp += totalPrice
+				})
 				totalArr.push(parseInt(temp + ''))
 			}
+
+			const type = {}
+			inboundArr.forEach(item => {
+				if (!type[item.type]) type[item.type] = 0
+				type[item.type]++
+			})
 
 			res.end(
 				JSON.stringify({
 					code: 20000,
 					data: {
 						total: totalArr,
-						orders: ordersArr
+						orders: ordersArr,
+						type
 					}
 				})
 			)
@@ -314,7 +327,13 @@ export default defineMock([
 				ordersArr.push(monthData.length)
 				// Get the monthly outbound total amount
 				let temp = 0
-				monthData.forEach(item => (temp += parseFloat(item.price * item.quantity + '')))
+				monthData.forEach(item => {
+					let totalPrice = 0
+					item.production.forEach(prod => {
+						totalPrice += parseFloat(prod.price * prod.quantity + '')
+					})
+					temp += totalPrice
+				})
 				totalArr.push(parseInt(temp + ''))
 			}
 			res.end(
@@ -404,7 +423,7 @@ export default defineMock([
 		method: 'DELETE',
 		response(req, res, next) {
 			const index = outboundArr.findIndex(v => v.id === req.query.id)
-      
+
 			outboundArr.splice(index, 1)
 			res.end(
 				JSON.stringify({

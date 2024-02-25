@@ -179,7 +179,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getStockData, updateStockInfo, removeStock } from './service'
+import { updateStockInfo, removeStock, getStockData } from './service'
 import { Options, SearchList, StockData } from './data.d'
 
 import { parseTime } from '@/utils'
@@ -193,7 +193,8 @@ import { config } from './config'
 import { useI18n } from 'vue-i18n'
 import i18n from '@/lang'
 import { nextTick, reactive, ref, watch } from 'vue'
-import { ElNotification, FormInstance } from 'element-plus'
+import { ElNotification, FormInstance, Sort, SortBy } from 'element-plus'
+import { SortOrder } from 'element-plus/es/components/table-v2/src/constants'
 
 const { t } = useI18n()
 
@@ -261,8 +262,8 @@ const getList = async () => {
 }
 
 // sort
-const sortChange = (data: StockData) => {
-	const { prop, order } = data
+const sortChange = ({ prop, order }: any) => {
+	// const { prop, order } = data
 	if (prop === 'id') {
 		sortByID(order)
 	}

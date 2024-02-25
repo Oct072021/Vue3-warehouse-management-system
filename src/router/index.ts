@@ -120,15 +120,15 @@ export const asyncRoutes: RouteRecordRaw[] = [
 					roles: ['admin', 'dataOperator', 'accountant']
 				}
 			},
-			{
-				path: 'role',
-				component: () => import('@/views/permission/role.vue'),
-				name: 'RolePermission',
-				meta: {
-					title: 'RolePermission',
-					roles: ['admin']
-				}
-			}
+			// {
+			// 	path: 'role',
+			// 	component: () => import('@/views/permission/role.vue'),
+			// 	name: 'RolePermission',
+			// 	meta: {
+			// 		title: 'RolePermission',
+			// 		roles: ['admin']
+			// 	}
+			// }
 		]
 	},
 

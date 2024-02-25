@@ -5,4 +5,5 @@ export interface AllData {
 export interface Data {
 	total: number[]
 	orders: number[]
+	type: { [index: string]: number }
 }

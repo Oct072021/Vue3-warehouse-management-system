@@ -10,6 +10,11 @@ export interface StockData {
 	mass: number | undefined
 }
 
+export interface Stock{
+  items: StockData[]
+	total: number
+}
+
 export interface SearchList implements Pagination {
 	limit?: number
 	page?: number
