@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', {
 		name: '',
 		avatar: '',
 		introduction: '',
-		roles: [],
+		roles: []
 	}),
 	actions: {
 		login(userInfo: UserInfo) {
@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user', {
 			return new Promise((resolve, reject) => {
 				Http.postRequest<LoginResponse>('/vue-element-admin/user/login', {
 					username: username.trim(),
-					password: password,
+					password: password
 				})
 					.then(response => {
 						const { data, code } = response
@@ -127,6 +127,6 @@ export const useUserStore = defineStore('user', {
 			// reset visited views and cached views
 			tagViewStore.delAllViews()
 			// dispatch('tagsView/delAllViews', null, { root: true })
-		},
-	},
+		}
+	}
 })

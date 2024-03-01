@@ -47,7 +47,7 @@ const props = defineProps<{
 }>()
 
 const title = ref<string>('Vue3 Element Admin')
-const logo = ref<string>('/favicon.svg')
+const logo = ref<string>('./favicon.svg')
 </script>
 
 <style lang="scss" scoped>

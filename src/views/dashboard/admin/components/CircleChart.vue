@@ -26,7 +26,7 @@ const props = withDefaults(
 		id?: string
 		width?: string
 		height?: string
-		backgroundColor: string
+		backgroundColor?: string
 		data: { [index: string]: number }
 	}>(),
 	{

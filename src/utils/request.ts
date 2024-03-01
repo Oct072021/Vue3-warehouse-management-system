@@ -9,14 +9,13 @@ import { Response } from '@/types/httpRes.d'
 const service: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_VUE_APP_BASE_API, // url = base url + request url
 	// withCredentials: true, // send cookies when cross-domain requests
-	timeout: 5000, // request timeout
+	timeout: 5000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
 	(config: AxiosRequestConfig) => {
 		// do something before request is sent
-
 		const userStore = useUserStore()
 		if (userStore.token) {
 			// let each request carry token
@@ -54,7 +53,7 @@ service.interceptors.response.use(
 			ElMessage({
 				message: res.message || 'Error',
 				type: 'error',
-				duration: 5 * 1000,
+				duration: 5 * 1000
 			})
 
 			// 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
@@ -66,7 +65,7 @@ service.interceptors.response.use(
 					{
 						confirmButtonText: 'Re-Login',
 						cancelButtonText: 'Cancel',
-						type: 'warning',
+						type: 'warning'
 					}
 				).then(() => {
 					userStore.resetToken().then(() => {
@@ -80,11 +79,11 @@ service.interceptors.response.use(
 		}
 	},
 	error => {
-		console.log('err' + error) // for debug
+		console.log(error) // for debug
 		ElMessage({
 			message: error.message,
 			type: 'error',
-			duration: 5 * 1000,
+			duration: 5 * 1000
 		})
 		return Promise.reject(error)
 	}
@@ -106,7 +105,7 @@ export const Http = {
 
 	deleteRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<Response<T>> {
 		return service.delete(url, config)
-	},
+	}
 }
 
 export default service

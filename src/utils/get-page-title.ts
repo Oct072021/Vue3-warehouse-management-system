@@ -14,10 +14,10 @@ const title = defaultSettings.title || 'Vue Element Admin'
 // }
 
 export default function getPageTitle(key: string) {
-  const hasKey = te(`route.${key}`)
-  if (hasKey) {
-    const pageName = t(`route.${key}`)
-    return `${pageName} - ${title}`
-  }
-  return `${title}`
+	const hasKey = te(`route.${key}`)
+	if (hasKey) {
+		const pageName = t(`route.${key}`)
+		return `${pageName} - ${title}`
+	}
+	return `${title}`
 }

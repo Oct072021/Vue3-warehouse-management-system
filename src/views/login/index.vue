@@ -135,11 +135,10 @@ const route = useRoute()
 const redirect = ref<LocationQueryValue | LocationQueryValue[]>()
 const otherQuery = ref<LocationQueryRaw>({})
 
-const xx = ref<string>('admin')
 // login related
 const loginForm = reactive<LoginForm>({
 	username: 'admin',
-	password: '111111',
+	password: '111111'
 })
 const loginFormRef = ref()
 const usernameRef = ref()
@@ -161,7 +160,7 @@ const validatePassword = (rule: FormRules, value: string, callback: Function) =>
 }
 const loginRules = reactive({
 	username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-	password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+	password: [{ required: true, trigger: 'blur', validator: validatePassword }]
 })
 const passwordType = ref<string>('password')
 const showPwd = () => {
@@ -186,7 +185,7 @@ const handleLogin = (formEl: FormInstance | undefined) => {
 					// return value => next page
 					router.push({
 						path: (redirect.value as LocationQueryValue) || '/',
-						query: otherQuery.value,
+						query: otherQuery.value
 					})
 					loading.value = false
 				})

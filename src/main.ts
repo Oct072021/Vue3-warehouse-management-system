@@ -12,12 +12,18 @@ import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia'
 
-import SvgIcon from '@/components/SvgIcon/index.vue'// global components
+import SvgIcon from '@/components/SvgIcon/index.vue' // global components
 import 'virtual:svg-icons-register'
 
 import './permission'
 
 import i18n from './lang'
+
+import { setupProdMockServer } from '../mock/mock-server'
+
+if (import.meta.env.VITE_ENV === 'production') {
+	setupProdMockServer()
+}
 
 const app = createApp(App)
 
@@ -28,7 +34,7 @@ app.use(router)
 app.use(i18n)
 app.use(ElementPlus)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
+	app.component(key, component)
 }
 
 app.component('SvgIcon', SvgIcon)

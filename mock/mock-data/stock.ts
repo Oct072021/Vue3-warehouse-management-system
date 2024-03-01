@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { defineMock } from 'vite-plugin-mock-dev-server'
+import { MockMethod } from 'vite-plugin-mock'
 
 const stockArr: any[] = []
 
@@ -17,12 +17,12 @@ for (let i = 1; i <= 700; i++) {
 	)
 }
 
-export default defineMock([
+export default [
 	{
 		url: '/dev-api/vue-element-admin/stock/list',
-		method: 'GET',
-		response(req, res, next) {
-			const { area, title, page = 1, limit = 20, sort } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { area, title, page = 1, limit = 20, sort } = query
 			// simulate search
 			let mockList = stockArr.filter(item => {
 				if (area && item.area !== area) return false
@@ -36,31 +36,27 @@ export default defineMock([
 
 			// Pagination
 			const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {
-						total: mockList.length,
-						items: pageList,
-					}
-				})
-			)
+			return {
+				code: 20000,
+				data: {
+					total: mockList.length,
+					items: pageList
+				}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/stock/detail',
-		method: 'GET',
-		response(req, res, next) {
-			const { id } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { id } = query
 			for (const item of stockArr) {
 				if (item.id === +id) {
-					res.end(
-						JSON.stringify({
-							code: 20000,
-							data: item
-						})
-					)
+					return {
+						code: 20000,
+						data: item
+					}
 				}
 			}
 		}
@@ -68,33 +64,31 @@ export default defineMock([
 
 	{
 		url: '/dev-api/vue-element-admin/stock/update',
-		method: 'POST',
-		response(req, res, next) {
-			const index = stockArr.findIndex(v => v.id === req.body.id)
-			stockArr.splice(index, 1, req.body)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+		method: 'post',
+		response: ({ body }) => {
+			const index = stockArr.findIndex(v => v.id === body.id)
+			stockArr.splice(index, 1, body)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/stock/remove',
-		method: 'POST',
-		response(req, res, next) {
-			const index = stockArr.findIndex(v => v.id === req.body.id)
+		method: 'post',
+		response: ({ body }) => {
+			const index = stockArr.findIndex(v => v.id === body.id)
 			stockArr.splice(index, 1)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	}
-])
+] as MockMethod[]

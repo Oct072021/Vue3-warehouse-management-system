@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { defineMock } from 'vite-plugin-mock-dev-server'
+import { MockMethod } from 'vite-plugin-mock'
 
 const outboundArr: any[] = []
 const inboundArr: any[] = []
@@ -76,13 +76,13 @@ for (let i = 1; i <= 600; i++) {
 	)
 }
 
-export default defineMock([
+export default [
 	/**--------------------------------------------  inbound module  --start  --------------------------------------------------------**/
 	{
 		url: '/dev-api/vue-element-admin/inbound/list',
-		method: 'GET',
-		response(req, res, next) {
-			const { orderID, area, type, page = 1, limit = 20, status } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { orderID, area, type, page = 1, limit = 20, status } = query
 			// simulate search
 			let mockList = inboundArr.filter(item => {
 				if (area && item.area !== area) return false
@@ -94,43 +94,39 @@ export default defineMock([
 
 			// Pagination
 			const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {
-						total: mockList.length,
-						items: pageList
-					}
-				})
-			)
+			return {
+				code: 20000,
+				data: {
+					total: mockList.length,
+					items: pageList
+				}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/all',
-		method: 'GET',
-		response(req, res, next) {
-			const { area } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { area } = query
 			// simulate search
 			let mockList = inboundArr.filter(item => {
 				if (area && item.area !== area) return false
 				return true
 			})
 
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: mockList
-				})
-			)
+			return {
+				code: 20000,
+				data: mockList
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/total',
-		method: 'GET',
-		response(req, res, next) {
-			const { area } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { area } = query
 			let mockList = inboundArr.filter(item => {
 				if (area && item.area !== area) return false
 				return true
@@ -140,13 +136,13 @@ export default defineMock([
 			for (let i = 1; i < 13; i++) {
 				// Filter out the monthly data
 				const monthData = mockList.filter((item, index) => parseInt(item.timestamp.slice(5, 7)) === i)
-				// Get the monthly order quantity
+				// get the monthly order quantity
 				ordersArr.push(monthData.length)
-				// Get the monthly inbound total amount
+				// get the monthly inbound total amount
 				let temp = 0
 				monthData.forEach(item => {
 					let totalPrice = 0
-					item.production.forEach(prod => {
+					item.production.forEach((prod: any) => {
 						totalPrice += parseFloat(prod.price * prod.quantity + '')
 					})
 					temp += totalPrice
@@ -160,32 +156,28 @@ export default defineMock([
 				type[item.type]++
 			})
 
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {
-						total: totalArr,
-						orders: ordersArr,
-						type
-					}
-				})
-			)
+			return {
+				code: 20000,
+				data: {
+					total: totalArr,
+					orders: ordersArr,
+					type
+				}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/detail',
-		method: 'GET',
-		response(req, res, next) {
-			const { id } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { id } = query
 			for (const item of inboundArr) {
 				if (item.id === +id) {
-					res.end(
-						JSON.stringify({
-							code: 20000,
-							data: item
-						})
-					)
+					return {
+						code: 20000,
+						data: item
+					}
 				}
 			}
 		}
@@ -193,69 +185,65 @@ export default defineMock([
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/audit',
-		method: 'PUT',
-		response(req, res, next) {
-			const { detail, status } = req.body
+		method: 'put',
+		response: ({ body }) => {
+			const { detail, status } = body
 			const index = inboundArr.findIndex(v => v.id === detail.id)
 			detail.status = status
 			inboundArr.splice(index, 1, detail)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {},
-					message: 'success'
-				})
-			)
+
+			return {
+				code: 20000,
+				data: {},
+				message: 'success'
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/create',
-		method: 'POST',
-		response(req, res, next) {
-			req.body.id = inboundArr.length + 1
-			req.body['status'] = 0
-			req.body.orderID = `RKD${10000 + inboundArr.length + 1}`
-			inboundArr.unshift(req.body)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+		method: 'post',
+		response: ({ body }) => {
+			body.id = inboundArr.length + 1
+			body['status'] = 0
+			body.orderID = `RKD${10000 + inboundArr.length + 1}`
+			inboundArr.unshift(body)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/update',
-		method: 'POST',
-		response(req, res, next) {
-			const index = inboundArr.findIndex(v => v.id === req.body.id)
-			inboundArr.splice(index, 1, req.body)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+		method: 'post',
+		response: ({ body }) => {
+			const index = inboundArr.findIndex(v => v.id === body.id)
+			inboundArr.splice(index, 1, body)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/remove',
-		method: 'DELETE',
-		response(req, res, next) {
-			const index = inboundArr.findIndex(v => v.id === req.query.id)
+		method: 'delete',
+		response: ({ query }) => {
+			const index = inboundArr.findIndex(v => v.id == query.id)
 			inboundArr.splice(index, 1)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	},
 	/**--------------------------------------------  inbound module  --end  ----------------------------------------------------------**/
@@ -263,9 +251,9 @@ export default defineMock([
 	/**--------------------------------------------  outbound module  --start  -------------------------------------------------------**/
 	{
 		url: '/dev-api/vue-element-admin/outbound/list',
-		method: 'GET',
-		response(req, res, next) {
-			const { orderID, area, type, page = 1, limit = 20, status } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { orderID, area, type, page = 1, limit = 20, status } = query
 			// simulate search
 			let mockList = outboundArr.filter(item => {
 				if (area && item.area !== area) return false
@@ -277,43 +265,39 @@ export default defineMock([
 			// Pagination
 			const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
 
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {
-						total: mockList.length,
-						items: pageList
-					}
-				})
-			)
+			return {
+				code: 20000,
+				data: {
+					total: mockList.length,
+					items: pageList
+				}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/inbound/all',
-		method: 'GET',
-		response(req, res, next) {
-			const { area } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { area } = query
 			// simulate search
 			let mockList = outboundArr.filter(item => {
 				if (area && item.area !== area) return false
 				return true
 			})
 
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: mockList
-				})
-			)
+			return {
+				code: 20000,
+				data: mockList
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/total',
-		method: 'GET',
-		response(req, res, next) {
-			const { area } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { area } = query
 			let mockList = outboundArr.filter(item => {
 				if (area && item.area !== area) return false
 				return true
@@ -323,44 +307,41 @@ export default defineMock([
 			for (let i = 1; i < 13; i++) {
 				// Filter out the monthly data
 				const monthData = mockList.filter((item, index) => parseInt(item.timestamp.slice(5, 7)) === i)
-				// Get the monthly order quantity
+				// get the monthly order quantity
 				ordersArr.push(monthData.length)
-				// Get the monthly outbound total amount
+				// get the monthly outbound total amount
 				let temp = 0
 				monthData.forEach(item => {
 					let totalPrice = 0
-					item.production.forEach(prod => {
+					item.production.forEach((prod: any) => {
 						totalPrice += parseFloat(prod.price * prod.quantity + '')
 					})
 					temp += totalPrice
 				})
 				totalArr.push(parseInt(temp + ''))
 			}
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {
-						total: totalArr,
-						orders: ordersArr
-					}
-				})
-			)
+
+			return {
+				code: 20000,
+				data: {
+					total: totalArr,
+					orders: ordersArr
+				}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/detail',
-		method: 'GET',
-		response(req, res, next) {
-			const { id } = req.query
+		method: 'get',
+		response: ({ query }) => {
+			const { id } = query
 			for (const item of outboundArr) {
 				if (item.id === +id) {
-					res.end(
-						JSON.stringify({
-							code: 20000,
-							data: item
-						})
-					)
+					return {
+						code: 20000,
+						data: item
+					}
 				}
 			}
 		}
@@ -368,73 +349,69 @@ export default defineMock([
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/audit',
-		method: 'PUT',
-		response(req, res, next) {
-			const { detail, status } = req.body
+		method: 'put',
+		response: ({ body }) => {
+			const { detail, status } = body
 			const index = outboundArr.findIndex(v => v.id === detail.id)
 			detail.status = status
 			outboundArr.splice(index, 1, detail)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					data: {},
-					message: 'success'
-				})
-			)
+
+			return {
+				code: 20000,
+				data: {},
+				message: 'success'
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/create',
-		method: 'POST',
-		response(req, res, next) {
-			req.body.id = outboundArr.length + 1
-			req.body['status'] = 0
-			req.body.orderID = `RKD${10000 + outboundArr.length + 1}`
-			outboundArr.unshift(req.body)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+		method: 'post',
+		response: ({ body }) => {
+			body.id = outboundArr.length + 1
+			body['status'] = 0
+			body.orderID = `RKD${10000 + outboundArr.length + 1}`
+			outboundArr.unshift(body)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/update',
-		method: 'POST',
-		response(req, res, next) {
-			const index = outboundArr.findIndex(v => v.id === req.body.id)
-			outboundArr.splice(index, 1, req.body)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+		method: 'post',
+		response: ({ body }) => {
+			const index = outboundArr.findIndex(v => v.id === body.id)
+			outboundArr.splice(index, 1, body)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	},
 
 	{
 		url: '/dev-api/vue-element-admin/outbound/remove',
-		method: 'DELETE',
-		response(req, res, next) {
-			const index = outboundArr.findIndex(v => v.id === req.query.id)
+		method: 'delete',
+		response: ({ query }) => {
+			const index = outboundArr.findIndex(v => v.id == query.id)
 
 			outboundArr.splice(index, 1)
-			res.end(
-				JSON.stringify({
-					code: 20000,
-					message: 'success',
-					data: {}
-				})
-			)
+
+			return {
+				code: 20000,
+				message: 'success',
+				data: {}
+			}
 		}
 	}
 	/**--------------------------------------------  outbound module  --end  ---------------------------------------------------------**/
-])
+] as MockMethod[]
 
 export { inboundArr, outboundArr }
