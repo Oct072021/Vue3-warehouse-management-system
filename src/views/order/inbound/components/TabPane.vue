@@ -171,6 +171,7 @@ const emit = defineEmits<{
 watch(
 	() => props.searchList,
 	() => {
+		Object.assign(listQuery, props.searchList)
 		resetAlive_search()
 	},
 	{ deep: true }
@@ -181,7 +182,7 @@ const { type, status } = useMap()
 
 // init view
 const list = ref<InboundData[] | null>(null)
-let listQuery = reactive<SearchData>({
+const listQuery = reactive<SearchData>({
 	page: 1,
 	limit: 10,
 	type: undefined,
@@ -192,8 +193,7 @@ let listQuery = reactive<SearchData>({
 const loading = ref<boolean>(false)
 const total = ref<number>(0)
 const getList = async (pagination?: Pagination) => {
-	if (pagination) listQuery = { ...listQuery, ...pagination }
-	listQuery = { ...listQuery, ...props.searchList }
+	if (pagination) Object.assign(listQuery, pagination)
 
 	loading.value = true
 
