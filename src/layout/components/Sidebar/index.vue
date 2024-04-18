@@ -10,7 +10,6 @@
 				:collapse="isCollapse"
 				:background-color="_variables.menuBg"
 				:text-color="_variables.menuText"
-				:unique-opened="false"
 				:active-text-color="_variables.menuActiveText"
 				:collapse-transition="false"
 				mode="vertical"

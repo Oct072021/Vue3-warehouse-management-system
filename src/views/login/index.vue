@@ -135,7 +135,7 @@ const route = useRoute()
 const redirect = ref<LocationQueryValue | LocationQueryValue[]>()
 const otherQuery = ref<LocationQueryRaw>({})
 
-// login related
+// login
 const loginForm = reactive<LoginForm>({
 	username: 'admin',
 	password: '111111'

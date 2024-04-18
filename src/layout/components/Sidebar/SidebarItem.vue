@@ -15,9 +15,7 @@
 					:index="resolvePath(onlyOneChild.path)"
 					:class="{ 'submenu-title-noDropdown': !isNest }"
 				>
-					<Item
-						:icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-					/>
+					<Item :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
 					<template #title>
 						<span>{{ generateTitle(onlyOneChild.meta.title) }}</span>
 					</template>
@@ -36,7 +34,7 @@
 					v-if="item.meta"
 					:icon="item.meta && (item.meta.icon as string)"
 				/>
-				<span >{{ item.meta && generateTitle(item.meta.title as string) }}</span>
+				<span>{{ item.meta && generateTitle(item.meta.title as string) }}</span>
 			</template>
 			<SidebarItem
 				v-for="child in item.children"
@@ -67,10 +65,12 @@ const props = withDefaults(
 		item: RouteRecordRaw
 		isNest?: boolean
 		basePath?: string
+		class?: string
 	}>(),
 	{
 		isNest: false,
-		basePath: ''
+		basePath: '',
+		class: ''
 	}
 )
 
