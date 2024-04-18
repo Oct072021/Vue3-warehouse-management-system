@@ -104,7 +104,7 @@ const avatar = computed(() => {
 		margin: auto;
 		box-shadow: none !important;
 
-		::v-deep .pan-info {
+		:deep(.pan-info) {
 			box-shadow: none !important;
 		}
 	}

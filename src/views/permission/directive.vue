@@ -149,7 +149,7 @@ const handleRolesChange = () => {
 
 <style lang="scss" scoped>
 .app-container {
-	::v-deep .permission-alert {
+	:deep(.permission-alert) {
 		width: 340px;
 		margin-top: 15px;
 		background-color: #f0f9eb;
@@ -159,11 +159,11 @@ const handleRolesChange = () => {
 		display: inline-block;
 	}
 
-	::v-deep .permission-sourceCode {
+	:deep(.permission-sourceCode) {
 		margin-left: 15px;
 	}
 
-	::v-deep .permission-tag {
+	:deep(.permission-tag) {
 		background-color: #ecf5ff;
 	}
 }
