@@ -19,7 +19,7 @@ import './permission'
 
 import i18n from './lang'
 
-import { setupProdMockServer } from '../mock/mock-server'
+import { setupProdMockServer } from '../mock/prod/mock-server'
 
 if (import.meta.env.VITE_ENV === 'production') {
 	setupProdMockServer()

@@ -36,7 +36,7 @@ const users = {
 export default [
 	// user login
 	{
-		url: '/dev-api/vue-element-admin/user/login',
+		url: '/vue-element-admin/user/login',
 		method: 'post',
 		response: ({ body }) => {
 			const { username } = body
@@ -59,7 +59,7 @@ export default [
 
 	// get user info
 	{
-		url: '/dev-api/vue-element-admin/user/info',
+		url: '/vue-element-admin/user/info',
 		method: 'get',
 		response: ({ query }) => {
 			const { token } = query
@@ -82,7 +82,7 @@ export default [
 
 	// user logout
 	{
-		url: '/dev-api/vue-element-admin/user/logout',
+		url: '/vue-element-admin/user/logout',
 		method: 'post',
 		response: () => {
 			return {

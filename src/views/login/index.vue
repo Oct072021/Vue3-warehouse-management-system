@@ -272,6 +272,7 @@ $cursor: #fff;
 			color: $light_gray;
 			caret-color: $cursor;
 			-webkit-appearance: none;
+			appearance: none;
 
 			&:-webkit-autofill {
 				box-shadow: 0 0 0px 1000px $bg inset !important;

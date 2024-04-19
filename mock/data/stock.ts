@@ -19,7 +19,7 @@ for (let i = 1; i <= 700; i++) {
 
 export default [
 	{
-		url: '/dev-api/vue-element-admin/stock/list',
+		url: '/vue-element-admin/stock/list',
 		method: 'get',
 		response: ({ query }) => {
 			const { area, title, page = 1, limit = 20, sort } = query
@@ -47,7 +47,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/stock/detail',
+		url: '/vue-element-admin/stock/detail',
 		method: 'get',
 		response: ({ query }) => {
 			const { id } = query
@@ -63,7 +63,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/stock/update',
+		url: '/vue-element-admin/stock/update',
 		method: 'post',
 		response: ({ body }) => {
 			const index = stockArr.findIndex(v => v.id === body.id)
@@ -78,7 +78,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/stock/remove',
+		url: '/vue-element-admin/stock/remove',
 		method: 'post',
 		response: ({ body }) => {
 			const index = stockArr.findIndex(v => v.id === body.id)

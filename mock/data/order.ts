@@ -19,6 +19,7 @@ for (let i = 1; i <= 1000; i++) {
 	const status = Mock.Random.integer(0, 2)
 	const auditor = status === 0 ? '' : 'Sam'
 	const reason = status === 0 ? '' : 'xxxxxxxxx'
+	const clientArr = ['66科技', 'xx科技', 'LA科技']
 	outboundArr.push(
 		Mock.mock({
 			id: i,
@@ -28,7 +29,7 @@ for (let i = 1; i <= 1000; i++) {
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			type: '@integer(0, 1)',
 			documenter: 'Sekiro',
-			client: '66科技',
+			client: clientArr[Mock.Random.integer(0, 2)],
 			status,
 			auditor,
 			contact: 'Higgs',
@@ -55,6 +56,7 @@ for (let i = 1; i <= 600; i++) {
 	const status = Mock.Random.integer(0, 2)
 	const auditor = status === 0 ? '' : 'Sam'
 	const reason = status === 0 ? '' : 'xxxxxxxxx'
+	const supplierArr = ['CA科技', 'ZV科技', '77科技']
 	inboundArr.push(
 		Mock.mock({
 			id: i,
@@ -63,7 +65,7 @@ for (let i = 1; i <= 600; i++) {
 			title: `设备箱 ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			type: '@integer(0, 1)',
-			supplier: 'xx科技',
+			supplier: supplierArr[Mock.Random.integer(0, 2)],
 			documenter: 'Sekiro',
 			status,
 			auditor,
@@ -79,7 +81,7 @@ for (let i = 1; i <= 600; i++) {
 export default [
 	/**--------------------------------------------  inbound module  --start  --------------------------------------------------------**/
 	{
-		url: '/dev-api/vue-element-admin/inbound/list',
+		url: '/vue-element-admin/inbound/list',
 		method: 'get',
 		response: ({ query }) => {
 			const { orderID, area, type, page = 1, limit = 20, status } = query
@@ -105,7 +107,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/all',
+		url: '/vue-element-admin/inbound/all',
 		method: 'get',
 		response: ({ query }) => {
 			const { area } = query
@@ -123,7 +125,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/total',
+		url: '/vue-element-admin/inbound/total',
 		method: 'get',
 		response: ({ query }) => {
 			const { area } = query
@@ -168,7 +170,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/detail',
+		url: '/vue-element-admin/inbound/detail',
 		method: 'get',
 		response: ({ query }) => {
 			const { id } = query
@@ -184,7 +186,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/audit',
+		url: '/vue-element-admin/inbound/audit',
 		method: 'put',
 		response: ({ body }) => {
 			const { detail, status } = body
@@ -201,7 +203,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/create',
+		url: '/vue-element-admin/inbound/create',
 		method: 'post',
 		response: ({ body }) => {
 			body.id = inboundArr.length + 1
@@ -218,7 +220,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/update',
+		url: '/vue-element-admin/inbound/update',
 		method: 'post',
 		response: ({ body }) => {
 			const index = inboundArr.findIndex(v => v.id === body.id)
@@ -233,7 +235,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/remove',
+		url: '/vue-element-admin/inbound/remove',
 		method: 'delete',
 		response: ({ query }) => {
 			const index = inboundArr.findIndex(v => v.id == query.id)
@@ -250,7 +252,7 @@ export default [
 
 	/**--------------------------------------------  outbound module  --start  -------------------------------------------------------**/
 	{
-		url: '/dev-api/vue-element-admin/outbound/list',
+		url: '/vue-element-admin/outbound/list',
 		method: 'get',
 		response: ({ query }) => {
 			const { orderID, area, type, page = 1, limit = 20, status } = query
@@ -276,7 +278,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/inbound/all',
+		url: '/vue-element-admin/inbound/all',
 		method: 'get',
 		response: ({ query }) => {
 			const { area } = query
@@ -294,7 +296,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/outbound/total',
+		url: '/vue-element-admin/outbound/total',
 		method: 'get',
 		response: ({ query }) => {
 			const { area } = query
@@ -332,7 +334,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/outbound/detail',
+		url: '/vue-element-admin/outbound/detail',
 		method: 'get',
 		response: ({ query }) => {
 			const { id } = query
@@ -348,7 +350,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/outbound/audit',
+		url: '/vue-element-admin/outbound/audit',
 		method: 'put',
 		response: ({ body }) => {
 			const { detail, status } = body
@@ -365,7 +367,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/outbound/create',
+		url: '/vue-element-admin/outbound/create',
 		method: 'post',
 		response: ({ body }) => {
 			body.id = outboundArr.length + 1
@@ -382,7 +384,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/outbound/update',
+		url: '/vue-element-admin/outbound/update',
 		method: 'post',
 		response: ({ body }) => {
 			const index = outboundArr.findIndex(v => v.id === body.id)
@@ -397,7 +399,7 @@ export default [
 	},
 
 	{
-		url: '/dev-api/vue-element-admin/outbound/remove',
+		url: '/vue-element-admin/outbound/remove',
 		method: 'delete',
 		response: ({ query }) => {
 			const index = outboundArr.findIndex(v => v.id == query.id)

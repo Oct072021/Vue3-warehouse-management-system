@@ -8,6 +8,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 export default function ({ mode }) {
 	const env = loadEnv(mode, process.cwd(), '') || {}
 	console.log('NODE_ENV: ', env.VITE_ENV)
+
 	return defineConfig({
 		base: './',
 		resolve: {
@@ -19,7 +20,7 @@ export default function ({ mode }) {
 			vue(),
 			VueSetupExtend(),
 			viteMockServe({
-				mockPath: './mock/mock-data',
+				mockPath: './mock/dev',
 				localEnabled: env.VITE_ENV === 'development',
 				prodEnabled: env.VITE_ENV === 'production',
 				logger: true
@@ -32,8 +33,12 @@ export default function ({ mode }) {
 			})
 		],
 		server: {
+			port: 1007,
 			proxy: {
-				'^/dev-api': 'http://127.0.0.1:5173/'
+				'^/vue-element-admin/': {
+					target: 'http://127.0.0.1:1007/dev-api/',
+					changeOrigin: true
+				}
 			}
 		},
 		optimizeDeps: {
