@@ -1,9 +1,8 @@
 <template>
 	<div>
-		<div slot="title">
+		<div class="title">
 			<span style="padding: 0 30px">{{ t(`errorLog.errorLog`) }}</span>
 			<el-button
-				size="small"
 				type="primary"
 				icon="Delete"
 				@click="clearAll"
@@ -66,6 +65,12 @@ const clearAll = () => {
 </script>
 
 <style scoped>
+.title {
+	display: flex;
+	align-items: center;
+  line-height: 50px;
+}
+
 .message-title {
 	font-size: 16px;
 	color: #333;

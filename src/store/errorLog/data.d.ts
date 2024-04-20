@@ -1,14 +1,14 @@
 interface Error {
-  message: string
-  stack: string
+	message: string
+	stack: string
 }
 
 export interface Log {
-  err: Error
-  info: string
-  url: string
+	err: Error
+	info: string | undefined
+	url: string
 }
 
 export interface ErrorLogState {
-  logs: Log[]
+	logs: Log[]
 }

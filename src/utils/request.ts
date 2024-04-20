@@ -1,9 +1,10 @@
-// import { Response } from './../types/httpRes.d';
+import { useErrorLogStore } from '@/store/errorLog'
 import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { getToken } from '@/utils/auth'
 import { useUserStore } from '@/store/user'
 import { Response } from '@/types/httpRes.d'
+import { Log } from '@/store/errorLog/data'
 
 // create an axios instance
 const service: AxiosInstance = axios.create({
@@ -78,8 +79,22 @@ service.interceptors.response.use(
 			return res
 		}
 	},
-	error => {
+	(error: AxiosError) => {
 		console.log(error) // for debug
+
+		const { code, request, message, name } = error
+		const log: Log = {
+			info: code,
+			url: request.responseURL,
+			err: {
+				message,
+				stack: name
+			}
+		}
+
+		const errorLogStore = useErrorLogStore()
+		errorLogStore.addErrorLog(log)
+
 		ElMessage({
 			message: error.message,
 			type: 'error',
