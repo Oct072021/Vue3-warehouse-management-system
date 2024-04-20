@@ -44,7 +44,6 @@ export default {
 		month: '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
 		orderID: '订单ID',
 		total: '总价',
-		area: '库区',
 		todoList: '添加备忘',
 		item: '项',
 		left: '未完成',
@@ -95,7 +94,8 @@ export default {
 		quantity: '数量',
 		mass: '产品质量',
 		actions: '操作',
-		warehouse: '仓库'
+		warehouse: '仓库',
+		sort: '排序'
 	},
 
 	// orders page
@@ -110,7 +110,7 @@ export default {
 		actions: '操作',
 		warehouse: '仓库',
 		client: '客户',
-		type: '入库类型',
+		type: '单据类型',
 		normal: '正常入库',
 		return: '退货入库',
 		sell: '采购出库',
@@ -128,7 +128,6 @@ export default {
 		reason: '审核原因',
 		productionID: '产品编码',
 		productionName: '产品名称',
-		area: '库区',
 		detail: '入库单详情',
 		audit: '入库单审核',
 		inboundProduction: '入库产品信息',
@@ -144,30 +143,22 @@ export default {
 		logo: '侧边栏图标'
 	},
 
-	headers: {
-		Search: '搜索',
-		Export: '导出',
-		Add: '添加',
-		type: '单据类型',
-		area: '库区',
-		status: '订单状态',
-		orderID: '订单ID'
-	},
-
 	tips: {
 		warning: '提示',
 		cancelTip: '确定移除该角色？',
-		deleteMsg_success: '删除成功!',
-		updateMsg_success: '更新成功!',
-		createMsg_success: '创建成功!',
-		submit_success: '提交成功!',
-		audit_success: '审核完成!',
-		deleteMsg_fail: '删除失败!',
-		updateMsg_fail: '更新失败!',
-		createMsg_fail: '创建失败!'
+		delete: '删除',
+		update: '更新',
+		create: '创建',
+		submit: '提交',
+		audit: '审核',
+		success: '成功!',
+		fail: '失败!'
 	},
 
 	button: {
+		search: '搜索',
+		export: '导出',
+		add: '添加',
 		edit: '编辑',
 		delete: '删除',
 		submit: '提交',
@@ -182,5 +173,10 @@ export default {
 	},
 
 	AutoGeneration: '可自动生成',
-	require: '为必填'
+	require: '为必填',
+
+	area: '库区',
+
+	ascending: '升序',
+	descending: '降序'
 }

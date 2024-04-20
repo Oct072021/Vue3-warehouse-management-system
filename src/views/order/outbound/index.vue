@@ -9,7 +9,7 @@
 		/>
 
 		<HeaderFilter
-			:config-data="config"
+			:config-data="header"
 			@buttonClick="buttonClick"
 		/>
 
@@ -24,7 +24,7 @@
 				:label="item.label"
 				:name="item.key"
 			>
-				<keep-alive :include="aliveComp">
+				<keep-alive>
 					<TabPane
 						v-if="activeName == item.key"
 						ref="TabPaneRef"
@@ -257,15 +257,12 @@ import { throttle } from '@/utils/common'
 import { OutboundData, OutboundDetail, SearchData } from './data.d'
 import { Search } from '../types/data'
 
-import { useAliveStore } from '@/store/alive'
-
-import { computed, nextTick, reactive, ref, watch } from 'vue'
+import { nextTick, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import i18n from '@/lang'
 import { useRoute, useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 
-import { config } from './config'
 import { useMap } from './mixin'
 
 const { t } = useI18n()
@@ -273,14 +270,8 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 
-// keep-alive Arr
-const aliveStore = useAliveStore()
-const aliveComp = computed(() => {
-	return aliveStore.aliveComp
-})
-
 // variable mapping
-const { type, status, title, area } = useMap()
+const { type, status, title, area, header } = useMap()
 
 // init view
 const activeName = ref<string>('area-1')
@@ -357,12 +348,6 @@ const formatJson = (filterVal: string[]) => {
 	)
 }
 
-// refresh view
-const TabPaneRef = ref()
-const handleFilter = () => {
-	TabPaneRef.value[0].resetAlive_search()
-}
-
 // create && update
 const dataForm = ref()
 const dialogStatus = ref<string>('')
@@ -401,6 +386,7 @@ const toDetail = async (id: number) => {
 	})
 }
 
+const TabPaneRef = ref()
 // audit
 const handleAudit = async (id: number) => {
 	const res = await getDetail(id)
@@ -417,12 +403,11 @@ const audit = async (detail: OutboundDetail, status: number) => {
 		dialogFormVisible.value = false
 		ElNotification({
 			title: 'Success',
-			message: i18n.global.t(`tips.audit_success`),
+			message: i18n.global.t(`tips.audit`) + i18n.global.t(`tips.success`),
 			type: 'success',
 			duration: 2000
 		})
-		// refresh the view
-		handleFilter()
+		TabPaneRef.value[0].getList()
 	}
 }
 </script>

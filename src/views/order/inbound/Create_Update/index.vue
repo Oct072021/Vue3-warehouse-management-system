@@ -320,7 +320,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 			if (res.code === 20000) {
 				ElNotification({
 					title: 'Success',
-					message: i18n.global.t(`tips.submit_success`),
+					message: i18n.global.t(`tips.submit`) + i18n.global.t(`tips.success`),
 					type: 'success',
 					duration: 2000
 				})

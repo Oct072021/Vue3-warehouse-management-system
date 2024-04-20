@@ -17,13 +17,6 @@ const recordRouter: RouteRecordRaw = {
 			component: () => import('@/views/order/inbound/index.vue'),
 			name: 'inbound',
 			meta: { title: 'Inbound' }
-			// children: [
-			// 	{
-			// 		path: 'create_update',
-			// 		component: () => import('@/views/order/inbound/Create_Update/index.vue'),
-			// 		meta: { hidden: true }
-			// 	}
-			// ]
 		},
 		{
 			path: 'inbound/create_update',

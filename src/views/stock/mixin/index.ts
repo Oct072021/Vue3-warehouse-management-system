@@ -1,29 +1,9 @@
 import i18n from '@/lang'
-
 import { computed } from 'vue'
 
 const { t } = i18n.global
 
 export const useMap = () => {
-	const type = computed(() => {
-		return {
-			'0': t('orders.purchase'),
-			'1': t('orders.sell')
-		}
-	})
-	const status = computed(() => {
-		return {
-			'0': [t('orders.wait'), 'info'],
-			'1': [t('orders.success'), 'success'],
-			'2': [t('orders.fail'), 'danger']
-		}
-	})
-	const title = computed(() => {
-		return {
-			detail: t('orders.detail'),
-			audit: t('orders.audit')
-		}
-	})
 	const area = computed(() => {
 		return [
 			{ key: 'area-1', label: t('area') + '-1' },
@@ -36,8 +16,8 @@ export const useMap = () => {
 		return [
 			{
 				type: 'input',
-				placeholder: t('orders.orderID'),
-				name: 'orderID',
+				placeholder: t('stock.title'),
+				name: 'title',
 				styles: {
 					width: '200px'
 				},
@@ -45,27 +25,23 @@ export const useMap = () => {
 			},
 			{
 				type: 'select',
-				placeholder: t('orders.type'),
-				name: 'type',
+				placeholder: t('area'),
+				name: 'area',
 				styles: {
 					width: '150px'
 				},
-				options: [
-					{ label: t('orders.purchase'), key: 0 },
-					{ label: t('orders.sell'), key: 1 }
-				]
+				options: area.value
 			},
 			{
 				type: 'select',
-				placeholder: t('orders.status'),
-				name: 'status',
+				placeholder: t('stock.sort'),
+				name: 'sort',
 				styles: {
 					width: '150px'
 				},
 				options: [
-					{ label: t('orders.wait'), key: 0 },
-					{ label: t('orders.success'), key: 1 },
-					{ label: t('orders.fail'), key: 2 }
+					{ label: t('ascending'), key: '+id' },
+					{ label: t('descending'), key: '-id' }
 				]
 			},
 			{
@@ -77,16 +53,6 @@ export const useMap = () => {
 					margin: '0 10px 0 0'
 				},
 				event: 'search'
-			},
-			{
-				type: 'button',
-				name: t('button.add'),
-				buttonType: 'primary',
-				icon: 'edit',
-				styles: {
-					margin: '0 10px 0 0'
-				},
-				event: 'add'
 			},
 			{
 				type: 'button',
@@ -102,9 +68,6 @@ export const useMap = () => {
 	})
 
 	return {
-		type,
-		status,
-		title,
 		area,
 		header
 	}

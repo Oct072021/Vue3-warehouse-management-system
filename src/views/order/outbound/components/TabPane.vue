@@ -132,8 +132,6 @@ import MPage from '@/components/mPage/index.vue'
 
 import i18n from '@/lang'
 
-import { useAliveStore } from '@/store/alive'
-
 import { ElNotification } from 'element-plus'
 import { reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -142,8 +140,6 @@ import { parseTime } from '@/utils'
 import { useMap } from '../mixin'
 
 const { t } = useI18n()
-
-const aliveStore = useAliveStore()
 
 const props = withDefaults(
 	defineProps<{
@@ -170,9 +166,9 @@ const emit = defineEmits<{
 
 watch(
 	() => props.searchList,
-	() => {
-		Object.assign(listQuery, props.searchList)
-		resetAlive_search()
+	(val) => {
+		Object.assign(listQuery, val)
+		getList()
 	},
 	{ deep: true }
 )
@@ -206,7 +202,7 @@ const getList = async (pagination?: Pagination) => {
 }
 getList()
 
-// edit\delete order
+// edit && delete order
 const handleUpdate = (id: number) => {
 	emit('handleUpdate', id)
 }
@@ -215,7 +211,7 @@ const handleRemove = async (id: number) => {
 	if (res.code === 20000) {
 		ElNotification({
 			title: 'Success',
-			message: i18n.global.t(`tips.deleteMsg_success`),
+			message: i18n.global.t(`tips.delete`) + i18n.global.t(`tips.success`),
 			type: 'success',
 			duration: 2000
 		})
@@ -231,19 +227,8 @@ const handleAudit = (id: number) => {
 	emit('handleAudit', id)
 }
 
-// reset keep-alive
-const resetAlive_search = () => {
-	// To clear keep-alive cache,ensure the operation of the search function
-	aliveStore.removeAlive() // remove keep-alive cache
-	getList()
-	// reset keep-alive cache
-	setTimeout(() => {
-		aliveStore.setAlive()
-	}, 0)
-}
-
 defineExpose({
-	resetAlive_search
+	getList
 })
 </script>
 <style lang="scss" scoped></style>

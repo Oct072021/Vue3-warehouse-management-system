@@ -74,13 +74,11 @@ const props = withDefaults(
 	}>(),
 	{
 		profit: 165279,
-		orders: 1000,
+		orders: 1000
 	}
 )
 
 const handleSetLineChartData = (type: string) => {
-	console.log(props.orders)
-
 	emit('handleSetLineChartData', type)
 }
 </script>

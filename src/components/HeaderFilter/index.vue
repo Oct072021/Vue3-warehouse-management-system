@@ -8,7 +8,7 @@
 				<el-input
 					v-if="item.type === 'input'"
 					v-model="listQuery[item.name]"
-					:placeholder="t(`headers.${item.name}`)"
+					:placeholder="item.placeholder"
 					:style="item.styles"
 					class="filter-item"
 					@keyup.enter="buttonClick(item.event)"
@@ -17,7 +17,7 @@
 				<el-select
 					v-if="item.type === 'select'"
 					v-model="listQuery[item.name]"
-					:placeholder="t(`headers.${item.name}`)"
+					:placeholder="item.placeholder"
 					:style="item.styles"
 					class="filter-item"
 					@change="buttonClick(item.event)"
@@ -25,7 +25,7 @@
 					<el-option
 						v-for="opt in item.options"
 						:key="opt.key"
-						:label="t(`${item.page}.${opt.label}`)"
+						:label="opt.label"
 						:value="opt.key"
 					/>
 				</el-select>
@@ -38,7 +38,8 @@
 					:type="item.buttonType"
 					:icon="item.icon"
 					@click="buttonClick(item.event)"
-					>{{ t(`headers.${item.name}`) }}
+				>
+					{{ item.name }}
 				</el-button>
 			</div>
 		</div>

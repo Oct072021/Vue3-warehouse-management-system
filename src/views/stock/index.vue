@@ -1,7 +1,7 @@
 <template>
 	<div class="app-container">
 		<HeaderFilter
-			:config-data="config"
+			:config-data="header"
 			@buttonClick="buttonClick"
 		/>
 
@@ -188,15 +188,16 @@ import { throttle } from '@/utils/common'
 import MPage from '@/components/mPage/index.vue' // page components
 import HeaderFilter from '@/components/HeaderFilter/index.vue'
 
-import { config } from './config'
-
 import { useI18n } from 'vue-i18n'
 import i18n from '@/lang'
 import { nextTick, reactive, ref, watch } from 'vue'
-import { ElNotification, FormInstance, Sort, SortBy } from 'element-plus'
-import { SortOrder } from 'element-plus/es/components/table-v2/src/constants'
+import { ElNotification, FormInstance } from 'element-plus'
+
+import { useMap } from './mixin'
 
 const { t } = useI18n()
+
+const { header, area } = useMap()
 
 // form rules
 const rules = reactive({

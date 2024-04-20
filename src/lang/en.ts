@@ -44,14 +44,13 @@ export default {
 		month: 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec',
 		orderID: 'orderID',
 		total: 'Total',
-		area: 'Area',
 		todoList: 'Add to Todo List',
 		item: 'item',
 		left: 'left',
 		all: 'all',
 		active: 'active',
 		completed: 'completed',
-    inboundType:'Inbound Type'
+		inboundType: 'Inbound Type'
 	},
 
 	// permission page
@@ -72,7 +71,7 @@ export default {
 	errorLog: {
 		errorLog: 'Error Log',
 		clear: 'Clear All',
-		msg: 'Msg',
+		msg: 'message',
 		info: 'Info',
 		url: 'URL',
 		message: 'Message',
@@ -95,7 +94,8 @@ export default {
 		quantity: 'Quantity',
 		mass: 'Mass',
 		actions: 'Actions',
-		warehouse: 'Warehouse'
+		warehouse: 'Warehouse',
+		sort: 'Sort'
 	},
 
 	// orders page
@@ -129,7 +129,6 @@ export default {
 		reason: 'Reason',
 		productionID: 'ProductionID',
 		productionName: 'Production',
-		area: 'Area',
 		detail: 'Order Detail',
 		audit: 'Order Audit',
 		inboundProduction: 'Inbound Production',
@@ -145,30 +144,22 @@ export default {
 		logo: 'Sidebar Logo'
 	},
 
-	headers: {
-		Search: 'Search',
-		Export: 'Export',
-		Add: 'Add',
-		type: 'Type',
-		area: 'Area',
-		status: 'Status',
-		orderID: 'orderID'
-	},
-
 	tips: {
 		warning: 'Warning',
 		cancelTip: 'Confirm to remove the role?',
-		deleteMsg_success: 'Delete Successfully!',
-		updateMsg_success: 'Update Successfully!',
-		createMsg_success: 'Created Successfully!',
-		submit_success: 'Submit Successfully!',
-		audit_success: 'Audit Completed!',
-		deleteMsg_fail: 'Delete Fail!',
-		updateMsg_fail: 'Update Fail!',
-		createMsg_fail: 'Created Fail!'
+		delete: 'Delete',
+		update: 'Update',
+		create: 'Created',
+		submit: 'Submit',
+		audit: 'Audit',
+		success: 'Successfully!',
+		fail: 'Fail!'
 	},
 
 	button: {
+		search: 'Search',
+		export: 'Export',
+		add: 'Add',
 		edit: 'Edit',
 		delete: 'Delete',
 		submit: 'Submit',
@@ -183,5 +174,10 @@ export default {
 	},
 
 	AutoGeneration: 'Auto Generation',
-	require: 'is required'
+	require: 'is required',
+
+	area: 'Area',
+
+	ascending: '升序',
+	descending: '降序'
 }

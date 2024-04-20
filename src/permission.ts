@@ -37,7 +37,6 @@ router.beforeEach(async (to, from, next) => {
 			} else {
 				try {
 					// get user info
-					// note: roles must be a object array! such as: ['admin'], ['developer'], ['editor']
 					const { roles } = await userStore.getInfo()
 					console.log('roles', roles)
 
