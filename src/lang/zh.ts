@@ -88,11 +88,11 @@ export default {
 
 	// stock page
 	stock: {
-		orderID: '订单ID',
+		productionID: '产品ID',
 		title: '产品名称',
 		specs: '产品规格',
 		quantity: '数量',
-		mass: '产品质量',
+		unit: '单位',
 		actions: '操作',
 		warehouse: '仓库',
 		sort: '排序'

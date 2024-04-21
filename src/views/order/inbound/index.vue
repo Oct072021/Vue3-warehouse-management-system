@@ -217,7 +217,7 @@
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`orders.area`)"
+						:label="t(`area`)"
 						min-width="105"
 					>
 						{{ temp.area }}
@@ -258,9 +258,7 @@ import { throttle } from '@/utils/common'
 import { InboundData, InboundDetail, SearchData } from './data.d'
 import { Search } from '../types/data'
 
-import { useAliveStore } from '@/store/alive'
-
-import { computed, nextTick, reactive, ref, watch } from 'vue'
+import { nextTick, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import i18n from '@/lang'
 import { useRoute, useRouter } from 'vue-router'

@@ -19,7 +19,6 @@ for (let i = 1; i <= 1000; i++) {
 	const status = Mock.Random.integer(0, 2)
 	const auditor = status === 0 ? '' : 'Sam'
 	const reason = status === 0 ? '' : 'xxxxxxxxx'
-	const clientArr = ['66科技', 'xx科技', 'LA科技']
 	outboundArr.push(
 		Mock.mock({
 			id: i,
@@ -29,7 +28,7 @@ for (let i = 1; i <= 1000; i++) {
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			type: '@integer(0, 1)',
 			documenter: 'Sekiro',
-			client: clientArr[Mock.Random.integer(0, 2)],
+			'client|1': ['66科技', 'xx科技', 'LA科技'],
 			status,
 			auditor,
 			contact: 'Higgs',
@@ -56,7 +55,6 @@ for (let i = 1; i <= 600; i++) {
 	const status = Mock.Random.integer(0, 2)
 	const auditor = status === 0 ? '' : 'Sam'
 	const reason = status === 0 ? '' : 'xxxxxxxxx'
-	const supplierArr = ['CA科技', 'ZV科技', '77科技']
 	inboundArr.push(
 		Mock.mock({
 			id: i,
@@ -65,7 +63,7 @@ for (let i = 1; i <= 600; i++) {
 			title: `设备箱 ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			type: '@integer(0, 1)',
-			supplier: supplierArr[Mock.Random.integer(0, 2)],
+			'supplier|1': ['CA科技', 'ZV科技', '77科技'],
 			documenter: 'Sekiro',
 			status,
 			auditor,

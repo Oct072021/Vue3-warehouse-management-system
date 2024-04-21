@@ -88,11 +88,11 @@ export default {
 
 	// stock page
 	stock: {
-		orderID: 'orderID',
+		productionID: 'ProductionID',
 		title: 'Title',
 		specs: 'Specs',
 		quantity: 'Quantity',
-		mass: 'Mass',
+		unit: 'Unit',
 		actions: 'Actions',
 		warehouse: 'Warehouse',
 		sort: 'Sort'
@@ -107,7 +107,6 @@ export default {
 		quantity: 'Quantity',
 		price: 'Price',
 		total: 'Total',
-		mass: 'Mass',
 		actions: 'Actions',
 		warehouse: 'Warehouse',
 		client: 'Client',

@@ -2,12 +2,12 @@ import { Pagination } from '@/types/pagination.d'
 
 export interface StockData {	
 	id: number | undefined
-	orderID: string
+	productionID: string
 	specs: string | undefined
 	title: string
 	area: string
 	quantity: number | undefined
-	mass: number | undefined
+	unit: number | undefined
 }
 
 export interface Stock{

@@ -7,12 +7,12 @@ for (let i = 1; i <= 700; i++) {
 	stockArr.push(
 		Mock.mock({
 			id: i,
-			orderID: `@guid()`,
+			productionID: `@guid()`,
 			specs: '@integer(1, 100)*@integer(1, 100)',
 			title: `stock ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			quantity: '@integer(0, 100)',
-			mass: '@float(10, 50, 0, 2)'
+			'unit|1': ['EA', 'PCS', 'SET']
 		})
 	)
 }
@@ -42,52 +42,6 @@ export default [
 					total: mockList.length,
 					items: pageList
 				}
-			}
-		}
-	},
-
-	{
-		url: '/vue-element-admin/stock/detail',
-		method: 'get',
-		response: ({ query }) => {
-			const { id } = query
-			for (const item of stockArr) {
-				if (item.id === +id) {
-					return {
-						code: 20000,
-						data: item
-					}
-				}
-			}
-		}
-	},
-
-	{
-		url: '/vue-element-admin/stock/update',
-		method: 'post',
-		response: ({ body }) => {
-			const index = stockArr.findIndex(v => v.id === body.id)
-			stockArr.splice(index, 1, body)
-
-			return {
-				code: 20000,
-				message: 'success',
-				data: {}
-			}
-		}
-	},
-
-	{
-		url: '/vue-element-admin/stock/remove',
-		method: 'post',
-		response: ({ body }) => {
-			const index = stockArr.findIndex(v => v.id === body.id)
-			stockArr.splice(index, 1)
-
-			return {
-				code: 20000,
-				message: 'success',
-				data: {}
 			}
 		}
 	}

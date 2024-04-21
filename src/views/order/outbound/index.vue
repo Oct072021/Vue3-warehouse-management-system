@@ -216,7 +216,7 @@
 
 					<el-table-column
 						class-name="status-col"
-						:label="t(`orders.area`)"
+						:label="t(`area`)"
 						min-width="105"
 					>
 						{{ temp.area }}
