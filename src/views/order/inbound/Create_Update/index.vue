@@ -35,7 +35,10 @@
 										class="postInfo-container-item"
 										prop="type"
 									>
-										<el-select v-model="order.type">
+										<el-select
+											v-model="order.type"
+											placeholder=""
+										>
 											<el-option
 												v-for="opt in obj2Option(type)"
 												:key="opt.key"
@@ -48,11 +51,14 @@
 
 								<el-col :span="8">
 									<el-form-item
-										:label="t('orders.area') + ' :'"
+										:label="t('area') + ' :'"
 										class="postInfo-container-item"
 										prop="area"
 									>
-										<el-select v-model="order.area">
+										<el-select
+											v-model="order.area"
+											placeholder=""
+										>
 											<el-option
 												v-for="opt in area"
 												:key="opt.key"
@@ -376,7 +382,8 @@ if (route.query.id) {
 			margin-bottom: 10px;
 
 			.postInfo-container-item {
-				float: left;
+				// float: left;
+				width: 55%;
 				display: block;
 				margin-bottom: 5px;
 			}
@@ -416,12 +423,12 @@ if (route.query.id) {
 	margin: 0 20px;
 }
 // 清除el-input边框
-:deep .production .el-input__wrapper {
+:deep() .production .el-input__wrapper {
 	border: none !important;
 	box-shadow: none !important;
 }
 // 清除el-table-column鼠标移入变色效果
-:deep .el-table--enable-row-hover .el-table__body tr:hover > td {
+:deep() .el-table--enable-row-hover .el-table__body tr:hover > td {
 	background-color: transparent !important;
 }
 

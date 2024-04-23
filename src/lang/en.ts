@@ -16,9 +16,9 @@ export default {
 		Inbound: 'inbound',
 		Outbound: 'outbound',
 		ExternalLink: 'External Link',
-		Financial: 'Financial',
 		income: 'income',
-		expend: 'expend'
+		expend: 'expend',
+		Transfer: 'Transfer'
 	},
 
 	// login page
@@ -133,6 +133,33 @@ export default {
 		inboundProduction: 'Inbound Production',
 		create: 'Create Inbound Order',
 		update: 'Update Inbound Order'
+	},
+
+	transfer: {
+		orderID: 'OrderID',
+		status: 'Status',
+		date: 'Date',
+		wait: 'Wait',
+		success: 'Success',
+		fail: 'Fail',
+		batch: 'Batch',
+		origin: 'Origin',
+		new: 'New',
+		auditor: 'Auditor',
+		actions: 'Actions',
+		detail: 'Detail',
+		audit: 'Audit',
+		documenter: 'Documenter',
+		correlationID: 'CorrelationID',
+		remark: 'Remark',
+		reason: 'Reason',
+		productionID: 'ProductionID',
+		productionName: 'Production',
+		quantity: 'Quantity',
+		unit: 'Unit',
+		create: 'Create',
+		update: 'Update',
+		productionInfo: 'Production Info'
 	},
 
 	settings: {

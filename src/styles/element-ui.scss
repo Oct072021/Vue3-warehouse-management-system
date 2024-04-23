@@ -52,16 +52,26 @@
   left: 0;
   position: relative;
   margin: 0 auto;
+  padding: 0;
 
   .el-dialog__header {
     background-color: rgb(245, 245, 245);
-    margin-right: 0;
+    padding: 0 0 0 10px;
+    display: flex;
+    align-items: center;
 
     .el-dialog__title {
       font-weight: 600;
       color: rgb(144, 147, 153);
+      line-height: 45px;
     }
   }
+
+  .el-dialog__body,
+  .el-dialog__footer {
+    padding: 16px 20px;
+  }
+
 }
 
 // refine element ui upload

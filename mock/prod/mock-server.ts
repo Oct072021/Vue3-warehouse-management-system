@@ -3,10 +3,11 @@ import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
 import userMock from '../data/user'
 import stockMock from '../data/stock'
 import orderMock from '../data/order'
+import transferMock from '../data/transfer'
 
 import { responseFake } from '../utils'
 
-const modules = [...userMock, ...stockMock, ...orderMock]
+const modules = [...userMock, ...stockMock, ...orderMock, ...transferMock]
 
 export function setupProdMockServer() {
 	Object.keys(modules).forEach(key => {

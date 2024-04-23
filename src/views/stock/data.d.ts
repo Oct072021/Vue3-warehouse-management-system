@@ -22,6 +22,3 @@ export interface SearchList implements Pagination {
 	sort?: string
 	area?: string
 }
-export interface Options {
-	[index: string]: string
-}

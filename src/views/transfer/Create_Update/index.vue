@@ -2,7 +2,7 @@
 	<div class="createPost-container">
 		<div class="title">
 			<span>
-				{{ route.query.id ? t(`orders.update`) : t(`orders.create`) }}
+				{{ route.query.id ? t(`transfer.update`) : t(`transfer.create`) }}
 			</span>
 		</div>
 		<el-form
@@ -18,7 +18,7 @@
 							<el-row>
 								<el-col :span="8">
 									<el-form-item
-										:label="t('orders.orderID') + ' :'"
+										:label="t('transfer.orderID') + ' :'"
 										class="postInfo-container-item"
 										prop="orderID"
 									>
@@ -31,32 +31,12 @@
 
 								<el-col :span="8">
 									<el-form-item
-										:label="t('orders.type') + ' :'"
+										:label="t('transfer.new') + ' :'"
 										class="postInfo-container-item"
-										prop="type"
+										prop="new"
 									>
 										<el-select
-											v-model="order.type"
-											placeholder=""
-										>
-											<el-option
-												v-for="opt in obj2Option(type)"
-												:key="opt.key"
-												:label="opt.label"
-												:value="opt.key"
-											/>
-										</el-select>
-									</el-form-item>
-								</el-col>
-
-								<el-col :span="8">
-									<el-form-item
-										:label="t('area') + ' :'"
-										class="postInfo-container-item"
-										prop="area"
-									>
-										<el-select
-											v-model="order.area"
+											v-model="order.new"
 											placeholder=""
 										>
 											<el-option
@@ -68,36 +48,14 @@
 										</el-select>
 									</el-form-item>
 								</el-col>
-							</el-row>
-
-							<el-row>
-								<el-col :span="8">
-									<el-form-item
-										:label="t('orders.client') + ' :'"
-										class="postInfo-container-item"
-										prop="client"
-									>
-										<el-input v-model="order.client" />
-									</el-form-item>
-								</el-col>
 
 								<el-col :span="8">
 									<el-form-item
-										:label="t('orders.contact') + ' :'"
+										:label="t('transfer.correlationID') + ' :'"
 										class="postInfo-container-item"
-										prop="contact"
+										prop="correlationID"
 									>
-										<el-input v-model="order.contact" />
-									</el-form-item>
-								</el-col>
-
-								<el-col :span="8">
-									<el-form-item
-										:label="t('orders.number') + ' :'"
-										class="postInfo-container-item"
-										prop="number"
-									>
-										<el-input v-model="order.number" />
+										<el-input v-model="order.correlationID" />
 									</el-form-item>
 								</el-col>
 							</el-row>
@@ -105,21 +63,21 @@
 							<el-row>
 								<el-col :span="8">
 									<el-form-item
-										:label="t('orders.title') + ' :'"
-										class="postInfo-container-item"
-										prop="title"
-									>
-										<el-input v-model="order.title" />
-									</el-form-item>
-								</el-col>
-
-								<el-col :span="8">
-									<el-form-item
-										:label="t('orders.documenter') + ' :'"
+										:label="t('transfer.documenter') + ' :'"
 										class="postInfo-container-item"
 										prop="documenter"
 									>
 										<el-input v-model="order.documenter" />
+									</el-form-item>
+								</el-col>
+
+								<el-col :span="8">
+									<el-form-item
+										:label="t('transfer.batch') + ' :'"
+										class="postInfo-container-item"
+										prop="batch"
+									>
+										<el-input v-model="order.batch" />
 									</el-form-item>
 								</el-col>
 							</el-row>
@@ -127,7 +85,8 @@
 							<el-row>
 								<el-col :span="20">
 									<el-form-item
-										:label="t(`orders.remark`) + ':'"
+										:label="t(`transfer.remark`) + ':'"
+										class="postInfo-container-remark"
 										prop="remark"
 									>
 										<el-input
@@ -144,7 +103,7 @@
 			</div>
 
 			<div class="title">
-				<span>{{ t(`orders.inboundProduction`) }}</span>
+				<span>{{ t(`transfer.productionInfo`) }}</span>
 				<el-button
 					type="success"
 					@click="createProduction()"
@@ -162,7 +121,7 @@
 				>
 					<el-table-column
 						min-width="100px"
-						:label="t(`orders.productionID`)"
+						:label="t(`transfer.productionID`)"
 						align="center"
 					>
 						<template #default="{ row }">
@@ -172,7 +131,7 @@
 
 					<el-table-column
 						min-width="100px"
-						:label="t(`orders.productionName`)"
+						:label="t(`transfer.productionName`)"
 						align="center"
 					>
 						<template #default="{ row }">
@@ -181,31 +140,8 @@
 					</el-table-column>
 
 					<el-table-column
-						min-width="150px"
-						:label="t(`orders.specs`)"
-						align="center"
-					>
-						<template #default="{ row }">
-							<div class="specs">
-								<el-input v-model="row.specs1" /> ×
-								<el-input v-model="row.specs2" />
-							</div>
-						</template>
-					</el-table-column>
-
-					<el-table-column
 						min-width="80px"
-						:label="t(`orders.price`)"
-						align="center"
-					>
-						<template #default="{ row }">
-							<el-input v-model="row.price" />
-						</template>
-					</el-table-column>
-
-					<el-table-column
-						min-width="80px"
-						:label="t(`orders.quantity`)"
+						:label="t(`transfer.quantity`)"
 						align="center"
 					>
 						<template #default="{ row }">
@@ -214,17 +150,17 @@
 					</el-table-column>
 
 					<el-table-column
-						min-width="90px"
-						:label="t(`orders.total`)"
+						min-width="80px"
+						:label="t(`transfer.unit`)"
 						align="center"
 					>
 						<template #default="{ row }">
-							{{ (row.price * row.quantity).toFixed(2) }}
+							<el-input v-model="row.unit" />
 						</template>
 					</el-table-column>
 
 					<el-table-column
-						:label="t(`orders.actions`)"
+						:label="t(`transfer.actions`)"
 						align="center"
 						min-width="50"
 						class-name="small-padding fixed-width"
@@ -267,52 +203,48 @@ import { ElNotification, FormInstance } from 'element-plus'
 
 import { useMap } from '../mixin'
 
-import { obj2Option } from '@/utils/array'
+import { Detail, TransferData } from '../data.d'
 
-import { Order } from '../data.d'
-
-import { createOutboundOrder, getDetail, updateOutboundOrder } from '../service'
+import { createTransferOrder, getDetail, updateTransferOrder } from '../service'
 
 const route = useRoute()
 const router = useRouter()
 
 const { t } = useI18n()
 
-const { area, type } = useMap()
+const { area } = useMap()
 
 // form rules
 const generateMsg = (str: string, rule: string) => {
-	return i18n.global.t(`orders.${str}`) + ' ' + i18n.global.t(`${rule}`)
+	return t(`transfer.${str}`) + ' ' + t(`${rule}`)
 }
 const rules = reactive({
-	area: [{ required: true, message: generateMsg('area', 'require'), trigger: 'change' }],
-	type: [{ required: true, message: generateMsg('type', 'require'), trigger: 'blur' }],
-	client: [{ required: true, message: generateMsg('client', 'require'), trigger: 'blur' }],
-	contact: [{ required: true, message: generateMsg('contact', 'require'), trigger: 'blur' }],
-	number: [{ required: true, message: generateMsg('number', 'require'), trigger: 'blur' }],
+	new: [{ required: true, message: generateMsg('new', 'require'), trigger: 'change' }],
+	correlationID: [{ required: true, message: generateMsg('correlationID', 'require'), trigger: 'blur' }],
+	batch: [{ required: true, message: generateMsg('batch', 'require'), trigger: 'blur' }],
 	documenter: [{ required: true, message: generateMsg('documenter', 'require'), trigger: 'blur' }]
 })
 
 const orderFormRef = ref()
-const order = reactive<Order>({
+const order = reactive<Detail & TransferData>({
+	id: -1,
 	orderID: '',
-	type: undefined,
-	area: '',
-	client: '',
-	contact: '',
-	number: +'',
-	title: '',
-	documenter: '',
-	remark: '',
+	correlationID: '',
 	timestamp: '',
+	batch: '',
+	origin: '',
+	new: '',
+	documenter: '',
+	status: -1,
+	auditor: '',
+	remark: '无',
+	reason: '',
 	production: [
 		{
 			productionID: '',
 			productionName: '',
 			quantity: 0,
-			price: 0,
-			specs1: '',
-			specs2: ''
+			unit: ''
 		}
 	]
 })
@@ -321,7 +253,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 	formEl.validate(async valid => {
 		if (valid) {
 			// 存在id则为 '更新订单信息' 业务，不存在则为 '创建订单' 业务
-			const res = route.query.id ? await updateOutboundOrder(order) : await createOutboundOrder(order)
+			const res = route.query.id ? await updateTransferOrder(order) : await createTransferOrder(order)
 
 			if (res.code === 20000) {
 				ElNotification({
@@ -346,9 +278,7 @@ const createProduction = () => {
 		productionID: '',
 		productionName: '',
 		quantity: 0,
-		price: 0,
-		specs1: '',
-		specs2: ''
+		unit: ''
 	})
 }
 const delProduction = (index: number) => {
@@ -386,6 +316,10 @@ if (route.query.id) {
 				width: 55%;
 				display: block;
 				margin-bottom: 5px;
+			}
+
+			.postInfo-container-remark {
+				margin-top: 10px;
 			}
 		}
 	}

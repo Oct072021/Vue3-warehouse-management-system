@@ -16,9 +16,9 @@ export default {
 		Inbound: '入库订单',
 		Outbound: '出库订单',
 		ExternalLink: '外链',
-		Financial: '财务管理',
 		income: '收入',
-		expend: '支出'
+		expend: '支出',
+		Transfer: '库存调拨'
 	},
 
 	// login page
@@ -133,6 +133,33 @@ export default {
 		inboundProduction: '入库产品信息',
 		create: '新增入库单',
 		update: '更新入库单'
+	},
+
+	transfer: {
+		orderID: '调拨单号',
+		status: '单据状态',
+		date: '制单日期',
+		wait: '等待审核',
+		success: '审核成功',
+		fail: '审核失败',
+		batch: '批次',
+		origin: '原库区',
+		new: '新库区',
+		auditor: '审核人',
+		actions: '操作',
+		detail: '调拨单详情',
+		audit: '调拨单审核',
+		documenter: '制单人',
+		correlationID: '关联单号',
+		remark: '备注',
+		reason: '审核原因',
+		productionID: '产品编码',
+		productionName: '产品名称',
+		quantity: '数量',
+		unit: '单位',
+    create: '新增调拨单',
+		update: '更新调拨单',
+		productionInfo: '产品信息'
 	},
 
 	settings: {

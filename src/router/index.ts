@@ -5,6 +5,7 @@ import Layout from '@/layout/index.vue'
 import orderRouter from './modules/order'
 import stockRouter from './modules/stock'
 import chartsRouter from './modules/charts'
+import transferRouter from './modules/transfer'
 
 export const constantRoutes: RouteRecordRaw[] = [
 	{
@@ -120,7 +121,8 @@ export const asyncRoutes: RouteRecordRaw[] = [
 	/** when your routing map is too long, you can split it into small modules **/
 	chartsRouter,
 	stockRouter,
-	orderRouter
+	orderRouter,
+	transferRouter
 
 	// 404 page must be placed at the end !!!
 	// { path: '*', redirect: '/404', meta: { hidden: true } }

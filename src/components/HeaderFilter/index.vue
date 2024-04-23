@@ -30,6 +30,16 @@
 					/>
 				</el-select>
 
+				<el-date-picker
+					v-if="item.type === 'date'"
+					v-model="listQuery[item.name]"
+					type="date"
+					:placeholder="item.placeholder"
+					:style="item.styles"
+					class="filter-item"
+					@change="buttonClick(item.event)"
+				/>
+
 				<el-button
 					v-if="item.type === 'button'"
 					v-waves

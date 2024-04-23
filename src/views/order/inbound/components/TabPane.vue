@@ -35,8 +35,8 @@
 						align="center"
 						:label="t(`orders.date`)"
 					>
-						<template #default="scope">
-							<span>{{ parseTime(scope.row.timestamp, '{y}-{m}-{d}') }}</span>
+						<template #default="{ row }">
+							<span>{{ parseTime(row.timestamp, '{y}-{m}-{d}') }}</span>
 						</template>
 					</el-table-column>
 

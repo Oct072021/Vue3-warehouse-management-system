@@ -84,8 +84,8 @@
 </template>
 
 <script lang="ts" setup>
-import { updateStockInfo, removeStock, getStockData } from './service'
-import { Options, SearchList, StockData } from './data.d'
+import { getStockData } from './service'
+import { SearchList, StockData } from './data.d'
 
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
@@ -94,9 +94,7 @@ import MPage from '@/components/mPage/index.vue' // page components
 import HeaderFilter from '@/components/HeaderFilter/index.vue'
 
 import { useI18n } from 'vue-i18n'
-import i18n from '@/lang'
-import { nextTick, reactive, ref, watch } from 'vue'
-import { ElNotification, FormInstance } from 'element-plus'
+import { reactive, ref, watch } from 'vue'
 
 import { useMap } from './mixin'
 
