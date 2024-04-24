@@ -7,9 +7,9 @@ for (let i = 1; i <= 700; i++) {
 	stockArr.push(
 		Mock.mock({
 			id: i,
-			productionID: `@guid()`,
+			productionID: Mock.Random.guid().slice(0, 23),
 			specs: '@integer(1, 100)*@integer(1, 100)',
-			title: `stock ${i} `,
+			productionName: `stock ${i} `,
 			'area|1': ['area-1', 'area-2', 'area-3', 'area-4'],
 			quantity: '@integer(0, 100)',
 			'unit|1': ['EA', 'PCS', 'SET']
@@ -22,11 +22,11 @@ export default [
 		url: '/vue-element-admin/stock/list',
 		method: 'get',
 		response: ({ query }) => {
-			const { area, title, page = 1, limit = 20, sort } = query
+			const { area, productionName, page = 1, limit = 20, sort } = query
 			// simulate search
 			let mockList = stockArr.filter(item => {
 				if (area && item.area !== area) return false
-				if (title && item.title.indexOf(title) < 0) return false
+				if (productionName && item.productionName.indexOf(productionName) < 0) return false
 				return true
 			})
 			// sort
@@ -42,6 +42,31 @@ export default [
 					total: mockList.length,
 					items: pageList
 				}
+			}
+		}
+	},
+
+	{
+		url: '/vue-element-admin/stock/getProductionByArea',
+		method: 'get',
+		response: ({ query }) => {
+			const { area } = query
+
+			// simulate search
+			const filterList = stockArr.filter(item => {
+				if (area && item.area !== area) return false
+				return true
+			})
+
+			const data = {}
+			filterList.forEach(item => {
+				const { productionID, productionName, quantity, unit } = item
+				data[productionID] = { productionName, quantity, unit }
+			})
+
+			return {
+				code: 20000,
+				data
 			}
 		}
 	}

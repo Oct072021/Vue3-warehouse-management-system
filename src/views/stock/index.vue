@@ -39,11 +39,11 @@
 					/>
 
 					<el-table-column
-						:label="t(`stock.title`)"
+						:label="t(`stock.productionName`)"
 						min-width="200px"
 					>
 						<template #default="{ row }">
-							<span class="link-type">{{ row.title }}</span>
+							<span class="link-type">{{ row.productionName }}</span>
 						</template>
 					</el-table-column>
 
@@ -116,7 +116,7 @@ const buttonClick = (data: SearchList, e: string) => {
 const listQuery = reactive<SearchList>({
 	page: 1,
 	limit: 20,
-	title: undefined,
+	productionName: undefined,
 	area: undefined,
 	sort: '+id'
 })
@@ -167,8 +167,8 @@ const downloadLoading = ref<boolean>(false)
 const handleDownload = throttle(function () {
 	downloadLoading.value = true
 	import('@/vendor/Export2Excel').then(excel => {
-		const tHeader = ['productionID', 'title', 'specs', 'quantity', 'unit']
-		const filterVal = ['productionID', 'title', 'specs', 'quantity', 'unit']
+		const tHeader = ['productionID', 'productionName', 'specs', 'quantity', 'unit']
+		const filterVal = ['productionID', 'productionName', 'specs', 'quantity', 'unit']
 		const data = formatJson(filterVal)
 		excel.export_json_to_excel({
 			header: tHeader,

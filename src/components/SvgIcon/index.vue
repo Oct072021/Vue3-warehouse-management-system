@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-// doc: https://panjiachen.github.io/vue-element-admin-site/feature/component/svg-icon.html#usage
 import { isExternal } from '@/utils/validate'
 import { computed } from 'vue'
 

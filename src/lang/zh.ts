@@ -89,7 +89,7 @@ export default {
 	// stock page
 	stock: {
 		productionID: '产品ID',
-		title: '产品名称',
+		productionName: '产品名称',
 		specs: '产品规格',
 		quantity: '数量',
 		unit: '单位',
@@ -157,7 +157,7 @@ export default {
 		productionName: '产品名称',
 		quantity: '数量',
 		unit: '单位',
-    create: '新增调拨单',
+		create: '新增调拨单',
 		update: '更新调拨单',
 		productionInfo: '产品信息'
 	},

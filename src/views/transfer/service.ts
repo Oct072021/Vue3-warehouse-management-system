@@ -1,8 +1,9 @@
-import { SearchData, Audit, Detail } from './data'
+import { SearchData, Audit, Detail, TransferData } from './data'
 
-import { audit, createOrder, fetchAllData, fetchDetail, fetchList, remove, updateOrder } from './api'
+import { audit, createOrder, fetchAllData, fetchDetail, fetchList, fetchStockID, remove, updateOrder } from './api'
 import { useUserStore } from '@/store/user'
-import { formatTime, parseTime } from '@/utils'
+import { parseTime } from '@/utils'
+import { ElMessage } from 'element-plus'
 
 const userStroe = useUserStore()
 
@@ -48,5 +49,10 @@ export async function auditOrder(obj: Audit) {
 
 export async function getAllData() {
 	const res = await fetchAllData()
+	return res
+}
+
+export async function getStockID(area: string) {
+	const res = await fetchStockID(area)
 	return res
 }

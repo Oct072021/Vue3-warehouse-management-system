@@ -167,7 +167,7 @@ const generateRoutes = (routes: RouteRecordRaw[], basePath = '/', prefixTitle: s
 
 <style lang="scss" scoped>
 .header-search {
-	font-size: 0 !important;
+	// font-size: 0 !important;
 
 	.search-icon {
 		cursor: pointer;

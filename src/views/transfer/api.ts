@@ -28,3 +28,7 @@ export function remove(id: number) {
 export function audit(data: Audit) {
 	return Http.putRequest('/vue-element-admin/transfer/audit', data)
 }
+
+export function fetchStockID(area: string) {
+	return Http.getRequest('/vue-element-admin/stock/getProductionByArea', { params: { area } })
+}

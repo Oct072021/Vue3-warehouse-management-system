@@ -89,7 +89,7 @@ export default {
 	// stock page
 	stock: {
 		productionID: 'ProductionID',
-		title: 'Title',
+		productionName: 'Production Name',
 		specs: 'Specs',
 		quantity: 'Quantity',
 		unit: 'Unit',

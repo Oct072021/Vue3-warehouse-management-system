@@ -46,3 +46,7 @@ export interface Audit {
 }
 
 export type Export = TransferData & Detail
+
+export interface ProductionInfo {
+  [index:string]: Production
+}

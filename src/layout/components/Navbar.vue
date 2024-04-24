@@ -61,8 +61,9 @@
 					<el-icon
 						:size="12"
 						style="margin-left: 10px"
-						><CaretBottom
-					/></el-icon>
+					>
+						<CaretBottom />
+					</el-icon>
 				</div>
 				<template #dropdown>
 					<el-dropdown-menu>

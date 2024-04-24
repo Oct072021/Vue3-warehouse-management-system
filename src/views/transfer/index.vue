@@ -363,12 +363,6 @@ const audit = async (detail: Detail & TransferData, status: number) => {
 	}
 }
 
-const handleCreate = () => {
-	router.push({ path: '/transfer/create_update' })
-}
-
-const handleUpdate = (id: number) => {}
-
 // remove
 const handleRemove = async (id: number) => {
 	const res = await removeTransferOrder(id)
@@ -456,6 +450,12 @@ const temp = reactive<Detail & TransferData>({
 	reason: '',
 	production: []
 })
+const handleCreate = () => {
+	router.push({ path: '/transfer/create_update' })
+}
+const handleUpdate = (id: number) => {
+	router.push({ path: '/transfer/create_update', query: { id } })
+}
 
 // create --init view
 getList()
