@@ -266,7 +266,7 @@
 
 <script lang="ts" setup>
 import { getTransferOrders, getAllData, getDetail, auditOrder, removeTransferOrder } from './service'
-import { Detail, Export, SearchData, Transfer, TransferData } from './data.d'
+import { Detail, Export, SearchData, TransferData } from './data.d'
 
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
@@ -285,7 +285,7 @@ const { t } = useI18n()
 
 const router = useRouter()
 
-const { header, area, status, title } = useMap()
+const { header, status, title } = useMap()
 
 // header event
 const buttonClick = (data: SearchData, e: string) => {

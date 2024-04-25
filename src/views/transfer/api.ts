@@ -1,5 +1,5 @@
 import { Http } from '@/utils/request'
-import { Transfer, SearchData, Audit, Detail, Export } from './data.d'
+import { Transfer, SearchData, Audit, Detail, Export, ProductionInfo } from './data.d'
 
 export function fetchList(params?: SearchData) {
 	return Http.getRequest<Transfer>('/vue-element-admin/transfer/list', { params })
@@ -30,5 +30,5 @@ export function audit(data: Audit) {
 }
 
 export function fetchStockID(area: string) {
-	return Http.getRequest('/vue-element-admin/stock/getProductionByArea', { params: { area } })
+	return Http.getRequest<ProductionInfo>('/vue-element-admin/stock/getProductionByArea', { params: { area } })
 }

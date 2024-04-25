@@ -4,12 +4,6 @@ import { computed } from 'vue'
 const { t } = i18n.global
 
 export const useMap = () => {
-	const type = computed(() => {
-		return {
-			'0': t('transfer.normal'),
-			'1': t('transfer.return')
-		}
-	})
 	const status = computed(() => {
 		return {
 			'0': [t('transfer.wait'), 'info'],
@@ -97,7 +91,6 @@ export const useMap = () => {
 	})
 
 	return {
-		type,
 		status,
 		title,
 		area,

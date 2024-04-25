@@ -1,5 +1,6 @@
 import { InboundData } from './data.d'
 import { AuditData, BaseData, Detail, Search } from '../types/data'
+import { ListData } from '@/types/common'
 
 export interface InboundData extends BaseData {
 	supplier: string
@@ -7,10 +8,7 @@ export interface InboundData extends BaseData {
 
 export type InboundDetail = Omit<InboundData & Detail, 'title'>
 
-export interface Inbound {
-	items: InboundData[]
-	total: number
-}
+export type Inbound = ListData<InboundData>
 
 export type SearchData = Search
 

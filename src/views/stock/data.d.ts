@@ -1,6 +1,7 @@
+import { ListData } from '@/types/common'
 import { Pagination } from '@/types/pagination.d'
 
-export interface StockData {	
+export interface StockData {
 	id: number | undefined
 	productionID: string
 	specs: string | undefined
@@ -10,10 +11,7 @@ export interface StockData {
 	unit: number | undefined
 }
 
-export interface Stock{
-  items: StockData[]
-	total: number
-}
+export type Stock = ListData<StockData>
 
 export interface SearchList implements Pagination {
 	limit?: number

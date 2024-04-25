@@ -1,3 +1,4 @@
+import { ListData } from '@/types/common'
 import { BaseData, Search, Detail, Total } from '../types/data.d'
 
 export interface OutboundData extends BaseData {
@@ -6,10 +7,7 @@ export interface OutboundData extends BaseData {
 
 export type OutboundDetail = Omit<OutboundData & Detail, 'title'>
 
-export interface Outbound {
-	items: OutboundData[]
-	total: number
-}
+export type Outbound = ListData<OutboundData>
 
 export type SearchData = Search
 

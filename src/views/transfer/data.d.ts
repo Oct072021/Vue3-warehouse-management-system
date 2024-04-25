@@ -1,3 +1,5 @@
+import { ListData } from '@/types/common'
+
 export interface TransferData {
 	id: number
 	orderID: string
@@ -27,10 +29,7 @@ interface Production {
 	unit: string
 }
 
-export interface Transfer {
-	items: TransferData[]
-	total: number
-}
+export type Transfer = ListData<TransferData>
 
 export interface SearchData implements Pagination {
 	limit?: number
@@ -48,5 +47,5 @@ export interface Audit {
 export type Export = TransferData & Detail
 
 export interface ProductionInfo {
-  [index:string]: Production
+	[index: string]: Production
 }
