@@ -1,5 +1,7 @@
 import { ListData } from '@/types/common'
+import { Pagination } from '@/types/pagination.d'
 
+// DTO
 export interface TransferData {
 	id: number
 	orderID: string
@@ -11,8 +13,10 @@ export interface TransferData {
 	auditor: string
 }
 
+export type Transfer = ListData<TransferData>
+
 export interface Detail {
-  id: number
+	id: number
 	production: Production[]
 	orderID: string
 	documenter: string
@@ -23,6 +27,11 @@ export interface Detail {
 	reason: string
 }
 
+export interface ProductionInfo {
+	[index: string]: Production
+}
+
+// VO
 export interface Order {
 	production: Production[]
 	orderID: string
@@ -35,15 +44,6 @@ export interface Order {
 	remark: string
 }
 
-interface Production {
-	productionID: string
-	productionName: string
-	quantity: number
-	unit: string
-}
-
-export type Transfer = ListData<TransferData>
-
 export interface SearchData implements Pagination {
 	limit?: number
 	page?: number
@@ -55,12 +55,16 @@ export interface SearchData implements Pagination {
 export interface Audit {
 	status: number
 	id: number
-  reason:string
-  auditor:string
+	reason: string
+	auditor: string
 }
 
 export type Export = TransferData & Detail
 
-export interface ProductionInfo {
-	[index: string]: Production
+// common
+interface Production {
+	productionID: string
+	productionName: string
+	quantity: number
+	unit: string
 }
