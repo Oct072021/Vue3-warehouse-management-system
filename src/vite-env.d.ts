@@ -17,5 +17,4 @@ interface ImportMeta {
 
 declare module '*.mjs'
 
-declare module 'vue-schart'
 declare module 'vue-cropperjs'

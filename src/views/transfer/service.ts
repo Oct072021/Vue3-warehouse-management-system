@@ -1,20 +1,23 @@
-import { SearchData, Audit, Detail, TransferData } from './data'
-
+import { SearchData, Audit, Order } from './data'
 import { audit, createOrder, fetchAllData, fetchDetail, fetchList, fetchStockID, remove, updateOrder } from './api'
+
 import { useUserStore } from '@/store/user'
 import { parseTime } from '@/utils'
-import { ElMessage } from 'element-plus'
 
 const userStroe = useUserStore()
 
-export async function createTransferOrder(orderInfo: Detail) {
-	orderInfo['timestamp'] = +new Date() + '' // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+export async function createTransferOrder(orderInfo: Order) {
+	const { remark } = orderInfo
+	Object.assign(orderInfo, {
+		timestamp: +new Date() + '',
+		remark: remark.length === 0 ? '无' : remark
+	})
 
 	const res = await createOrder(orderInfo)
 	return res
 }
 
-export async function updateTransferOrder(orderInfo: Detail) {
+export async function updateTransferOrder(orderInfo: Order) {
 	const res = await updateOrder(orderInfo)
 	return res
 }
@@ -37,13 +40,15 @@ export async function getDetail(id: number) {
 	return res
 }
 
-export async function auditOrder(obj: Audit) {
-	if (obj.detail.reason === '') {
-		obj.detail.reason = '无'
+export async function auditOrder({ id, status, reason }: Omit<Audit, 'auditor'>) {
+	const data: Audit = {
+		id,
+		status,
+		reason: reason.length === 0 ? '无' : reason,
+		auditor: userStroe.roles[0]
 	}
-	obj.detail.auditor = userStroe.roles[0]
 
-	const res = await audit(obj)
+	const res = await audit(data)
 	return res
 }
 

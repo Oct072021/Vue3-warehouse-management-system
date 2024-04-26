@@ -1,5 +1,5 @@
 import { Http } from '@/utils/request'
-import { Transfer, SearchData, Audit, Detail, Export, ProductionInfo } from './data.d'
+import { Transfer, SearchData, Audit, Detail, Export, ProductionInfo, Order } from './data.d'
 
 export function fetchList(params?: SearchData) {
 	return Http.getRequest<Transfer>('/vue-element-admin/transfer/list', { params })
@@ -13,11 +13,11 @@ export function fetchAllData() {
 	return Http.getRequest<Export[]>('/vue-element-admin/transfer/all')
 }
 
-export function createOrder(data: Detail) {
+export function createOrder(data: Order) {
 	return Http.postRequest('/vue-element-admin/transfer/create', data)
 }
 
-export function updateOrder(data: Detail) {
+export function updateOrder(data: Order) {
 	return Http.postRequest('/vue-element-admin/transfer/update', data)
 }
 

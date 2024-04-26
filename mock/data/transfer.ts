@@ -23,7 +23,7 @@ for (let i = 1; i <= 600; i++) {
 			orderID: `TRA${10000 + i}`,
 			correlationID: `000${2 + i}`,
 			timestamp: "@date('2022/MM/dd')",
-      batch: "@date('2023MMdd')",
+			batch: "@date('2023MMdd')",
 			origin: tempArr[0],
 			new: tempArr[1],
 			documenter: 'Sekiro',
@@ -94,10 +94,13 @@ export default [
 		url: '/vue-element-admin/transfer/audit',
 		method: 'put',
 		response: ({ body }) => {
-			const { detail, status } = body
-			const index = transferArr.findIndex(v => v.id === detail.id)
-			detail.status = status
-			transferArr.splice(index, 1, detail)
+			const { id, status, reason, auditor } = body
+			const index = transferArr.findIndex(v => v.id === id)
+
+			Object.assign(transferArr[index], { status, reason, auditor })
+			// transferArr[index].reason=reason
+			// detail.status = status
+			// transferArr.splice(index, 1, detail)
 
 			return {
 				code: 20000,

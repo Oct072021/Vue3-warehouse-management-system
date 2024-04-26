@@ -12,14 +12,27 @@ export interface TransferData {
 }
 
 export interface Detail {
+  id: number
 	production: Production[]
 	orderID: string
+	documenter: string
 	status: number
 	correlationID: string
-	documenter: string
 	timestamp: string
 	remark: string
 	reason: string
+}
+
+export interface Order {
+	production: Production[]
+	orderID: string
+	origin: string
+	new: string
+	correlationID: string
+	documenter: string
+	batch: string
+	timestamp: string
+	remark: string
 }
 
 interface Production {
@@ -41,7 +54,9 @@ export interface SearchData implements Pagination {
 
 export interface Audit {
 	status: number
-	detail: Detail & TransferData
+	id: number
+  reason:string
+  auditor:string
 }
 
 export type Export = TransferData & Detail

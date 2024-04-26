@@ -246,13 +246,13 @@
 					<template v-if="dialogStatus === 'audit'">
 						<el-button
 							type="success"
-							@click="audit(temp, 1)"
+							@click="audit(1)"
 						>
 							{{ t(`button.pass`) }}
 						</el-button>
 						<el-button
 							type="danger"
-							@click="audit(temp, 2)"
+							@click="audit(2)"
 						>
 							{{ t(`button.noPass`) }}
 						</el-button>
@@ -348,8 +348,9 @@ const handleAudit = async (id: number) => {
 		dataForm.value.clearValidate()
 	})
 }
-const audit = async (detail: Detail & TransferData, status: number) => {
-	const res = await auditOrder({ detail, status })
+const audit = async (status: number) => {
+	const { id, reason } = temp
+	const res = await auditOrder({ id, reason, status })
 	if (res.code === 20000) {
 		dialogFormVisible.value = false
 		ElNotification({
@@ -435,17 +436,13 @@ const formatJson = (data: Export[], filterVal: string[]) => {
 const dataForm = ref()
 const dialogStatus = ref<string>('')
 const dialogFormVisible = ref<boolean>(false)
-const temp = reactive<Detail & TransferData>({
+const temp = reactive<Detail>({
 	id: -1,
 	orderID: '',
 	correlationID: '',
 	timestamp: '',
-	batch: '',
-	origin: '',
-	new: '',
 	documenter: '',
 	status: -1,
-	auditor: '',
 	remark: '无',
 	reason: '',
 	production: []

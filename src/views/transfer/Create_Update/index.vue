@@ -40,6 +40,7 @@
 											v-else
 											v-model="order.origin"
 											placeholder=""
+											@change="changeOriginArea"
 										>
 											<el-option
 												v-for="opt in area"
@@ -236,6 +237,7 @@ import { Detail, ProductionInfo, TransferData } from '../data.d'
 
 import { createTransferOrder, getDetail, getStockID, updateTransferOrder } from '../service'
 import { validArea } from '@/utils/validate'
+import { Order } from '../data.d'
 
 const route = useRoute()
 const router = useRouter()
@@ -277,8 +279,7 @@ const rules = reactive({
 })
 
 const orderFormRef = ref()
-const order = reactive<Detail & TransferData>({
-	id: -1,
+const order = reactive<Order>({
 	orderID: '',
 	correlationID: '',
 	timestamp: '',
@@ -286,10 +287,7 @@ const order = reactive<Detail & TransferData>({
 	origin: '',
 	new: '',
 	documenter: '',
-	status: -1,
-	auditor: '',
-	remark: '无',
-	reason: '',
+	remark: '',
 	production: []
 })
 const submitForm = (formEl: FormInstance | undefined) => {
@@ -310,7 +308,12 @@ const submitForm = (formEl: FormInstance | undefined) => {
 				router.go(-1)
 			}
 		} else {
-			console.log('error submit!!')
+			ElNotification({
+				title: 'Error',
+				message: i18n.global.t(`tips.submit`) + i18n.global.t(`tips.fail`),
+				type: 'error',
+				duration: 2000
+			})
 			return false
 		}
 	})
@@ -346,14 +349,11 @@ const getProductionIDList = async (area: string) => {
 		Object.assign(productionIDList, data)
 	}
 }
-watch(
-	() => order.origin,
-	val => {
-		delProduction(0, true)
-		createProduction()
-		getProductionIDList(val)
-	}
-)
+const changeOriginArea = (val: string) => {
+	delProduction(0, true)
+	createProduction()
+	getProductionIDList(val)
+}
 const autoCreate = (id: string, index: number) => {
 	Object.assign(order.production[index], productionIDList[id])
 }
@@ -366,7 +366,7 @@ const getData = async () => {
 }
 // 存在id则为 '更新订单信息' 业务，需要获取数据
 if (route.query.id) {
-	getData()
+	getData().then(() => getProductionIDList(order.origin))
 }
 </script>
 
