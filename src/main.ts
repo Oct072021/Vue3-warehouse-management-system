@@ -3,7 +3,8 @@ import { createApp } from 'vue'
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 
 import ElementPlus from 'element-plus'
-import './styles/element-variables.module.scss'
+// import './styles/element-variables.module.scss'
+import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import './styles/index.scss' // global css
