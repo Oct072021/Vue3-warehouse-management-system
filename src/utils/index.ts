@@ -1,37 +1,28 @@
-import { AxiosResponse } from 'axios'
-
-/**
- * Parse the time to string
- * @param {(Date | string | number)} time
- * @param {string} cFormat
- * @returns {string | null}
- */
-export function parseTime(time: string | number | Date, cFormat?: string): string | null {
-  if (arguments.length === 0 || !time) {
-    return null
-  }
+// 解析时间
+export function parseTime<T extends object | string | number>(time: T, cFormat: string): string {
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
-  let date
+  let date: Date
   if (typeof time === 'object') {
-    date = time
+    date = time as Date
   } else {
+    let _time: string | number
     if (typeof time === 'string') {
       if (/^[0-9]+$/.test(time)) {
         // support "1548221490638"
-        time = parseInt(time)
+        _time = parseInt(time)
       } else {
         // support safari
         // https://stackoverflow.com/questions/4310953/invalid-date-in-safari
-        time = time.replace(new RegExp(/-/gm), '/')
+        _time = time.replace(new RegExp(/-/gm), '/')
       }
     }
 
     if (typeof time === 'number' && time.toString().length === 10) {
-      time = time * 1000
+      _time = time * 1000
     }
-    date = new Date(time)
+    date = new Date(_time!)
   }
-  const formatObj: { [index: string]: number } = {
+  const formatObj = {
     y: date.getFullYear(),
     m: date.getMonth() + 1,
     d: date.getDate(),
@@ -41,7 +32,7 @@ export function parseTime(time: string | number | Date, cFormat?: string): strin
     a: date.getDay(),
   }
   const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
-    const value = formatObj[key]
+    const value = formatObj[key as keyof typeof formatObj]
     // Note: getDay() returns 0 on Sunday
     if (key === 'a') {
       return ['日', '一', '二', '三', '四', '五', '六'][value]
@@ -51,14 +42,10 @@ export function parseTime(time: string | number | Date, cFormat?: string): strin
   return time_str
 }
 
-/**
- * @param {number} time
- * @param {string} option
- * @returns {string}
- */
-export function formatTime(time: number, option: string): string | null {
+// 格式化时间
+export function formatTime(time: number, option: string) {
   if (('' + time).length === 10) {
-    time = parseInt('' + time) * 1000
+    time = parseInt(time + '') * 1000
   } else {
     time = +time
   }
@@ -86,28 +73,25 @@ export function formatTime(time: number, option: string): string | null {
 
 /**
  * @param {string} url
- * @returns {T extends object}
+ * @returns {Object}
  */
-export function getQueryObject<T extends object>(url: string): T {
+export function getQueryObject<T>(url: string): T {
   url = url == null ? window.location.href : url
   const search = url.substring(url.lastIndexOf('?') + 1)
-  const obj: { [index: string]: any } = {}
+  const obj = {} as T
   const reg = /([^?&=]+)=([^?&=]*)/g
   search.replace(reg, (rs, $1, $2) => {
-    const name = decodeURIComponent($1)
-    let val = decodeURIComponent($2)
-    val = String(val)
+    const name = decodeURIComponent($1) as keyof T
+    let val = decodeURIComponent($2) as T[keyof T]
+    // val = String(val)
     obj[name] = val
     return rs
   })
-  return obj as T
+  return obj
 }
 
-/**
- * @param {string} str value
- * @returns {number} output value
- */
-export function byteLength(str: string): number {
+// 返回字节长度(支持UTF-8)
+export function byteLength(str: string) {
   // returns the byte length of an utf8 string
   let s = str.length
   for (var i = str.length - 1; i >= 0; i--) {
@@ -119,121 +103,54 @@ export function byteLength(str: string): number {
   return s
 }
 
-/**
- * 清除数组中的空项
- * @param {Array} actual
- * @returns {Array}
- */
-export function cleanArray<T>(actual: T[]): T[] {
-  const newArray: T[] = []
-  actual.forEach((item) => {
-    if (item) newArray.push(item)
-  })
-  return newArray
-}
-
-/**
- * json => url参数
- * @param {T extends object} json
- * @returns {String}
- */
-export function obj2Param<T extends object>(json: T): string {
-  if (!json) return ''
-  return cleanArray(
-    Object.keys(json).map((key) => {
-      if (json[key] === undefined) return ''
-      return encodeURIComponent(key) + '=' + encodeURIComponent(json[key])
+// obj转url参数
+export function param<T extends object>(json: T) {
+  return Object.keys(json)
+    .map((key) => {
+      if (json[key as keyof T] === undefined) return ''
+      return encodeURIComponent(key) + '=' + encodeURIComponent(json[key as keyof T] + '')
     })
-  ).join('&')
+    .filter((item) => item !== undefined)
+    .join('&')
 }
 
-/**
- * url参数 => json
- * @param {string} url
- * @returns {T extends object}
- */
+// url参数转obj
 export function param2Obj<T extends object>(url: string): T {
   const search = decodeURIComponent(url.split('?')[1]).replace(/\+/g, ' ')
-  if (!search) return {} as T
-
   const obj = {} as T
-  const searchArr = search.split('&')
-  searchArr.forEach((v) => {
-    const index = v.indexOf('=')
-    if (index !== -1) {
-      const name = v.substring(0, index)
-      const val = v.substring(index + 1, v.length)
-      obj[name] = val
-    }
-  })
+  if (search) {
+    const searchArr = search.split('&')
+    searchArr.forEach((v) => {
+      const index = v.indexOf('=')
+      if (index !== -1) {
+        const name = v.substring(0, index) as keyof T
+        const val = v.substring(index + 1, v.length) as T[keyof T]
+        obj[name] = val
+      }
+    })
+  }
   return obj
 }
 
-/**
- * @param {string} val
- * @returns {string}
- */
-export function html2Text(val: string): string {
-  const div = document.createElement('div')
-  div.innerHTML = val
-  return div.textContent || div.innerText
-}
-
-/**
- * Merges two objects, giving the last one precedence
- * @param {Object} target
- * @param {(Object|Array)} source
- * @returns {Object}
- */
-export function objectMerge(target: { [index: string]: any }, source: { [index: string]: any }) {
-  if (typeof target !== 'object') {
-    target = {}
-  }
-  if (Array.isArray(source)) {
-    return source.slice()
-  }
-  Object.keys(source).forEach((property) => {
+// 合并两个obj
+export function objectMerge<T extends object, U extends object>(target: T, source: U): T & U {
+  // 遍历 source 的所有属性，递归合并
+  ;(Object.keys(source) as Array<keyof U>).forEach((property) => {
     const sourceProperty = source[property]
-    if (typeof sourceProperty === 'object') {
-      target[property] = objectMerge(target[property], sourceProperty)
+    const targetProperty = (target as Record<keyof U, unknown>)[property]
+
+    if (typeof sourceProperty === 'object' && sourceProperty !== null) {
+      ;(target as Record<keyof U, unknown>)[property] = objectMerge(targetProperty as U, sourceProperty)
     } else {
-      target[property] = sourceProperty
+      ;(target as Record<keyof U, unknown>)[property] = sourceProperty
     }
   })
-  return target
-}
-/**
- * Merges two objects, giving the last one precedence
- * @param {Object} target
- * @param {(Object|Array)} source
- * @returns {Object}
- */
-export function test<T extends object, K extends object | any[]>(target: T, source: K) {
-  if (typeof target !== 'object') {
-    target = {}
-  }
-  if (Array.isArray(source)) {
-    return source.slice()
-  }
-  Object.keys(source).forEach((property) => {
-    const sourceProperty = source[property]
-    if (typeof sourceProperty === 'object') {
-      target[property] = objectMerge(target[property], sourceProperty)
-    } else {
-      target[property] = sourceProperty
-    }
-  })
-  return target
+
+  return target as T & U
 }
 
-/**
- * @param {HTMLElement} element
- * @param {string} className
- */
+// 切换class
 export function toggleClass(element: HTMLElement, className: string) {
-  if (!element || !className) {
-    return
-  }
   let classString = element.className
   const nameIndex = classString.indexOf(className)
   if (nameIndex === -1) {
@@ -244,11 +161,8 @@ export function toggleClass(element: HTMLElement, className: string) {
   element.className = classString
 }
 
-/**
- * @param {string} type
- * @returns {Date}
- */
-export function getTime(type: string) {
+// 获取当天时间
+export function getTime(type?: string) {
   if (type === 'start') {
     return new Date().getTime() - 3600 * 1000 * 24 * 90
   } else {
@@ -256,119 +170,100 @@ export function getTime(type: string) {
   }
 }
 
-/**
- * @param {Function} func
- * @param {number} wait
- * @param {boolean} immediate
- * @return {*}
- */
-export function debounce(func: Function, wait: number, immediate: boolean) {
-  let timeout: number | null, context: any
-
-  return function (this: any, ...args: any[]) {
-    context = this
-    const callNow = immediate && !timeout
-    // 如果延时不存在，重新设定延时
-    // if (!timeout) timeout = setTimeout(later, wait)
-    if (callNow) {
-      func.apply(context, args)
-      context = args = null as any
-      return
+// deepClone简易版，只支持处理object和array    完整功能请使用 lodash's _.cloneDeep
+export function deepClone<T extends object | unknown[]>(source: T): T {
+  // 处理基本类型和null
+  if (source === null || typeof source !== 'object') {
+    return source
+  }
+  // 处理数组
+  if (Array.isArray(source)) {
+    return source.map((item) => deepClone(item)) as T
+  }
+  // 处理普通对象
+  const clone = Object.create(Object.getPrototypeOf(source))
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      clone[key] = deepClone(source[key as keyof T] as T)
     }
-    if (timeout) clearTimeout(timeout)
-    timeout = window.setTimeout(function () {
+  }
+  return clone as T
+}
+
+// 防抖
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number,
+  immediate?: boolean
+): (...args: Parameters<T>) => ReturnType<T> | undefined {
+  let timeout: ReturnType<typeof setTimeout> | null = null
+  let args: Parameters<T>
+  let context: unknown
+  let timestamp: number
+  let result: ReturnType<T> | undefined
+
+  const later = function () {
+    // 据上一次触发时间间隔
+    const last = +new Date() - timestamp
+
+    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
+    if (last < wait && last > 0) {
+      timeout = setTimeout(later, wait - last)
+    } else {
       timeout = null
       // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
       if (!immediate) {
-        func.apply(context, args)
-        if (!timeout) context = args = null as any
+        result = func.apply(context, args)
+        if (!timeout) {
+          context = null
+          args = null!
+        }
       }
-    }, wait)
-
-    return
-  }
-}
-
-/**
- * This is just a simple version of deep copy
- * Has a lot of edge cases bug
- * If you want to use a perfect deep copy, use lodash's _.cloneDeep
- * @param {T extends Object} source
- * @returns {T}
- */
-export function deepClone<T extends Object>(source: T | T[]): T | T[] {
-  if (!source && typeof source !== 'object') {
-    throw new Error('error arguments  --deepClone')
-  }
-  const targetObj: T[] | T = source.constructor === Array ? ([] as T[]) : ({} as T)
-  Object.keys(source).forEach((keys) => {
-    if (source[keys] && typeof source[keys] === 'object') {
-      targetObj[keys] = deepClone(source[keys])
-    } else {
-      targetObj[keys] = source[keys]
     }
-  })
-  return targetObj
+  }
+
+  return function (this: unknown, ...innerArgs: Parameters<T>): ReturnType<T> | undefined {
+    context = this
+    timestamp = +new Date()
+    const callNow = immediate && !timeout
+    // 如果延时不存在，重新设定延时
+    if (!timeout) {
+      timeout = setTimeout(later, wait)
+    }
+    if (callNow) {
+      result = func.apply(context, innerArgs)
+      context = null
+      args = null!
+    }
+
+    return result
+  }
 }
 
-/**
- * @param {Array} arr
- * @returns {Array}
- */
-export function uniqueArr(arr: any[]) {
+// 数组去重
+export function uniqueArr<T>(arr: T[]) {
   return Array.from(new Set(arr))
 }
 
-export function createUniqueString(): string {
+// 创建唯一的string
+export function createUniqueString() {
   const timestamp = +new Date() + ''
-  const randomNum = parseInt('' + (1 + Math.random()) * 65536) + ''
+  const randomNum = parseInt((1 + Math.random()) * 65536 + '') + ''
   return (+(randomNum + timestamp)).toString(32)
 }
 
-/**
- * Check if an element has a class
- * @param {HTMLElement} ele
- * @param {string} cls
- * @returns {boolean}
- */
+// Check if an element has a class
 export function hasClass(ele: HTMLElement, cls: string) {
   return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
 }
-
-/**
- * Add class to element
- * @param {HTMLElement} ele
- * @param {string} cls
- */
+// Add class to element
 export function addClass(ele: HTMLElement, cls: string) {
   if (!hasClass(ele, cls)) ele.className += ' ' + cls
 }
-
-/**
- * Remove class from element
- * @param {HTMLElement} ele
- * @param {string} cls
- */
+// Remove class from element
 export function removeClass(ele: HTMLElement, cls: string) {
   if (hasClass(ele, cls)) {
     const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
     ele.className = ele.className.replace(reg, ' ')
   }
-}
-
-/**
- * 导出，处理文件流
- */
-export function exportFile({ headers, data }: AxiosResponse) {
-  // 此部分根据业务需求变动
-  const temp = headers['content-disposition'].split("'")
-  const name = temp[temp.length - 1]
-
-  const url = window.URL.createObjectURL(new Blob([data], { type: headers['content-type'] }))
-  const link = document.createElement('a')
-  link.href = url
-  link.setAttribute('download', name)
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
 }

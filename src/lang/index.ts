@@ -1,11 +1,11 @@
-import { createI18n } from 'vue-i18n'
+import { createI18n, I18nOptions } from 'vue-i18n'
 import Cookies from 'js-cookie'
 import en from 'element-plus/dist/locale/en.mjs'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import enLocale from './en'
 import zhLocale from './zh'
 
-const messages = {
+const messages: I18nOptions['messages'] = {
   en: {
     ...enLocale,
     ...en,
@@ -22,7 +22,7 @@ export function getLanguage() {
 
   // if has not choose language
   const language = navigator.language.toLowerCase()
-  const locales = Object.keys(messages)
+  const locales = Object.keys(messages as I18nOptions)
   for (const locale of locales) {
     if (language.indexOf(locale) > -1) {
       return locale

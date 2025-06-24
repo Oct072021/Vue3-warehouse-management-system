@@ -1,11 +1,4 @@
-/**
- * time stamp + setTimeOut
- *
- * @param {Function} fn
- * @param {Number} delay
- *
- * @returns {Function}
- */
+// 节流函数(time stamp + setTimeOut) 
 export function throttle(fn: Function, delay: number) {
 	let timeout: number | null = null
 	let startTime: number = Date.now()
