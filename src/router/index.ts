@@ -86,7 +86,6 @@ export const asyncRoutes: RouteRecordRaw[] = [
       },
     ],
   },
-
   {
     path: '/permission',
     component: Layout,
@@ -106,15 +105,22 @@ export const asyncRoutes: RouteRecordRaw[] = [
           roles: ['admin', 'dataOperator', 'accountant'],
         },
       },
-      // {
-      // 	path: 'role',
-      // 	component: () => import('@/views/permission/role.vue'),
-      // 	name: 'RolePermission',
-      // 	meta: {
-      // 		title: 'RolePermission',
-      // 		roles: ['admin']
-      // 	}
-      // }
+    ],
+  },
+  {
+    path: '/waterFall',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/waterFall/index.vue'),
+        name: 'waterFall',
+        meta: {
+          title: 'waterFall',
+          icon: 'bug',
+          roles: ['admin'],
+        },
+      },
     ],
   },
 
