@@ -32,33 +32,28 @@ const createImgElement = (el: HTMLElement, imgList: string[], options: Config) =
     img.style.position = 'absolute'
     img.style.transition = '0.5s'
     imgs.push(img)
-    img.onload = () => {
-      debounce(
-        function () {
-          setImgPoisition(el, imgList, options, imgs)
-        },
-        1000,
-        false
-      )()
-    }
-    frag.append(img)
-  })
-  window.onresize = () => {
-    debounce(
+    img.onload = debounce(
       function () {
         setImgPoisition(el, imgList, options, imgs)
       },
-      0.3 * 1000,
+      1 * 1000,
       false
-    )()
-  }
+    )
+
+    frag.append(img)
+  })
+  window.onresize = debounce(
+    function () {
+      setImgPoisition(el, imgList, options, imgs)
+    },
+    0.3 * 1000,
+    false
+  )
 
   return frag
 }
 // 设置图片元素的坐标
 const setImgPoisition = (el: HTMLElement, imgList: string[], options: Config, imgs: HTMLElement[]): any => {
-  console.log(1)
-
   const { number, gap, containerWidth } = getHorizontalInfo(el, options)
 
   const arr = new Array(number).fill(0)

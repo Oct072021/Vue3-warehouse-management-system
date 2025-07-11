@@ -123,6 +123,22 @@ export const asyncRoutes: RouteRecordRaw[] = [
       },
     ],
   },
+    {
+    path: '/virtualList',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/virtualList/index.vue'),
+        name: 'virtualList',
+        meta: {
+          title: 'virtualList',
+          icon: 'bug',
+          roles: ['admin'],
+        },
+      },
+    ],
+  },
 
   /** when your routing map is too long, you can split it into small modules **/
   chartsRouter,

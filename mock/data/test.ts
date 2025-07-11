@@ -34,7 +34,7 @@ export default [
           { url: 'https://picsum.photos/id/102/300/430', text: 'Mountain image 22 (430px)' },
           { url: 'https://picsum.photos/id/103/300/340', text: 'Forest image 23 (340px)' },
           { url: 'https://picsum.photos/id/104/300/510', text: 'River image 24 (510px)' },
-          { url: 'https://picsum.photos/id/105/300/240', text: 'Flower image 25 (240px)' },
+          { url: 'https://picsum.photos/id/90/300/240', text: 'Flower image 25 (240px)' },
           { url: 'https://picsum.photos/id/106/300/360', text: 'City image 26 (360px)' },
           { url: 'https://picsum.photos/id/107/300/490', text: 'Beach image 27 (490px)' },
           { url: 'https://picsum.photos/id/108/300/300', text: 'Square image 28 (300px)' },
@@ -62,6 +62,23 @@ export default [
           { url: 'https://picsum.photos/id/49/300/480', text: 'Tall image 49 (480px)' },
           { url: 'https://picsum.photos/id/50/300/340', text: 'Medium image 50 (340px)' },
         ],
+      }
+    },
+  },
+  {
+    url: '/vue-element-admin/test/textList',
+    method: 'post',
+    response: () => {
+      const data = []
+      for (let i = 0; i < 1000; i++) {
+        data.push({
+          id: i + 1,
+          value: Mock.Random.paragraph(),
+        })
+      }
+      return {
+        code: 20000,
+        data,
       }
     },
   },
