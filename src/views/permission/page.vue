@@ -1,7 +1,7 @@
 <template>
-	<div class="app-container">
-		<SwitchRoles @change="handleRolesChange" />
-	</div>
+  <div class="app-container">
+    <SwitchRoles @change="handleRolesChange" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -12,6 +12,6 @@ import SwitchRoles from './components/SwitchRoles.vue'
 const router = useRouter()
 
 const handleRolesChange = () => {
-	router.push({ path: '/permission/index?' + +new Date() })
+  router.push({ path: '/permission/index?' + +new Date() })
 }
 </script>

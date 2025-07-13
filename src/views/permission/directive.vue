@@ -1,135 +1,135 @@
 <template>
-	<div class="app-container">
-		<SwitchRoles @change="handleRolesChange" />
-		<div
-			:key="key"
-			style="margin-top: 30px"
-		>
-			<div>
-				<span
-					v-permission="['admin']"
-					class="permission-alert"
-				>
-					Only
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>admin</el-tag
-					>can see this
-				</span>
-				<el-tag
-					v-permission="['admin']"
-					class="permission-sourceCode"
-					type="info"
-					>v-permission="['admin']"</el-tag
-				>
-			</div>
+  <div class="app-container">
+    <SwitchRoles @change="handleRolesChange" />
+    <div
+      :key="key"
+      style="margin-top: 30px"
+    >
+      <div>
+        <span
+          v-permission="['admin']"
+          class="permission-alert"
+        >
+          Only
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >admin</el-tag
+          >can see this
+        </span>
+        <el-tag
+          v-permission="['admin']"
+          class="permission-sourceCode"
+          type="info"
+          >v-permission="['admin']"</el-tag
+        >
+      </div>
 
-			<div>
-				<span
-					v-permission="['dataOperator']"
-					class="permission-alert"
-				>
-					Only
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>dataOperator</el-tag
-					>can see this
-				</span>
-				<el-tag
-					v-permission="['dataOperator']"
-					class="permission-sourceCode"
-					type="info"
-					>v-permission="['dataOperator']"</el-tag
-				>
-			</div>
+      <div>
+        <span
+          v-permission="['dataOperator']"
+          class="permission-alert"
+        >
+          Only
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >dataOperator</el-tag
+          >can see this
+        </span>
+        <el-tag
+          v-permission="['dataOperator']"
+          class="permission-sourceCode"
+          type="info"
+          >v-permission="['dataOperator']"</el-tag
+        >
+      </div>
 
-			<div>
-				<span
-					v-permission="['accountant']"
-					class="permission-alert"
-				>
-					Only
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>accountant</el-tag
-					>can see this
-				</span>
-				<el-tag
-					v-permission="['accountant']"
-					class="permission-sourceCode"
-					type="info"
-					>v-permission="['accountant']"</el-tag
-				>
-			</div>
+      <div>
+        <span
+          v-permission="['accountant']"
+          class="permission-alert"
+        >
+          Only
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >accountant</el-tag
+          >can see this
+        </span>
+        <el-tag
+          v-permission="['accountant']"
+          class="permission-sourceCode"
+          type="info"
+          >v-permission="['accountant']"</el-tag
+        >
+      </div>
 
-			<div>
-				<span
-					v-permission="['admin', 'dataOperator']"
-					class="permission-alert"
-				>
-					Both
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>admin</el-tag
-					>and
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>dataOperator</el-tag
-					>can see this
-				</span>
-				<el-tag
-					v-permission="['admin', 'dataOperator']"
-					class="permission-sourceCode"
-					type="info"
-					>v-permission="['admin','dataOperator']"</el-tag
-				>
-			</div>
+      <div>
+        <span
+          v-permission="['admin', 'dataOperator']"
+          class="permission-alert"
+        >
+          Both
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >admin</el-tag
+          >and
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >dataOperator</el-tag
+          >can see this
+        </span>
+        <el-tag
+          v-permission="['admin', 'dataOperator']"
+          class="permission-sourceCode"
+          type="info"
+          >v-permission="['admin','dataOperator']"</el-tag
+        >
+      </div>
 
-			<div>
-				<span
-					v-permission="['admin', 'accountant']"
-					class="permission-alert"
-				>
-					Both
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>admin</el-tag
-					>and
-					<el-tag
-						class="permission-tag"
-						size="small"
-						>accountant</el-tag
-					>can see this
-				</span>
-				<el-tag
-					v-permission="['admin', 'accountant']"
-					class="permission-sourceCode"
-					type="info"
-					>v-permission="['admin','accountant']"</el-tag
-				>
-			</div>
+      <div>
+        <span
+          v-permission="['admin', 'accountant']"
+          class="permission-alert"
+        >
+          Both
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >admin</el-tag
+          >and
+          <el-tag
+            class="permission-tag"
+            size="small"
+            >accountant</el-tag
+          >can see this
+        </span>
+        <el-tag
+          v-permission="['admin', 'accountant']"
+          class="permission-sourceCode"
+          type="info"
+          >v-permission="['admin','accountant']"</el-tag
+        >
+      </div>
 
-			<div>
-				<span
-					v-permission="['admin', 'dataOperator', 'accountant']"
-					class="permission-alert"
-					>All roles can see this</span
-				>
-				<el-tag
-					v-permission="['admin', 'dataOperator', 'accountant']"
-					class="permission-sourceCode"
-					type="info"
-					>v-permission="['admin','dataOperator','accountant']"</el-tag
-				>
-			</div>
-		</div>
-	</div>
+      <div>
+        <span
+          v-permission="['admin', 'dataOperator', 'accountant']"
+          class="permission-alert"
+          >All roles can see this</span
+        >
+        <el-tag
+          v-permission="['admin', 'dataOperator', 'accountant']"
+          class="permission-sourceCode"
+          type="info"
+          >v-permission="['admin','dataOperator','accountant']"</el-tag
+        >
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -143,28 +143,28 @@ const vPermission: Directive = permission
 const key = ref<number>(1)
 
 const handleRolesChange = () => {
-	key.value++
+  key.value++
 }
 </script>
 
 <style lang="scss" scoped>
 .app-container {
-	:deep(.permission-alert) {
-		width: 340px;
-		margin-top: 15px;
-		background-color: #f0f9eb;
-		color: #67c23a;
-		padding: 8px 16px;
-		border-radius: 4px;
-		display: inline-block;
-	}
+  :deep(.permission-alert) {
+    width: 340px;
+    margin-top: 15px;
+    background-color: #f0f9eb;
+    color: #67c23a;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-block;
+  }
 
-	:deep(.permission-sourceCode) {
-		margin-left: 15px;
-	}
+  :deep(.permission-sourceCode) {
+    margin-left: 15px;
+  }
 
-	:deep(.permission-tag) {
-		background-color: #ecf5ff;
-	}
+  :deep(.permission-tag) {
+    background-color: #ecf5ff;
+  }
 }
 </style>

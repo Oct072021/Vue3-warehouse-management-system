@@ -279,7 +279,7 @@ import { nextTick, reactive, ref } from 'vue'
 import { ElNotification } from 'element-plus'
 import { useRouter } from 'vue-router'
 
-import { useMap } from './mixin'
+import { useMap } from './hooks/useMap'
 
 const { t } = useI18n()
 

@@ -1,9 +1,9 @@
 <template>
-	<div
-		:class="className"
-		:style="{ height: height, width: width }"
-		id="charts"
-	/>
+  <div
+    :class="className"
+    :style="{ height: height, width: width }"
+    id="charts"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -22,19 +22,19 @@ const appStore = useAppStore()
 const { t } = i18n.global
 
 const props = withDefaults(
-	defineProps<{
-		className?: string
-		width?: string
-		height?: string
-		autoResize?: boolean
-		chartData: ChartData
-	}>(),
-	{
-		className: 'chart',
-		width: '100%',
-		height: '350px',
-		autoResize: true
-	}
+  defineProps<{
+    className?: string
+    width?: string
+    height?: string
+    autoResize?: boolean
+    chartData: ChartData
+  }>(),
+  {
+    className: 'chart',
+    width: '100%',
+    height: '350px',
+    autoResize: true,
+  },
 )
 
 const chart = ref<echarts.ECharts | null>(null)
@@ -42,122 +42,122 @@ const nowDate = ref<Date>(new Date())
 const monthArr = ref<string[]>([])
 
 const language = computed(() => {
-	return appStore.language
+  return appStore.language
 })
 
 watch(
-	() => props.chartData,
-	val => {
-		setOptions(val)
-	},
-	{ deep: true }
+  () => props.chartData,
+  (val) => {
+    setOptions(val)
+  },
+  { deep: true },
 )
 
 watch(language, () => {
-	initChart()
+  initChart()
 })
 
 onMounted(() => {
-	nextTick(() => {
-		initChart()
-	})
+  nextTick(() => {
+    initChart()
+  })
 })
 onBeforeUnmount(() => {
-	if (!chart.value) {
-		return
-	}
-	chart.value.dispose()
-	chart.value = null
+  if (!chart.value) {
+    return
+  }
+  chart.value.dispose()
+  chart.value = null
 })
 
 const initChart = () => {
-	getMonthArr()
-	setOptions(props.chartData)
+  getMonthArr()
+  setOptions(props.chartData)
 }
 
 const getMonthArr = () => {
-	const nowMonth = nowDate.value.getMonth() + 1
-	const start = nowMonth > 3 && nowMonth < 9 ? nowMonth : nowMonth <= 3 ? 3 : 9
+  const nowMonth = nowDate.value.getMonth() + 1
+  const start = nowMonth > 3 && nowMonth < 9 ? nowMonth : nowMonth <= 3 ? 3 : 9
 
-	monthArr.value = t(`dashboard.month`)
-		.split(',')
-		.slice(start - 3, start + 3)
+  monthArr.value = t(`dashboard.month`)
+    .split(',')
+    .slice(start - 3, start + 3)
 }
 
 const setOptions = ({ inbound, outbound }: ChartData) => {
-	if (chart.value) {
-		chart.value.dispose()
-		chart.value = null
-	}
-	chart.value = echarts.init(document.getElementById('charts'), 'macarons')
-	const i18nInbound = t(`dashboard.inbound`)
-	const i18nOutbound = t(`dashboard.outbound`)
+  if (chart.value) {
+    chart.value.dispose()
+    chart.value = null
+  }
+  chart.value = echarts.init(document.getElementById('charts'), 'macarons')
+  const i18nInbound = t(`dashboard.inbound`)
+  const i18nOutbound = t(`dashboard.outbound`)
 
-	chart.value.setOption({
-		xAxis: {
-			data: monthArr.value,
-			boundaryGap: false,
-			axisTick: {
-				show: false
-			}
-		},
-		grid: {
-			left: 10,
-			right: 10,
-			bottom: 20,
-			top: 30,
-			containLabel: true
-		},
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross'
-			},
-			padding: [5, 10]
-		},
-		yAxis: {
-			axisTick: {
-				show: false
-			}
-		},
-		legend: {
-			data: [i18nInbound, i18nOutbound]
-		},
-		series: [
-			{
-				name: i18nInbound,
-				itemStyle: {
-					color: '#FF005A',
-					lineStyle: {
-						color: '#FF005A',
-						width: 2
-					}
-				},
-				smooth: true,
-				type: 'line',
-				data: inbound,
-				animationDuration: 2800,
-				animationEasing: 'cubicInOut'
-			},
-			{
-				name: i18nOutbound,
-				smooth: true,
-				type: 'line',
-				itemStyle: {
-					color: '#3888fa',
-					lineStyle: {
-						color: '#3888fa',
-						width: 2
-					},
-					areaStyle: {
-						color: '#f3f8ff'
-					}
-				},
-				data: outbound,
-				animationDuration: 2800,
-				animationEasing: 'quadraticOut'
-			}
-		]
-	})
+  chart.value.setOption({
+    xAxis: {
+      data: monthArr.value,
+      boundaryGap: false,
+      axisTick: {
+        show: false,
+      },
+    },
+    grid: {
+      left: 10,
+      right: 10,
+      bottom: 20,
+      top: 30,
+      containLabel: true,
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+      },
+      padding: [5, 10],
+    },
+    yAxis: {
+      axisTick: {
+        show: false,
+      },
+    },
+    legend: {
+      data: [i18nInbound, i18nOutbound],
+    },
+    series: [
+      {
+        name: i18nInbound,
+        itemStyle: {
+          color: '#FF005A',
+          lineStyle: {
+            color: '#FF005A',
+            width: 2,
+          },
+        },
+        smooth: true,
+        type: 'line',
+        data: inbound,
+        animationDuration: 2800,
+        animationEasing: 'cubicInOut',
+      },
+      {
+        name: i18nOutbound,
+        smooth: true,
+        type: 'line',
+        itemStyle: {
+          color: '#3888fa',
+          lineStyle: {
+            color: '#3888fa',
+            width: 2,
+          },
+          areaStyle: {
+            color: '#f3f8ff',
+          },
+        },
+        data: outbound,
+        animationDuration: 2800,
+        animationEasing: 'quadraticOut',
+      },
+    ],
+  })
 }
 </script>

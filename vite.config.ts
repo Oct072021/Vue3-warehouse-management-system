@@ -34,6 +34,7 @@ export default function ({ mode }) {
     ],
     server: {
       port: 1007,
+      host: '0.0.0.0',
       proxy: {
         '^/vue-element-admin/': {
           target: 'http://127.0.0.1:1007/dev-api/',

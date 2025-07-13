@@ -231,7 +231,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage, ElNotification, FormInstance, FormRules } from 'element-plus'
 
-import { useMap } from '../mixin'
+import { useMap } from '../hooks/useMap'
 
 import { Detail, ProductionInfo, TransferData } from '../data.d'
 

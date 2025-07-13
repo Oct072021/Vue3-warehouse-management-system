@@ -57,7 +57,7 @@ const props = withDefaults(
   {
     total: 0,
     pageSize: 10,
-  }
+  },
 )
 
 const emit = defineEmits(['current-change'])

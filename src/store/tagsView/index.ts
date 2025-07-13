@@ -13,7 +13,7 @@ export const useTagsViewStore = defineStore('tagView', {
       this.visitedViews.push(
         Object.assign({}, view, {
           title: view.meta!.title || 'no-name',
-        })
+        }),
       )
     },
 

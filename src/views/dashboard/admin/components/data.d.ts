@@ -1,4 +1,4 @@
 export interface ChartData {
-	inbound: number[]
-	outbound: number[]
+  inbound: number[]
+  outbound: number[]
 }

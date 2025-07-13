@@ -1,7 +1,7 @@
 <template>
-	<div class="dashboard-container">
-		<component :is="comps[currentRole]" />
-	</div>
+  <div class="dashboard-container">
+    <component :is="comps[currentRole]" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -17,13 +17,13 @@ const comps = { admin, editor }
 const userStore = useUserStore()
 
 const roles = computed(() => {
-	return userStore.roles
+  return userStore.roles
 })
 
-const currentRole = ref<string>('admin')
+const currentRole = ref<'admin' | 'editor'>('admin')
 
 // created --init role
 if (!roles.value.includes('admin')) {
-	currentRole.value = 'editor'
+  currentRole.value = 'editor'
 }
 </script>

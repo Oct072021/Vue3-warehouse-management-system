@@ -11,8 +11,9 @@
         <span
           v-if="item.redirect === 'noRedirect' || index == levelList!.length - 1"
           class="no-redirect"
-          >{{ t(`route.${item.meta!.title}`) }}</span
         >
+          {{ t(`route.${item.meta!.title}`) }}
+        </span>
         <a
           v-else
           @click.prevent="handleLink(item)"

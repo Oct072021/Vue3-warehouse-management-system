@@ -25,7 +25,7 @@ const props = withDefaults(
   }>(),
   {
     isActive: false,
-  }
+  },
 )
 
 const emit = defineEmits<{
