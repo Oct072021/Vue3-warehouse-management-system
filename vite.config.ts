@@ -36,9 +36,10 @@ export default function ({ mode }) {
       port: 1007,
       host: '0.0.0.0',
       proxy: {
-        '^/vue-element-admin/': {
-          target: 'http://127.0.0.1:1007/dev-api/',
+        '/dev-api': {
+          target: 'http://127.0.0.1:1007/vue-element-admin',
           changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/dev-api/, ''),
           bypass(req, res, options) {
             const proxyURL = options.target + options.rewrite(req.url)
             req.headers['x-req-proxyURL'] = proxyURL

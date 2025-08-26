@@ -24,7 +24,7 @@ export const useUserStore = defineStore('user', {
     login(userInfo: UserInfo) {
       const { username, password } = userInfo
       return new Promise((resolve, reject) => {
-        Http.postRequest<LoginResponse>('/vue-element-admin/user/login', {
+        Http.postRequest<LoginResponse>('/user/login', {
           username: username.trim(),
           password: password,
         })
@@ -43,7 +43,7 @@ export const useUserStore = defineStore('user', {
     // get user info
     getInfo(): Promise<UserInfoResponse> {
       return new Promise((resolve, reject) => {
-        Http.getRequest<UserInfoResponse>('/vue-element-admin/user/info', { params: { token: this.token } })
+        Http.getRequest<UserInfoResponse>('/user/info', { params: { token: this.token } })
           .then((response) => {
             const { data } = response
 
@@ -74,7 +74,7 @@ export const useUserStore = defineStore('user', {
       const tagViewStore = useTagsViewStore()
 
       return new Promise((resolve, reject) => {
-        Http.postRequest('/vue-element-admin/user/logout')
+        Http.postRequest('/user/logout')
           .then(() => {
             this.token = ''
             this.roles = []

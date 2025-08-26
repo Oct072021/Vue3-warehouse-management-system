@@ -11,7 +11,7 @@ import { responseFake } from '../utils'
 const modules = [...userMock, ...stockMock, ...orderMock, ...transferMock, ...test]
 
 Object.keys(modules).forEach((key) => {
-  modules[key] = responseFake('/dev-api', modules[key])
+  modules[key] = responseFake('', modules[key])
 })
 
 export default modules as MockMethod[]
