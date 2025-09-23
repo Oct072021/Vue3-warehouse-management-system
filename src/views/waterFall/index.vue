@@ -1,13 +1,18 @@
 <template>
   <el-scrollbar height="calc(100vh - 90px)">
-    <div
+    <!-- <div
       class="container"
       v-waterfall="imgList"
       v-bind="{
         minGap: 10,
         width: 220,
       }"
-    ></div>
+    ></div> -->
+    <WaterFall
+      :imgList="imgList"
+      :min-gap="10"
+      :width="220"
+    />
   </el-scrollbar>
 </template>
 
@@ -15,6 +20,7 @@
 import { waterfall } from '@/directive/waterfall' // waterfall directive
 import { Directive, ref } from 'vue'
 import { getImgData } from './service'
+import WaterFall from '@/components/WaterFall/index.vue'
 
 const vWaterfall: Directive = waterfall
 

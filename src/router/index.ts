@@ -123,7 +123,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
       },
     ],
   },
-    {
+  {
     path: '/virtualList',
     component: Layout,
     children: [
