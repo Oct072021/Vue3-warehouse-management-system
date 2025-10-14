@@ -3,7 +3,7 @@ import { MockMethod } from 'vite-plugin-mock'
 
 export default [
   {
-    url: '/vue-element-admin/test/imgList',
+    url: '/vue-element-admin/waterfall/imgList',
     method: 'post',
     response: () => {
       return {
@@ -41,7 +41,10 @@ export default [
           { url: 'https://picsum.photos/id/109/300/380', text: 'Sunset image 29 (380px)' },
           { url: 'https://picsum.photos/id/110/300/220', text: 'Animal image 30 (220px)' },
           // 继续剩余图片
-          { url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=470', text: '苏格兰高地 (470px)' },
+          {
+            url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=470',
+            text: '苏格兰高地 (470px)',
+          },
           { url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&h=330', text: '落基山脉 (330px)' },
           { url: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=300&h=270', text: '森林营地 (270px)' },
           { url: 'https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?w=300&h=520', text: '山间云雾 (520px)' },
@@ -62,6 +65,24 @@ export default [
           { url: 'https://picsum.photos/id/49/300/480', text: 'Tall image 49 (480px)' },
           { url: 'https://picsum.photos/id/50/300/340', text: 'Medium image 50 (340px)' },
         ],
+      }
+    },
+  },
+  {
+    url: '/vue-element-admin/waterfall/comp',
+    method: 'post',
+    response: () => {
+      const data=[]
+      for (let i = 0; i < 100; i++) {
+        data.push({
+          title: Mock.Random.ctitle(2, 10),
+          desc: Mock.Random.csentence(10, 100),
+        })
+        
+      }
+      return {
+        code: 20000,
+        data,
       }
     },
   },

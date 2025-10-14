@@ -1,0 +1,55 @@
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.center {
+  align-items: center;
+}
+
+.rc {
+  justify-content: center;
+}
+
+.gap {
+  gap: 10px;
+}
+
+.grow {
+  flex: 1;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.radius {
+  border-radius: 5px;
+}
+
+.hidden {
+  overflow: hidden;
+}
+
+.scroll {
+  overflow: auto;
+}
+
+.none {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}

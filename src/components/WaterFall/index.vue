@@ -3,102 +3,98 @@
     ref="rootRef"
     class="waterfall-container"
   >
+    <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUpdated, watch, nextTick } from 'vue'
-import { Config } from './data'
-import { debounce } from '@/utils'
+import { ref, onMounted, onUpdated } from 'vue'
+import { debounce, waitForImage } from '@/utils'
 
 const props = withDefaults(
   defineProps<{
-    imgList: string[]
     minGap?: number
     width?: number
+    timeout?: number
   }>(),
   {
     minGap: 10,
     width: 220,
+    timeout: 0,
   },
 )
 
 const rootRef = ref()
 
-// 使用定位的方式，创建瀑布流
-const createWaterFall = () => {
-  const el = rootRef.value as HTMLElement
-  console.log(el)
+// 初始化元素
+const initElement = async () => {
+  const children = rootRef.value?.children as HTMLCollection
 
-  const { minGap, width } = props
+  for (let i = 0; i < children.length; i++) {
+    const el = children[i] as HTMLElement
 
-  const frag = createImgElement(props.imgList, { minGap, width })
+    el.style.width = props.width + 'px'
+    el.style.position = 'absolute'
+    el.style.transition = '0.5s'
 
-  el.appendChild(frag)
-}
-// 创建图片的HTML元素
-const createImgElement = (imgList: string[], options: Config) => {
-  const imgs: HTMLElement[] = []
-  const frag = document.createDocumentFragment()
-  imgList.forEach((url: string) => {
-    const img: HTMLImageElement = document.createElement('img')
-    img.src = url
-    img.style.width = options.width + 'px'
-    img.style.position = 'absolute'
-    img.style.transition = '0.5s'
-    imgs.push(img)
-    img.onload = debounce(
+    setPoisition()
+    window.onresize = debounce(
       function () {
-        setImgPoisition(options, imgs)
+        setPoisition()
       },
-      1 * 1000,
+      0.3 * 1000,
       false,
     )
 
-    frag.append(img)
-  })
-  window.onresize = debounce(
-    function () {
-      setImgPoisition(options, imgs)
-    },
-    0.3 * 1000,
-    false,
-  )
-
-  return frag
+    // 如果元素是img相关的元素, 则需要监听onload事件
+    const img = await waitForImage(el, props.timeout)
+    if (img) {
+      img.onload = debounce(
+        function () {
+          setPoisition()
+        },
+        1 * 1000,
+        false,
+      )
+    }
+  }
 }
-// 设置图片元素的坐标
-const setImgPoisition = (options: Config, imgs: HTMLElement[]): any => {
-  const { number, gap } = getHorizontalInfo(options)
+// 设置元素的坐标
+const setPoisition = () => {
+  const { number, gap } = getHorizontalInfo()
 
   const arr = new Array(number).fill(0)
 
-  imgs.forEach((ele) => {
+  const children = rootRef.value?.children as HTMLCollection
+  for (let i = 0; i < children.length; i++) {
+    const ele = children[i] as HTMLElement
+
     const min = Math.min(...arr)
     ele.style.top = min + 'px'
 
-    const i = arr.indexOf(min)
-    arr[i] += ele.clientHeight + options.minGap
+    const index = arr.indexOf(min)
+    arr[index] += ele.clientHeight + props.minGap
     // 横坐标
-    ele.style.left = i * (options.width + gap) + 'px'
-  })
-
-  // return eles
+    ele.style.left = index * (props.width + gap) + 'px'
+  }
+  // 设置容器高度
+  const el = rootRef.value as HTMLElement
+  el.style.height = Math.max(...arr) + 'px'
 }
 // 获取水平方向的信息
-const getHorizontalInfo = ({ width, minGap }: Config) => {
+const getHorizontalInfo = () => {
   const el = rootRef.value as HTMLElement
   const containerWidth = el.clientWidth // 容器宽度
-  const number = Math.floor((containerWidth + minGap) / (width + minGap)) // 一行可以存放的图片数量
-  const gap = (containerWidth - width * number) / (number - 1) // 实际间隔
+  const number = Math.floor((containerWidth + props.minGap) / (props.width + props.minGap)) // 一行可以存放的图片数量
+  const gap = (containerWidth - props.width * number) / (number - 1) // 实际间隔
   return { containerWidth, gap, number }
 }
 
 onMounted(() => {
-  createWaterFall()
+  initElement()
 })
 onUpdated(() => {
-  createWaterFall()
+  initElement()
 })
 </script>
 

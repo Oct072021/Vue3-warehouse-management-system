@@ -194,7 +194,7 @@ export function deepClone<T extends object | unknown[]>(source: T): T {
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number,
-  immediate?: boolean
+  immediate?: boolean,
 ): (...args: Parameters<T>) => ReturnType<T> | undefined {
   let timeout: ReturnType<typeof setTimeout> | null = null
   let args: Parameters<T>
@@ -266,4 +266,60 @@ export function removeClass(ele: HTMLElement, cls: string) {
     const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
     ele.className = ele.className.replace(reg, ' ')
   }
+}
+
+/**
+ * 异步等待并检查一个元素内部是否渲染出了 <img> 元素。
+ * 这对于懒加载组件（如 el-image）非常有用。
+ * @param {HTMLElement} element 要观察的根元素。
+ * @param {number} timeout 超时时间（毫秒）。
+ * @returns {Promise<HTMLImageElement | null>} 如果在超时时间内找到 <img>，则 resolve(el)，否则 resolve(null)。
+ */
+export function waitForImage(element: HTMLElement, timeout: number): Promise<HTMLImageElement | null> {
+  // 检查当前元素本身是否是 <img>
+  if (element.tagName === 'IMG') {
+    return Promise.resolve(element as HTMLImageElement)
+  }
+  // 同步检查一次，也许img元素已经存在
+  if (element.querySelector('img')) {
+    return Promise.resolve(element.querySelector('img') as HTMLImageElement)
+  }
+
+  return new Promise((resolve) => {
+    let timeoutId: number | null = null
+
+    const observer = new MutationObserver((mutations, obs) => {
+      // 遍历所有 DOM 变动
+      for (const mutation of mutations) {
+        // 检查新添加的节点
+        for (const node of Array.from(mutation.addedNodes)) {
+          if (node.nodeType === 1) {
+            // 确保是元素节点
+            const el = node as HTMLElement
+            // 检查节点本身是否是 img 或其后代中是否包含 img
+            if (el.tagName === 'IMG' || el.querySelector('img')) {
+              if (timeoutId) {
+                clearTimeout(timeoutId)
+              }
+              obs.disconnect() // 停止观察
+              resolve(el as HTMLImageElement) // 找到图片，
+              return
+            }
+          }
+        }
+      }
+    })
+
+    // 设置超时，以防图片永远不加载
+    timeoutId = window.setTimeout(() => {
+      observer.disconnect() // 超时后停止观察
+      resolve(null) // 超时后认为没有图片
+    }, timeout)
+
+    // 开始观察目标元素的子节点、后代节点的变化
+    observer.observe(element, {
+      childList: true, // 观察子节点的添加或删除
+      subtree: true, // 观察所有后代节点
+    })
+  })
 }

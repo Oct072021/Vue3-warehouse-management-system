@@ -1,33 +1,41 @@
 <template>
   <el-scrollbar height="calc(100vh - 90px)">
-    <!-- <div
-      class="container"
-      v-waterfall="imgList"
-      v-bind="{
-        minGap: 10,
-        width: 220,
-      }"
-    ></div> -->
     <WaterFall
-      :imgList="imgList"
       :min-gap="10"
       :width="220"
-    />
+    >
+      <!-- 图片瀑布流测试 -->
+      <!-- <el-image
+        v-for="url in imgList"
+        :src="url"
+        fit="contain"
+      /> -->
+      <!-- 组件瀑布流测试 -->
+      <Comment
+        v-for="item in commentList"
+        :key="item.title"
+        :title="item.title"
+        :desc="item.desc"
+      />
+    </WaterFall>
   </el-scrollbar>
 </template>
 
 <script setup lang="ts">
-import { waterfall } from '@/directive/waterfall' // waterfall directive
-import { Directive, ref } from 'vue'
-import { getImgData } from './service'
+import { ref } from 'vue'
+import { getCompData, getImgData } from './service'
 import WaterFall from '@/components/WaterFall/index.vue'
-
-const vWaterfall: Directive = waterfall
+import Comment from './components/Comment.vue'
+import { CommentListVO } from './data.d'
 
 const imgList = ref<string[]>([])
+const commentList = ref<CommentListVO[]>([])
 const getData = async () => {
   const res = await getImgData()
   imgList.value = res
+
+  const res2 = await getCompData()
+  commentList.value = res2
 }
 getData()
 </script>
