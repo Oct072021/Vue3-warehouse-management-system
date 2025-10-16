@@ -3,6 +3,7 @@
     <WaterFall
       :min-gap="10"
       :width="220"
+      fill
     >
       <!-- 图片瀑布流测试 -->
       <!-- <el-image
