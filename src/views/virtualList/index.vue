@@ -8,7 +8,7 @@
   </VirtualList>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="VirtualList">
 import { ref } from 'vue'
 import VirtualList from '@/components/VirtualList/index.vue'
 import Item from '@/components/VirtualList/Item.vue'

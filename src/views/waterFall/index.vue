@@ -22,7 +22,7 @@
   </el-scrollbar>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="WaterFall">
 import { ref } from 'vue'
 import { getCompData, getImgData } from './service'
 import WaterFall from '@/components/WaterFall/index.vue'

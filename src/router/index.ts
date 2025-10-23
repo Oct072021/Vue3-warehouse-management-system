@@ -6,6 +6,7 @@ import orderRouter from './modules/order'
 import stockRouter from './modules/stock'
 import chartsRouter from './modules/charts'
 import transferRouter from './modules/transfer'
+import testRouter from './modules/test'
 
 export const constantRoutes: RouteRecordRaw[] = [
   {
@@ -86,6 +87,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
       },
     ],
   },
+  testRouter,
   {
     path: '/permission',
     component: Layout,
@@ -103,38 +105,6 @@ export const asyncRoutes: RouteRecordRaw[] = [
         meta: {
           title: 'DirectivePermission',
           roles: ['admin', 'dataOperator', 'accountant'],
-        },
-      },
-    ],
-  },
-  {
-    path: '/waterFall',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/waterFall/index.vue'),
-        name: 'waterFall',
-        meta: {
-          title: 'waterFall',
-          icon: 'bug',
-          roles: ['admin'],
-        },
-      },
-    ],
-  },
-  {
-    path: '/virtualList',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/virtualList/index.vue'),
-        name: 'virtualList',
-        meta: {
-          title: 'virtualList',
-          icon: 'bug',
-          roles: ['admin'],
         },
       },
     ],

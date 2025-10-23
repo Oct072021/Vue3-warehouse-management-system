@@ -18,7 +18,10 @@ export default {
 		ExternalLink: '外链',
 		income: '收入',
 		expend: '支出',
-		Transfer: '库存调拨'
+		Transfer: '库存调拨',
+		Test: '效果测试',
+    WaterFall: '瀑布流',
+    VirtualList: '虚拟列表'
 	},
 
 	// login page
