@@ -207,6 +207,11 @@ export default {
 
   area: 'Area',
 
-  ascending: '升序',
-  descending: '降序',
+  ascending: 'Ascending',
+  descending: 'Descending',
+
+  placeholder: {
+    enter: 'Please Enter',
+    select: 'Please Select',
+  },
 }

@@ -22,11 +22,12 @@ export const useTools = () => {
     return {
       label,
       key: key || uuid(),
+      ...(item.key && { prop: key }),
     }
   }
 
   const getSlots = (slotsMap?: FormItem['slots']) => {
-    if(!slotsMap) return []
+    if (!slotsMap) return []
     if (typeof slotsMap === 'string') return [{ name: 'default', content: slotsMap }]
     return Object.keys(slotsMap).map((key) => ({
       name: key,

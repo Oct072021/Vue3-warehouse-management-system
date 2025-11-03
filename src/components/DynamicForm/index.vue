@@ -13,7 +13,23 @@
       <slot :name="item.key">
         <component
           :is="getComponents(item)"
-          v-bind="{ ...getProps(item), ...(item.key && { modelValue: modelValue[item.key] }) }"
+          v-bind="getProps(item)"
+          v-on="getEvents(item)"
+          v-if="item.key"
+          v-model="modelValue[item.key]"
+        >
+          <template
+            v-for="slot in getSlots(item.slots)"
+            #[slot.name]
+          >
+            {{ slot.content }}
+          </template>
+        </component>
+        <component
+          :is="getComponents(item)"
+          v-bind="getProps(item)"
+          v-on="getEvents(item)"
+          v-else
         >
           <template
             v-for="slot in getSlots(item.slots)"
@@ -48,6 +64,18 @@ const props = withDefaults(
 const emit = defineEmits()
 
 const { getProps, getComponents, getFormItemProps, getSlots } = useTools()
+
+const getEvents = (item: FormItem) => {
+  if (!item.events) return {}
+  const events: Record<string, (...args: any[]) => void> = {}
+  Object.keys(item.events).forEach((eventName) => {
+    const activeName = item.events![eventName]
+    events[eventName] = (...args: any[]) => {
+      emit(activeName, ...args)
+    }
+  })
+  return events
+}
 
 const formRef = ref<FormInstance>()
 

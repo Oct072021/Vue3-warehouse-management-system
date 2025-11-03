@@ -3,7 +3,8 @@ export interface FormItem {
   key?: string
   type: string
   hidden?: boolean
-  props?: { [index: string]: any }
+  props?: Record<string, any>
   slots?: Record<string, any> | string
+  events?: Record<string, any>
   [index: string]: any
 }
