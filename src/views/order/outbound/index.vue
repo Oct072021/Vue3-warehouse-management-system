@@ -8,9 +8,13 @@
       type="success"
     />
 
-    <HeaderFilter
-      :config-data="header"
-      @buttonClick="buttonClick"
+    <DynamicForm
+      :form-items="header"
+      v-model="list"
+      inline
+      @search="handleSearchClick"
+      @create="handleCreate"
+      @export="handleDownload"
     />
 
     <el-tabs
@@ -249,7 +253,7 @@
 import { auditOrder, getAllData, getDetail } from './service'
 
 import TabPane from './components/TabPane.vue'
-import HeaderFilter from '@/components/HeaderFilter/index.vue'
+import DynamicForm from '@/components/DynamicForm/index.vue'
 
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
@@ -284,25 +288,12 @@ if (tab) {
 }
 
 // header event
-// header event
 const list = reactive<Search>({
   type: undefined,
   orderID: undefined,
   status: undefined,
 })
-const buttonClick = (data: SearchData, e: string) => {
-  switch (e) {
-    case 'search':
-      Object.assign(list, { ...list, ...data })
-      break
-    case 'add':
-      handleCreate()
-      break
-    case 'export':
-      handleDownload()
-      break
-  }
-}
+const handleSearchClick = (...args: any[]) => {}
 
 // mount times
 const createdTimes = ref<number>(0)

@@ -1,3 +1,4 @@
+import { FormItem } from '@/components/DynamicForm/data.d'
 import i18n from '@/lang'
 import { Type } from '@/types/common.d'
 
@@ -21,66 +22,68 @@ export const useMap = () => {
     { key: 'area-3', label: t('area') + '-3' },
     { key: 'area-4', label: t('area') + '-4' },
   ]
-  const header = [
+  const header: FormItem[] = [
     {
       type: 'input',
-      placeholder: t('transfer.orderID'),
-      name: 'orderID',
-      styles: {
+      label: t('transfer.orderID') + ':',
+      placeholder: t('placeholder.enter') + t('transfer.orderID'),
+      key: 'orderID',
+      style: {
         width: '200px',
       },
-      event: 'search',
     },
     {
       type: 'date',
-      placeholder: t('transfer.date'),
-      name: 'timestamp',
-      styles: {
+      label: t('transfer.date') + ':',
+      placeholder: t('placeholder.select') + t('transfer.date'),
+      key: 'timestamp',
+      style: {
         width: '150px',
       },
     },
     {
       type: 'select',
-      placeholder: t('transfer.status'),
-      name: 'status',
-      styles: {
-        width: '150px',
+      key: 'status',
+      label: t('transfer.status') + ':',
+      props: {
+        clearable: true,
+        style: { width: '150px' },
+        options: [
+          { label: t('transfer.wait'), value: 0 },
+          { label: t('transfer.success'), value: 1 },
+          { label: t('transfer.fail'), value: 2 },
+        ],
+        placeholder: t('placeholder.select') + t('transfer.status'),
       },
-      options: [
-        { label: t('transfer.wait'), key: 0 },
-        { label: t('transfer.success'), key: 1 },
-        { label: t('transfer.fail'), key: 2 },
-      ],
     },
     {
       type: 'button',
-      name: t('button.search'),
-      buttonType: 'primary',
-      icon: 'search',
-      styles: {
-        margin: '0 10px 0 0',
+      slots: t('button.search'),
+      props: {
+        type: 'primary',
+        icon: 'search',
       },
-      event: 'search',
+      events: { click: 'search' },
     },
     {
       type: 'button',
-      name: t('button.add'),
-      buttonType: 'primary',
-      icon: 'edit',
-      styles: {
-        margin: '0 10px 0 0',
+      slots: t('button.add'),
+      props: {
+        type: 'success',
+        icon: 'edit',
       },
-      event: 'add',
+      events: { click: 'create' },
     },
     {
       type: 'button',
-      name: t('button.export'),
-      buttonType: 'primary',
-      icon: 'download',
-      styles: {
-        margin: '0 10px 0 0',
+      slots: {
+        default: t('button.export'),
       },
-      event: 'export',
+      props: {
+        type: 'default',
+        icon: 'download',
+      },
+      events: { click: 'export' },
     },
   ]
 

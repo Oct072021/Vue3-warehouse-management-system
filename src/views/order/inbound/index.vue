@@ -8,9 +8,13 @@
       type="success"
     />
 
-    <HeaderFilter
-      :config-data="header"
-      @buttonClick="buttonClick"
+    <DynamicForm
+      :form-items="header"
+      v-model="list"
+      inline
+      @search="handleSearchClick"
+      @create="handleCreate"
+      @export="handleDownload"
     />
 
     <el-tabs
@@ -231,13 +235,15 @@
             <el-button
               type="success"
               @click="audit(temp, 1)"
-              >{{ t(`button.pass`) }}</el-button
             >
+              {{ t(`button.pass`) }}
+            </el-button>
             <el-button
               type="danger"
               @click="audit(temp, 2)"
-              >{{ t(`button.noPass`) }}</el-button
             >
+              {{ t(`button.noPass`) }}
+            </el-button>
           </template>
           <el-button @click="dialogFormVisible = false">{{ t(`button.cancel`) }}</el-button>
         </div>
@@ -250,7 +256,7 @@
 import { auditOrder, getAllData, getDetail } from './service'
 
 import TabPane from './components/TabPane.vue'
-import HeaderFilter from '@/components/HeaderFilter/index.vue'
+import DynamicForm from '@/components/DynamicForm/index.vue'
 
 import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
@@ -290,19 +296,8 @@ const list = reactive<Search>({
   orderID: undefined,
   status: undefined,
 })
-const buttonClick = (data: SearchData, e: string) => {
-  switch (e) {
-    case 'search':
-      Object.assign(list, { ...list, ...data })
-      break
-    case 'add':
-      handleCreate()
-      break
-    case 'export':
-      handleDownload()
-      break
-  }
-}
+
+const handleSearchClick = (...args: any[]) => {}
 
 // mount times
 const createdTimes = ref<number>(0)

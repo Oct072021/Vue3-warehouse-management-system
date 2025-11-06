@@ -1,3 +1,4 @@
+import { FormItem } from '@/components/DynamicForm/data'
 import i18n from '@/lang'
 import { Type } from '@/types/common.d'
 
@@ -28,70 +29,77 @@ export const useMap = () => {
     { key: 'area-4', label: t('area') + '-4' },
   ]
 
-  const header = [
+  const header: FormItem[] = [
     {
       type: 'input',
-      placeholder: t('orders.orderID'),
-      name: 'orderID',
-      styles: {
+      placeholder: t('placeholder.enter') + t('orders.orderID'),
+      key: 'orderID',
+      label: t('orders.orderID') + ':',
+      style: {
         width: '200px',
       },
-      event: 'search',
     },
     {
       type: 'select',
-      placeholder: t('orders.type'),
-      name: 'type',
-      styles: {
-        width: '150px',
+      key: 'type',
+      label: t('orders.type') + ':',
+      props: {
+        placeholder: t('placeholder.select') + t('orders.type'),
+        style: {
+          width: '200px',
+        },
+        clearable: true,
+        options: [
+          { label: t('orders.normal'), value: 0 },
+          { label: t('orders.return'), value: 1 },
+        ],
       },
-      options: [
-        { label: t('orders.normal'), key: 0 },
-        { label: t('orders.return'), key: 1 },
-      ],
     },
     {
       type: 'select',
-      placeholder: t('orders.status'),
-      name: 'status',
-      styles: {
-        width: '150px',
+      key: 'status',
+      label: t('orders.status') + ':',
+      props: {
+        placeholder: t('placeholder.select') + t('orders.status'),
+        style: {
+          width: '200px',
+        },
+        clearable: true,
+        options: [
+          { label: t('orders.wait'), value: 0 },
+          { label: t('orders.success'), value: 1 },
+          { label: t('orders.fail'), value: 2 },
+        ],
       },
-      options: [
-        { label: t('orders.wait'), key: 0 },
-        { label: t('orders.success'), key: 1 },
-        { label: t('orders.fail'), key: 2 },
-      ],
     },
     {
       type: 'button',
-      name: t('button.search'),
-      buttonType: 'primary',
-      icon: 'search',
-      styles: {
-        margin: '0 10px 0 0',
+      slots: t('button.search'),
+      props: {
+        type: 'primary',
+        icon: 'search',
       },
-      event: 'search',
+      events: { click: 'search' },
     },
     {
       type: 'button',
-      name: t('button.add'),
-      buttonType: 'primary',
-      icon: 'edit',
-      styles: {
-        margin: '0 10px 0 0',
+      slots: t('button.add'),
+      props: {
+        type: 'success',
+        icon: 'edit',
       },
-      event: 'add',
+      events: { click: 'create' },
     },
     {
       type: 'button',
-      name: t('button.export'),
-      buttonType: 'primary',
-      icon: 'download',
-      styles: {
-        margin: '0 10px 0 0',
+      slots: {
+        default: t('button.export'),
       },
-      event: 'export',
+      props: {
+        type: 'default',
+        icon: 'download',
+      },
+      events: { click: 'export' },
     },
   ]
 

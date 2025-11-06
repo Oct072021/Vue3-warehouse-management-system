@@ -1,8 +1,11 @@
 <template>
   <div class="app-container">
-    <HeaderFilter
-      :config-data="header"
-      @buttonClick="buttonClick"
+    <DynamicForm
+      :form-items="header"
+      v-model="listQuery"
+      inline
+      @search="handleFilter"
+      @export="handleDownload"
     />
 
     <MPage
@@ -91,7 +94,7 @@ import { parseTime } from '@/utils'
 import { throttle } from '@/utils/common'
 
 import MPage from '@/components/mPage/index.vue' // page components
-import HeaderFilter from '@/components/HeaderFilter/index.vue'
+import DynamicForm from '@/components/DynamicForm/index.vue'
 
 import { useI18n } from 'vue-i18n'
 import { reactive, ref, watch } from 'vue'
@@ -101,16 +104,6 @@ import { useMap } from './hooks/useMap'
 const { t } = useI18n()
 
 const { header, area } = useMap()
-
-// header event
-const buttonClick = (data: SearchList, e: string) => {
-  if (e === 'search') {
-    Object.assign(listQuery, { ...listQuery, ...data })
-    handleFilter()
-  } else if (e === 'export') {
-    handleDownload()
-  }
-}
 
 // search
 const listQuery = reactive<SearchList>({
@@ -127,7 +120,7 @@ const handleFilter = () => {
 }
 
 // get data
-const list = ref<StockData[] | null>(null)
+const list = ref<StockData[]>([])
 const total = ref<number>(0)
 const listLoading = ref<boolean>(false)
 const getList = async () => {

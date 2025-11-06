@@ -8,6 +8,7 @@
     <el-form-item
       v-for="item in items"
       v-bind="getFormItemProps(item)"
+      :style="{ 'margin-right': item.type === 'button' ? '12px' : '32px' }"
     >
       <!-- 如果传入了插槽，则使用插槽渲染，否则使用默认的动态组件配置进行渲染 -->
       <slot :name="item.key">
