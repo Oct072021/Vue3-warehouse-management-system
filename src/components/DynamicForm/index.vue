@@ -14,23 +14,11 @@
       <slot :name="item.key">
         <component
           :is="getComponents(item)"
-          v-bind="getProps(item)"
-          v-on="getEvents(item)"
-          v-if="item.key"
-          v-model="modelValue[item.key]"
-        >
-          <template
-            v-for="slot in getSlots(item.slots)"
-            #[slot.name]
-          >
-            {{ slot.content }}
-          </template>
-        </component>
-        <component
-          :is="getComponents(item)"
-          v-bind="getProps(item)"
-          v-on="getEvents(item)"
-          v-else
+          v-bind="{ ...getProps(item), ...(item.key ? { modelValue: modelValue[item.key] } : {}) }"
+          v-on="{
+            ...getEvents(item),
+            ...(item.key ? { 'update:modelValue': (val: any) => (modelValue[item.key!] = val) } : {}),
+          }"
         >
           <template
             v-for="slot in getSlots(item.slots)"
@@ -45,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useTools } from './hooks/useTools'
 
@@ -85,16 +73,4 @@ const modelValue = defineModel<{ [index: string]: any }>({ default: () => ({}) }
 const items = computed(() => props.formItems.filter((item) => !item.hidden))
 </script>
 
-<style lang="scss" scoped>
-.app-breadcrumb.el-breadcrumb {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 50px;
-  margin-left: 8px;
-
-  .no-redirect {
-    color: #97a8be;
-    cursor: text;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
