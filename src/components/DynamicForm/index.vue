@@ -1,9 +1,9 @@
 <template>
   <el-form
-    ref="formRef"
     :model="modelValue"
     :label-width="props['label-width']"
     :rules="props.rules"
+    v-bind="{ ref: changeRef }"
   >
     <el-form-item
       v-for="item in items"
@@ -33,11 +33,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { ComponentInstance, computed, getCurrentInstance, ref } from 'vue'
 
 import { useTools } from './hooks/useTools'
 
-import type { FormInstance, FormRules } from 'element-plus'
+import type { ElForm, FormRules } from 'element-plus'
 import { FormItem } from './data.d'
 
 const props = withDefaults(
@@ -66,11 +66,16 @@ const getEvents = (item: FormItem) => {
   return events
 }
 
-const formRef = ref<FormInstance>()
-
 const modelValue = defineModel<{ [index: string]: any }>({ default: () => ({}) })
 
 const items = computed(() => props.formItems.filter((item) => !item.hidden))
+
+const vm = getCurrentInstance()
+const changeRef = (exposed: any) => {
+  if (vm) vm.exposed = exposed
+}
+
+defineExpose({} as ComponentInstance<typeof ElForm>)
 </script>
 
 <style lang="scss" scoped></style>
