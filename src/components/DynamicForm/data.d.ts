@@ -1,3 +1,8 @@
+import type { FormProps } from 'element-plus'
+export interface Props extends Partial<FormProps> {
+  formItems: FormItem[]
+}
+
 export interface FormItem {
   label?: string
   key?: string

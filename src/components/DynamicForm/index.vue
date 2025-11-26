@@ -1,7 +1,7 @@
 <template>
   <el-form
     :model="modelValue"
-    :label-width="props['label-width']"
+    :label-width="props.labelWidth"
     :rules="props.rules"
     v-bind="{ ref: changeRef }"
   >
@@ -37,19 +37,10 @@ import { ComponentInstance, computed, getCurrentInstance, ref } from 'vue'
 
 import { useTools } from './hooks/useTools'
 
-import type { ElForm, FormRules } from 'element-plus'
-import { FormItem } from './data.d'
+import { ElForm } from 'element-plus'
+import { FormItem, Props } from './data.d'
 
-const props = withDefaults(
-  defineProps<{
-    formItems: FormItem[]
-    rules?: FormRules
-    'label-width'?: string
-  }>(),
-  {
-    'label-width': '',
-  },
-)
+const props = defineProps<Props>()
 const emit = defineEmits()
 
 const { getProps, getComponents, getFormItemProps, getSlots } = useTools()
