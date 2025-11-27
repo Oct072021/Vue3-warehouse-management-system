@@ -269,6 +269,8 @@ import { ElNotification } from 'element-plus'
 
 import { useMap } from './hooks/useMap'
 
+defineOptions({ name: 'outbound' })
+
 const { t } = useI18n()
 
 const router = useRouter()

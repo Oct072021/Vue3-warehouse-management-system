@@ -26,6 +26,8 @@ import { useI18n } from 'vue-i18n'
 import { AllData } from '../types/data.d'
 import { getOutboundTotal } from './service'
 
+defineOptions({ name: 'outboundChart' })
+
 const { t } = useI18n()
 
 const value = ref<boolean>(true)

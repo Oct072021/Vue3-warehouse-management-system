@@ -285,6 +285,8 @@ import { useRouter } from 'vue-router'
 
 import { useMap } from './hooks/useMap'
 
+defineOptions({ name: 'transfer' })
+
 const { t } = useI18n()
 
 const router = useRouter()

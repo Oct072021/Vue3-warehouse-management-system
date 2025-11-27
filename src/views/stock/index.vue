@@ -97,13 +97,19 @@ import MPage from '@/components/mPage/index.vue' // page components
 import DynamicForm from '@/components/DynamicForm/index.vue'
 
 import { useI18n } from 'vue-i18n'
-import { reactive, ref, watch } from 'vue'
+import { getCurrentInstance, onMounted, reactive, ref, watch } from 'vue'
 
 import { useMap } from './hooks/useMap'
+
+defineOptions({ name: 'stock' })
 
 const { t } = useI18n()
 
 const { header, area } = useMap()
+
+onMounted(() => {
+  console.log(getCurrentInstance())
+})
 
 // search
 const listQuery = reactive<SearchList>({

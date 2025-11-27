@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { viteMockServe } from 'vite-plugin-mock'
 import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
@@ -18,7 +17,6 @@ export default function ({ mode }) {
     },
     plugins: [
       vue(),
-      VueSetupExtend(),
       viteMockServe({
         mockPath: './mock/dev',
         localEnabled: env.VITE_ENV === 'development',

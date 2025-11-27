@@ -12,6 +12,8 @@ import { useUserStore } from '@/store/user'
 
 import { computed, ref } from 'vue'
 
+defineOptions({ name: 'Dashboard' })
+
 const comps = { admin, editor }
 
 const userStore = useUserStore()
