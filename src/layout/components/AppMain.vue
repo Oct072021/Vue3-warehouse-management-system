@@ -1,15 +1,15 @@
 <template>
-  <section class="app-main">
-    <router-view
-      :key="key"
-      v-slot="{ Component }"
-    >
+  <section class="app-main grow">
+    <router-view v-slot="{ Component, route }">
       <transition
         name="fade-transform"
         mode="out-in"
       >
         <keep-alive :include="cachedViews">
-          <component :is="Component" />
+          <component
+            :is="Component"
+            :key="route.name"
+          />
         </keep-alive>
       </transition>
     </router-view>
