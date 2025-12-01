@@ -32,6 +32,15 @@ const testRouter: RouteRecordRaw = {
         roles: ['admin'],
       },
     },
+        {
+      path: '/test/MyInput',
+      component: () => import('@/views/myInput/index.vue'),
+      name: 'MyInput',
+      meta: {
+        title: 'MyInput',
+        roles: ['admin'],
+      },
+    },
   ],
 }
 
