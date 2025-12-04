@@ -1,9 +1,7 @@
 <template>
   <el-form
-    :model="modelValue"
-    :label-width="props.labelWidth"
-    :rules="props.rules"
-    v-bind="{ ref: changeRef }"
+    :ref="changeRef"
+    v-bind="{ ...$attrs, ...props }"
   >
     <el-form-item
       v-for="item in items"
@@ -12,6 +10,8 @@
     >
       <!-- 如果传入了插槽，则使用插槽渲染，否则使用默认的动态组件配置进行渲染 -->
       <slot :name="item.key">
+        <!-- 此处不能使用v-model绑定数据，因为此处的comp可能是按钮，不需要绑定数据 -->
+        <!-- v-model实际是modelValue和'update:modelValue'事件的语法糖 -->
         <component
           :is="getComponents(item)"
           v-bind="{ ...getProps(item), ...(item.key ? { modelValue: modelValue[item.key] } : {}) }"
@@ -33,12 +33,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ComponentInstance, computed, getCurrentInstance, ref } from 'vue'
+import { ComponentInstance, VNodeRef, computed, getCurrentInstance } from 'vue'
 
 import { useTools } from './hooks/useTools'
 
-import { ElForm } from 'element-plus'
-import { FormItem, Props } from './data.d'
+import type { ElForm, FormInstance } from 'element-plus'
+import type { FormItem, Props } from './data.d'
 
 const props = defineProps<Props>()
 const emit = defineEmits()
@@ -62,8 +62,12 @@ const modelValue = defineModel<{ [index: string]: any }>({ default: () => ({}) }
 const items = computed(() => props.formItems.filter((item) => !item.hidden))
 
 const vm = getCurrentInstance()
-const changeRef = (exposed: any) => {
-  if (vm) vm.exposed = exposed
+const changeRef: VNodeRef = (ins) => {
+  const form = ins as FormInstance | null
+  if (vm) {
+    vm.exposed = form || {}
+    vm.exposeProxy = form || {}
+  }
 }
 
 defineExpose({} as ComponentInstance<typeof ElForm>)

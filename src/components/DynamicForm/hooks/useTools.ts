@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid'
 import { useMap } from './useMap'
 
 export const useTools = () => {
-  const rootProps = ['label', 'key', 'type']
+  const rootProps = ['label', 'key', 'type', 'slots', 'events', 'hidden']
   const getProps = (item: FormItem) => {
     if (item.props) return item.props
     return omit(item, rootProps)
