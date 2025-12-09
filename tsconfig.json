@@ -11,7 +11,7 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "ignoreDeprecations": "5.0",
     "paths": {
       "@/*": ["./src/*"]
