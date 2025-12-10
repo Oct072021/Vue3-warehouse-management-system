@@ -7,18 +7,19 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, h, ref } from 'vue'
+import { getCurrentInstance, h, ComponentPublicInstance } from 'vue'
 
-import { InputInstance, ElInput } from 'element-plus'
-import { Props } from './data.d'
+import type { InputInstance } from 'element-plus'
+import { ElInput } from 'element-plus'
+import type { Props } from './data.d'
 
 const props = defineProps<Props>()
 
 const vm = getCurrentInstance()
-const changeRef = (ins: InputInstance | null) => {
-  if (vm) {
-    vm.exposed = ins || {}
-    vm.exposeProxy = ins || {}
+const changeRef = (ins: ComponentPublicInstance | Element | null) => {
+  if (vm && ins) {
+    vm.exposed = ins as InputInstance
+    vm.exposeProxy = ins as InputInstance
   }
 }
 </script>
