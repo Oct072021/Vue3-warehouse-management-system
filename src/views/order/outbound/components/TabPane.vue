@@ -177,7 +177,7 @@ watch(
 const { typeMap, statusMap } = useMap()
 
 // init view
-const list = ref<OutboundData[] | null>(null)
+const list = ref<OutboundData[]>([])
 const listQuery = reactive<SearchData>({
   page: 1,
   limit: 10,

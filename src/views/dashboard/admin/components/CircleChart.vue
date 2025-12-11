@@ -13,7 +13,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, markRaw, ref, watch } f
 import { useAppStore } from '@/store/app'
 import { useMap } from '@/views/order/inbound/hooks/useMap'
 
-const { type } = useMap()
+const { typeMap } = useMap()
 
 const appStore = useAppStore()
 
@@ -99,8 +99,8 @@ const initChart = (data: { [index: string]: number }) => {
           show: false,
         },
         data: [
-          { value: data['0'], name: type.value['0'] },
-          { value: data['1'], name: type.value['1'] },
+          { value: data['0'], name: typeMap['0'] },
+          { value: data['1'], name: typeMap['1'] },
         ],
       },
     ],

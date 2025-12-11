@@ -119,6 +119,7 @@
 import { validUsername } from '@/utils/validate'
 
 import { LoginForm } from './data.d'
+import { InternalRuleItem } from 'async-validator'
 
 import { useUserStore } from '@/store/user'
 
@@ -144,21 +145,21 @@ const loginFormRef = ref()
 const usernameRef = ref()
 const passwordRef = ref()
 const loading = ref<boolean>(false)
-const validateUsername = (rule: FormRules, value: string, callback: Function) => {
+const validateUsername = (rule: InternalRuleItem, value: string, callback: (err?: string | Error) => void) => {
   if (!validUsername(value)) {
     callback(new Error('Please enter the correct user name'))
   } else {
     callback()
   }
 }
-const validatePassword = (rule: FormRules, value: string, callback: Function) => {
+const validatePassword = (rule: InternalRuleItem, value: string, callback: (err?: string | Error) => void) => {
   if (value.length < 6) {
     callback(new Error('The password can not be less than 6 digits'))
   } else {
     callback()
   }
 }
-const loginRules = reactive({
+const loginRules = reactive<FormRules>({
   username: [{ required: true, trigger: 'blur', validator: validateUsername }],
   password: [{ required: true, trigger: 'blur', validator: validatePassword }],
 })

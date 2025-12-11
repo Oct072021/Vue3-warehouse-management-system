@@ -55,10 +55,7 @@ const sidebar = computed(() => {
 const activeMenu = computed(() => {
   const { meta, path } = route
   // if set path, the sidebar will highlight the path you set
-  if (meta.activeMenu) {
-    return meta.activeMenu
-  }
-  return path
+  return (meta.activeMenu as string) || path
 })
 
 const showLogo = computed(() => {

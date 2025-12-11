@@ -20,7 +20,7 @@ export default {
         if (icon.includes('el-icon')) {
           const icons = ElementPlusIconsVue
           const compName = icon.charAt(8).toUpperCase() + icon.slice(9)
-          const temp = h(ElIcon, {}, [h(icons[compName])])
+          const temp = h(ElIcon, {}, [h(icons[compName as keyof typeof icons])])
           vnodes.push(temp)
         } else {
           const temp = h(<SvgIcon iconClass={icon} />)
