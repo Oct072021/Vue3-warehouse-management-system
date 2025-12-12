@@ -71,22 +71,6 @@ export const constantRoutes: RouteRecordRaw[] = [
 ]
 
 export const asyncRoutes: RouteRecordRaw[] = [
-  {
-    path: '/error-log',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/error-log/index.vue'),
-        name: 'ErrorLog',
-        meta: {
-          title: 'ErrorLog',
-          icon: 'bug',
-          roles: ['admin'],
-        },
-      },
-    ],
-  },
   testRouter,
   {
     path: '/permission',
@@ -117,7 +101,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
   transferRouter,
 
   // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', meta: { hidden: true } }
+  { path: '/:pathMatch(.*)', redirect: '/404', meta: { hidden: true } }
 ]
 
 const router = createRouter({

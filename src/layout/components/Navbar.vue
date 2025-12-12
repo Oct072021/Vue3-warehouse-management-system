@@ -19,8 +19,6 @@
           class="right-menu-item"
         />
 
-        <ErrorLog class="errLog-container right-menu-item hover-effect" />
-
         <Screenfull
           id="screenfull"
           class="right-menu-item hover-effect"
@@ -98,7 +96,6 @@
 <script lang="ts" setup>
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
-import ErrorLog from '@/components/ErrorLog/index.vue'
 import Screenfull from '@/components/Screenfull/index.vue'
 import SizeSelect from '@/components/SizeSelect/index.vue'
 import Search from '@/components/HeaderSearch/index.vue'

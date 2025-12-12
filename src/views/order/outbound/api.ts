@@ -1,4 +1,4 @@
-import { Http } from '@/utils/request'
+import { Http } from '@/network/request'
 import { Outbound, SearchData, OutboundDetail, Audit, Order, Export } from './data.d'
 
 export function fetchList(params?: SearchData) {

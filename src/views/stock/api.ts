@@ -1,4 +1,4 @@
-import { Http } from '@/utils/request'
+import { Http } from '@/network/request'
 import { SearchList, Stock } from './data.d'
 
 export function fetchList(params?: SearchList) {

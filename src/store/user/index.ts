@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { Http } from '@/utils/request'
+import { Http } from '@/network/request'
 
 // import router, { resetRouter } from '@/router'
 import router from '@/router'

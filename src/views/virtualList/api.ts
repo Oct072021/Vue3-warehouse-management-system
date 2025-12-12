@@ -1,4 +1,4 @@
-import { Http } from '@/utils/request'
+import { Http } from '@/network/request'
 import { ListVO } from './data.d'
 
 export function fetchList() {
