@@ -16,7 +16,7 @@
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
   "rangeStart": 0,
-  "singleAttributePerLine": true,
+  "singleAttributePerLine": false,
   "overrides": [
     {
       "files": "*.md",

@@ -1,12 +1,6 @@
 <template>
   <div class="app-container">
-    <DynamicForm
-      :form-items="header"
-      v-model="listQuery"
-      inline
-      @search="handleFilter"
-      @export="handleDownload"
-    />
+    <DynamicForm :form-items="header" v-model="listQuery" inline @search="handleFilter" @export="handleDownload" />
 
     <MPage
       v-show="total > 0"
@@ -34,48 +28,23 @@
             :class-name="getSortClass('id')"
           />
 
-          <el-table-column
-            :label="t(`stock.productionID`)"
-            prop="productionID"
-            min-width="200px"
-            align="center"
-          />
+          <el-table-column :label="t(`stock.productionID`)" prop="productionID" min-width="200px" align="center" />
 
-          <el-table-column
-            :label="t(`stock.productionName`)"
-            min-width="200px"
-          >
+          <el-table-column :label="t(`stock.productionName`)" min-width="200px">
             <template #default="{ row }">
               <span class="link-type">{{ row.productionName }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column
-            :label="t(`stock.specs`)"
-            min-width="80px"
-            align="center"
-          >
+          <el-table-column :label="t(`stock.specs`)" min-width="80px" align="center">
             <template #default="{ row }"> {{ row.specs }}mm </template>
           </el-table-column>
-          <el-table-column
-            :label="t(`stock.quantity`)"
-            min-width="80px"
-            align="center"
-            prop="quantity"
-          />
 
-          <el-table-column
-            :label="t(`stock.unit`)"
-            min-width="80px"
-            align="center"
-            prop="unit"
-          />
+          <el-table-column :label="t(`stock.quantity`)" min-width="80px" align="center" prop="quantity" />
 
-          <el-table-column
-            align="center"
-            :label="t(`area`)"
-            min-width="70px"
-          >
+          <el-table-column :label="t(`stock.unit`)" min-width="80px" align="center" prop="unit" />
+
+          <el-table-column align="center" :label="t(`area`)" min-width="70px">
             <template #default="{ row }">
               <el-tag>{{ row.area }}</el-tag>
             </template>
@@ -88,28 +57,23 @@
 
 <script lang="ts" setup>
 import { getStockData } from './service'
+
 import { SearchList, StockData } from './data.d'
 
-import { parseTime } from '@/utils'
-import { throttle } from '@/utils/common'
-
-import MPage from '@/components/mPage/index.vue' // page components
+import MPage from '@/components/mPage/index.vue'
 import DynamicForm from '@/components/DynamicForm/index.vue'
 
 import { useI18n } from 'vue-i18n'
-import { getCurrentInstance, onMounted, reactive, ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 
 import { useMap } from './hooks/useMap'
+import { throttle } from '@/utils/common'
 
 defineOptions({ name: 'stock' })
 
 const { t } = useI18n()
 
 const { header, area } = useMap()
-
-onMounted(() => {
-  console.log(getCurrentInstance())
-})
 
 // search
 const listQuery = reactive<SearchList>({
@@ -133,6 +97,7 @@ const getList = async () => {
   listLoading.value = true
   const res = await getStockData(listQuery)
   list.value = res.data.items
+  // list.value=[]
   total.value = res.data.total
 
   // Just to simulate the time of the request
