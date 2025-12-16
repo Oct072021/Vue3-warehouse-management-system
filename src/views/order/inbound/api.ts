@@ -2,29 +2,29 @@ import { Http } from '@/network/request'
 import { Inbound, SearchData, InboundDetail, Audit, Order, Export } from './data.d'
 
 export function fetchList(params?: SearchData) {
-	return Http.getRequest<Inbound>('/inbound/list', { params })
+  return Http.get<SearchData, Inbound>('/inbound/list', { params })
 }
 
 export function fetchDetail(id: number) {
-	return Http.getRequest<InboundDetail>('/inbound/detail', { params: { id } })
+  return Http.get<{ id: number }, InboundDetail>('/inbound/detail', { params: { id } })
 }
 
 export function fetchAllData(area: string) {
-	return Http.getRequest<Export[]>('/inbound/all', { params: { area } })
+  return Http.get<{ area: string }, Export[]>('/inbound/all', { params: { area } })
 }
 
 export function createOrder(data: Order) {
-	return Http.postRequest('/inbound/create', data)
+  return Http.post<Order, boolean>('/inbound/create', data)
 }
 
 export function updateOrder(data: Order) {
-	return Http.postRequest('/inbound/update', data)
+  return Http.post<Order, boolean>('/inbound/update', data)
 }
 
 export function remove(id: number) {
-	return Http.deleteRequest('/inbound/remove', { params: { id } })
+  return Http.delete<{ id: number }, boolean>('/inbound/remove', { params: { id } })
 }
 
 export function audit(data: Audit) {
-	return Http.putRequest('/inbound/audit', data)
+  return Http.put<Audit, boolean>('/inbound/audit', data)
 }

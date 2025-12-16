@@ -7,7 +7,7 @@ import { Http } from '@/network/request'
 import router from '@/router'
 import { RouteRecordRaw } from 'vue-router'
 
-import { UserState, UserInfo, LoginResponse, UserInfoResponse } from './data.d'
+import { UserState, UserInfo, LoginResponse, UserInfoResponse, LoginDTO } from './data.d'
 
 import { useTagsViewStore } from '../tagsView'
 import { usePermissionStore } from '../permission'
@@ -24,7 +24,7 @@ export const useUserStore = defineStore('user', {
     login(userInfo: UserInfo) {
       const { username, password } = userInfo
       return new Promise((resolve, reject) => {
-        Http.postRequest<LoginResponse>('/user/login', {
+        Http.post<LoginDTO, LoginResponse>('/user/login', {
           username: username.trim(),
           password: password,
         })
@@ -43,7 +43,7 @@ export const useUserStore = defineStore('user', {
     // get user info
     getInfo(): Promise<UserInfoResponse> {
       return new Promise((resolve, reject) => {
-        Http.getRequest<UserInfoResponse>('/user/info', { params: { token: this.token } })
+        Http.get<{ token: string }, UserInfoResponse>('/user/info', { params: { token: this.token } })
           .then((response) => {
             const { data } = response
 
@@ -74,7 +74,7 @@ export const useUserStore = defineStore('user', {
       const tagViewStore = useTagsViewStore()
 
       return new Promise((resolve, reject) => {
-        Http.postRequest('/user/logout')
+        Http.post<null, boolean>('/user/logout')
           .then(() => {
             this.token = ''
             this.roles = []

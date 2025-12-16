@@ -1,8 +1,8 @@
-import axios, {  AxiosError, AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { getToken } from '@/utils/auth'
 import { useUserStore } from '@/store/user'
-import { Response } from '@/types/httpRes.d'
+import { Response } from './data.d'
 
 const requestQueue: any[] = [] // 请求队列
 const maxConcurrent = 3 // 最大并发请求数
@@ -112,19 +112,17 @@ service.interceptors.response.use(
 
 /* 导出封装的请求方法 */
 export const Http = {
-  getRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<Response<T>> {
+  // T => 请求数据类型， K => 返回数据类型
+  get<T, K>(url: string, config?: AxiosRequestConfig<T>): Promise<Response<K>> {
     return service.get(url, config)
   },
-
-  postRequest<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<Response<T>> {
+  post<T, K>(url: string, data?: T, config?: AxiosRequestConfig<T>): Promise<Response<K>> {
     return service.post(url, data, config)
   },
-
-  putRequest<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<Response<T>> {
+  put<T, K>(url: string, data?: T, config?: AxiosRequestConfig<T>): Promise<Response<K>> {
     return service.put(url, data, config)
   },
-
-  deleteRequest<T = any>(url: string, config?: AxiosRequestConfig): Promise<Response<T>> {
+  delete<T, K>(url: string, config?: AxiosRequestConfig<T>): Promise<Response<K>> {
     return service.delete(url, config)
   },
 }
