@@ -1,4 +1,4 @@
-export interface ListData<T> {
+export interface List<T> {
   items: T[]
   total: number
 }

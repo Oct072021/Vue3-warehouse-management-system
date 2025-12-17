@@ -11,13 +11,3 @@ export interface Response<T> {
   message?: string
   data: T
 }
-// 分页
-export interface Pagination {
-  current?: number
-  pageSize?: number
-}
-// 列表
-export interface List<T> {
-  total: number
-  records: T[]
-}
