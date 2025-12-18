@@ -1,70 +1,44 @@
-import { ListData } from '@/types/common'
-import { Pagination } from '@/types/pagination.d'
+import { Pagination } from '@/types/pagination'
 
 // DTO
-export interface TransferData {
-	id: number
-	orderID: string
-	batch: string
-	timestamp: string
-	origin: string
-	new: string
-	status: number
-	auditor: string
+export interface SearchDTO extends Pagination {
+  orderID: string
+  status?: number
+  timestamp: string
 }
-
-export type Transfer = ListData<TransferData>
-
-export interface Detail {
-	id: number
-	production: Production[]
-	orderID: string
-	documenter: string
-	status: number
-	correlationID: string
-	timestamp: string
-	remark: string
-	reason: string
+export type CreateDTO = Omit<ListVO, 'id'>
+export type UpdateDTO = ListVO // 此处无特殊处理的业务逻辑，因此 DTO = VO
+export interface AuditDTO {
+  status: number
+  id: number
+  reason: string
+  auditor: string
 }
-
 export interface ProductionInfo {
-	[index: string]: Production
+  [index: string]: Production
 }
 
 // VO
-export interface Order {
-	production: Production[]
-	orderID: string
-	origin: string
-	new: string
-	correlationID: string
-	documenter: string
-	batch: string
-	timestamp: string
-	remark: string
+export interface ListVO {
+  id?: number
+  orderID: string
+  correlationID: string
+  timestamp: string
+  batch: string
+  origin: string
+  new: string
+  documenter: string
+  status: number
+  auditor: string
+  remark: string
+  reason: string
+  production: Production[]
 }
-
-export interface SearchData implements Pagination {
-	limit?: number
-	page?: number
-	orderID?: string
-	status?: number
-	timestamp?: string
-}
-
-export interface Audit {
-	status: number
-	id: number
-	reason: string
-	auditor: string
-}
-
-export type Export = TransferData & Detail
 
 // common
 interface Production {
-	productionID: string
-	productionName: string
-	quantity: number
-	unit: string
+  productionID: string
+  productionName: string
+  quantity: number
+  unit: string
 }
