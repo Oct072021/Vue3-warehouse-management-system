@@ -1,7 +1,7 @@
-import { fetchList } from './api'
-import { SearchList } from './data.d'
+import { page } from './api'
+import { SearchDTO } from './data.d'
 
-export async function getStockData(searchList?: SearchList) {
-	const res = await fetchList(searchList)
-	return res
+export async function getList(searchList: SearchDTO) {
+  const res = await page(searchList)
+  return res
 }

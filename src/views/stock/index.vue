@@ -1,18 +1,17 @@
 <template>
   <div class="app-container">
-    <DynamicForm :form-items="header" v-model="listQuery" inline @search="handleFilter" @export="handleDownload" />
+    <DynamicForm :form-items="header" v-model="searchQuery" inline @search="handleSearch" @export="handleDownload" />
 
-    <MPage
-      v-show="total > 0"
+    <MyPagination
       :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
+      v-model:page="searchQuery.page"
+      v-model:limit="searchQuery.limit"
+      @pagination="getData"
     >
       <template #table>
         <el-table
-          v-loading="listLoading"
-          :data="list"
+          v-loading="loading"
+          :data="tableData"
           border
           fit
           highlight-current-row
@@ -51,20 +50,21 @@
           </el-table-column>
         </el-table>
       </template>
-    </MPage>
+    </MyPagination>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getStockData } from './service'
+import { getList } from './service'
 
-import { SearchList, StockData } from './data.d'
+import { SearchDTO, ListVO } from './data.d'
+import type { Sort } from 'element-plus'
 
-import MPage from '@/components/mPage/index.vue'
+import MyPagination from '@/components/MyPagination/index.vue'
 import DynamicForm from '@/components/DynamicForm/index.vue'
 
 import { useI18n } from 'vue-i18n'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref } from 'vue'
 
 import { useMap } from './hooks/useMap'
 import { throttle } from '@/utils/common'
@@ -73,56 +73,48 @@ defineOptions({ name: 'stock' })
 
 const { t } = useI18n()
 
-const { header, area } = useMap()
+const { header } = useMap()
 
 // search
-const listQuery = reactive<SearchList>({
+const searchQuery = reactive<SearchDTO>({
   page: 1,
   limit: 20,
-  productionName: undefined,
-  area: undefined,
+  productionName: '',
+  area: '',
   sort: '+id',
 })
-watch(listQuery, () => handleFilter(), { deep: true })
-const handleFilter = () => {
-  listQuery.page = 1
-  getList()
+const handleSearch = () => {
+  searchQuery.page = 1
+  getData()
 }
 
 // get data
-const list = ref<StockData[]>([])
+const tableData = ref<ListVO[]>([])
 const total = ref<number>(0)
-const listLoading = ref<boolean>(false)
-const getList = async () => {
-  listLoading.value = true
-  const res = await getStockData(listQuery)
-  list.value = res.data.items
-  // list.value=[]
-  total.value = res.data.total
-
-  // Just to simulate the time of the request
-  setTimeout(() => {
-    listLoading.value = false
-  }, 1 * 1000)
+const loading = ref<boolean>(false)
+const getData = async () => {
+  loading.value = true
+  getList(searchQuery)
+    .then((res) => {
+      tableData.value = res.data.items
+      total.value = res.data.total
+    })
+    .finally(() => {
+      loading.value = false
+    })
 }
+getData()
 
 // sort
-const sortChange = ({ prop, order }: any) => {
-  // const { prop, order } = data
-  if (prop === 'id') {
-    sortByID(order)
-  }
+const sortChange = ({ prop, order }: Sort) => {
+  if (prop === 'id') sortByID(order)
 }
-const sortByID = (order: string) => {
-  if (order === 'ascending') {
-    listQuery.sort = '+id'
-  } else {
-    listQuery.sort = '-id'
-  }
-  handleFilter()
+const sortByID = (order: Sort['order']) => {
+  searchQuery.sort = order === 'ascending' ? '+id' : '-id'
+  handleSearch()
 }
-const getSortClass = function (key: string) {
-  const sort = listQuery.sort
+const getSortClass = (key: string) => {
+  const sort = searchQuery.sort
   return sort === `+${key}` ? 'ascending' : 'descending'
 }
 
@@ -143,14 +135,10 @@ const handleDownload = throttle(function () {
   })
 }, 5 * 1000)
 const formatJson = (filterVal: string[]) => {
-  if (!list.value) return
-  return list.value.map((v) =>
+  return tableData.value.map((v) =>
     filterVal.map((j) => {
-      return v[j as keyof StockData]
+      return v[j as keyof ListVO]
     }),
   )
 }
-
-// create --init view
-getList()
 </script>

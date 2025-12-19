@@ -15,8 +15,9 @@ export const useMap = () => {
     {
       type: 'input',
       placeholder: t('placeholder.enter') + t('stock.productionName'),
+      clearable: true,
       label: t('stock.productionName') + ':',
-      key: 'title',
+      key: 'productionName',
       style: { width: '200px' },
     },
     {
@@ -28,20 +29,6 @@ export const useMap = () => {
         options: area,
         style: { width: '150px' },
         placeholder: t('placeholder.select') + t('area'),
-      },
-    },
-    {
-      type: 'select',
-      key: 'sort',
-      label: t('stock.sort') + ':',
-      props: {
-        style: { width: '150px' },
-        options: [
-          { label: t('ascending'), value: '+id' },
-          { label: t('descending'), value: '-id' },
-        ],
-        placeholder: t('placeholder.select') + t('stock.sort'),
-        clearable: true,
       },
     },
     {
