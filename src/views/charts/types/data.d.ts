@@ -1,9 +1,11 @@
-export interface AllData {
-  [index: string]: Omit<Data, 'type'>
+export interface ChartVO {
+  [index: string]: Omit<ListVO, 'type'>
 }
 
-export interface Data {
+export interface ListVO {
   total: number[]
   orders: number[]
   type: { [index: string]: number }
 }
+
+export type ChartType = 'turnover' | 'order'

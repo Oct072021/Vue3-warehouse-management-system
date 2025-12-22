@@ -1,9 +1,5 @@
 <template>
-  <div
-    :id="id"
-    :class="className"
-    :style="{ height: height, width: width }"
-  />
+  <div :id="id" :class="className" :style="{ height: height, width: width }" />
 </template>
 
 <script lang="ts" setup>
@@ -12,7 +8,10 @@ import { computed, nextTick, onBeforeUnmount, onMounted, markRaw, ref, watch } f
 import { useAppStore } from '@/store/app'
 import * as echarts from 'echarts'
 
-import { AllData } from '@/views/charts/types/data.d'
+import { ChartVO } from '@/views/charts/types/data.d'
+import { useMap } from '../hooks/useMap'
+
+const { typeMap } = useMap()
 
 const appStore = useAppStore()
 
@@ -24,37 +23,32 @@ const props = withDefaults(
     id?: string
     width?: string
     height?: string
-    type?: boolean
-    data: AllData
+    type: 'turnover' | 'order'
+    data: ChartVO
   }>(),
   {
     className: 'chart',
     id: 'chart',
     width: '200px',
     height: '200px',
-    type: true,
   },
 )
 
 const chart = ref<echarts.ECharts | null>(null)
-const chartType = ref<string[]>(['line', 'bar']) // index 0 is profit, index 1 is orders
 
 const language = computed(() => {
   return appStore.language
 })
-const index = computed(() => {
-  return props.type ? 0 : 1
-})
 
 watch(
-  [language, index, () => props.data],
+  [language, () => props.type, () => props.data],
   () => {
     initChart(props.data)
   },
   { deep: true },
 )
 
-const initChart = (data: AllData) => {
+const initChart = (data: ChartVO) => {
   if (chart.value) {
     chart.value.dispose()
     chart.value = null
@@ -106,7 +100,7 @@ const initChart = (data: AllData) => {
       textStyle: {
         color: '#90979c',
       },
-      data: ['area-1', 'area-2', 'area-3', 'area-4'],
+      data: Object.keys(data),
     },
     calculable: true,
     xAxis: [
@@ -181,86 +175,24 @@ const initChart = (data: AllData) => {
         end: 35,
       },
     ],
-    series: [
-      {
-        name: 'area-1',
-        type: chartType.value[index.value],
-        stack: 'total',
-        symbolSize: 10,
-        symbol: 'circle',
-        barMaxWidth: 45,
-        barGap: '10%',
-        itemStyle: {
-          color: 'rgba(52,158,255)',
-          barBorderRadius: 0,
+    series: Object.keys(data).map((key) => ({
+      name: key,
+      type: typeMap[props.type].type,
+      stack: 'total',
+      symbolSize: 10,
+      symbol: 'circle',
+      barMaxWidth: 45,
+      barGap: '10%',
+      label: {
+        show: true,
+        position: 'top',
+        formatter(p: any) {
+          return p.value > 0 ? p.value : ''
         },
-        label: {
-          show: true,
-          position: 'top',
-          formatter(p: any) {
-            return p.value > 0 ? p.value : ''
-          },
-        },
-        data: data['area-1'][index.value ? 'orders' : 'total'],
       },
-      {
-        name: 'area-2',
-        type: chartType.value[index.value],
-        stack: 'total',
-        symbolSize: 10,
-        symbol: 'circle',
-        itemStyle: {
-          color: 'rgba(252,230,48,1)',
-          barBorderRadius: 0,
-        },
-        label: {
-          show: true,
-          position: 'top',
-          formatter(p: any) {
-            return p.value > 0 ? p.value : ''
-          },
-        },
-        data: data['area-2'][index.value ? 'orders' : 'total'],
-      },
-      {
-        name: 'area-3',
-        type: chartType.value[index.value],
-        stack: 'total',
-        symbolSize: 10,
-        symbol: 'circle',
-        itemStyle: {
-          color: 'rgba(20,251,46)',
-          barBorderRadius: 0,
-        },
-        label: {
-          show: true,
-          position: 'top',
-          formatter(p: any) {
-            return p.value > 0 ? p.value : ''
-          },
-        },
-        data: data['area-3'][index.value ? 'orders' : 'total'],
-      },
-      {
-        name: 'area-4',
-        type: chartType.value[index.value],
-        stack: 'total',
-        symbolSize: 10,
-        symbol: 'circle',
-        itemStyle: {
-          color: 'rgba(226,4,4)',
-          barBorderRadius: 0,
-        },
-        label: {
-          show: true,
-          position: 'top',
-          formatter(p: any) {
-            return p.value > 0 ? p.value : ''
-          },
-        },
-        data: data['area-4'][index.value ? 'orders' : 'total'],
-      },
-    ],
+      // data: (data[key])[typeMap[props.type].key],
+      data: data[key][typeMap[props.type].key],
+    })),
   })
 }
 

@@ -7,33 +7,29 @@
       inactive-color="#1890FF"
       :active-text="t(`charts.turnover`)"
       :inactive-text="t(`charts.orders`)"
+      active-value="turnover"
+      inactive-value="order"
     />
-    <Chart
-      height="100%"
-      width="100%"
-      :type="value"
-      :data="data"
-    />
+    <Chart height="100%" width="100%" :type="value" :data="data" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import Chart from '@/components/Charts/index.vue'
+import Chart from '../components/Charts.vue'
 
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { AllData } from '../types/data.d'
+import { ChartVO, ChartType } from '../types/data.d'
 import { getInboundTotal } from './service'
 
 defineOptions({ name: 'inboundChart' })
 
 const { t } = useI18n()
 
-const value = ref<boolean>(true)
+const value = ref<ChartType>('turnover')
 
-const warehouse = ref<string[]>(['area-1', 'area-2', 'area-3', 'area-4'])
-const data = reactive<AllData>({
+const data = reactive<ChartVO>({
   'area-1': {
     total: [],
     orders: [],
@@ -52,12 +48,11 @@ const data = reactive<AllData>({
   },
 })
 const getData = () => {
-  warehouse.value.forEach(async (item) => {
-    const res = await getInboundTotal(item)
-    // data[item] = res.data
+  Object.keys(data).forEach(async (key) => {
+    const res = await getInboundTotal(key)
     const { total, orders } = res.data
-    data[item].total = total
-    data[item].orders = orders
+    data[key].total = total
+    data[key].orders = orders
   })
 }
 getData()
