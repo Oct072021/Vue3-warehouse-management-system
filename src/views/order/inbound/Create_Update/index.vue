@@ -5,66 +5,35 @@
         {{ route.query.id ? t(`orders.update`) : t(`orders.create`) }}
       </span>
     </div>
-    <el-form
-      ref="orderFormRef"
-      :model="order"
-      :rules="rules"
-      class="form-container"
-    >
+    <el-form ref="orderFormRef" :model="order" :rules="rules" class="form-container">
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
             <div class="postInfo-container">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('orders.orderID') + ' :'"
-                    class="postInfo-container-item"
-                    prop="orderID"
-                  >
-                    <el-input
-                      v-model="order.orderID"
-                      :placeholder="t(`AutoGeneration`)"
-                    />
+                  <el-form-item :label="t('orders.orderID') + ' :'" class="postInfo-container-item" prop="orderID">
+                    <el-input v-model="order.orderID" :placeholder="t(`AutoGeneration`)" />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('orders.type') + ' :'"
-                    class="postInfo-container-item"
-                    prop="type"
-                  >
-                    <el-select
-                      v-model="order.type"
-                      placeholder=""
-                    >
+                  <el-form-item :label="t('orders.type') + ' :'" class="postInfo-container-item" prop="type">
+                    <el-select v-model="order.type">
                       <el-option
                         v-for="opt in obj2Option(typeMap)"
                         :key="opt.key"
                         :label="opt.label"
-                        :value="opt.key"
+                        :value="+opt.key"
                       />
                     </el-select>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('area') + ' :'"
-                    class="postInfo-container-item"
-                    prop="area"
-                  >
-                    <el-select
-                      v-model="order.area"
-                      placeholder=""
-                    >
-                      <el-option
-                        v-for="opt in area"
-                        :key="opt.key"
-                        :label="opt.label"
-                        :value="opt.key"
-                      />
+                  <el-form-item :label="t('area') + ' :'" class="postInfo-container-item" prop="area">
+                    <el-select v-model="order.area" placeholder="">
+                      <el-option v-for="opt in area" :key="opt.key" :label="opt.label" :value="opt.key" />
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -72,43 +41,27 @@
 
               <el-row>
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('orders.supplier') + ' :'"
-                    class="postInfo-container-item"
-                    prop="supplier"
-                  >
+                  <el-form-item :label="t('orders.supplier') + ' :'" class="postInfo-container-item" prop="supplier">
                     <el-input v-model="order.supplier" />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('orders.contact') + ' :'"
-                    class="postInfo-container-item"
-                    prop="contact"
-                  >
+                  <el-form-item :label="t('orders.contact') + ' :'" class="postInfo-container-item" prop="contact">
                     <el-input v-model="order.contact" />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('orders.number') + ' :'"
-                    class="postInfo-container-item"
-                    prop="number"
-                  >
-                    <el-input v-model="order.number" />
+                  <el-form-item :label="t('orders.number') + ' :'" class="postInfo-container-item" prop="phone">
+                    <el-input v-model="order.phone" />
                   </el-form-item>
                 </el-col>
               </el-row>
 
               <el-row>
                 <el-col :span="8">
-                  <el-form-item
-                    :label="t('orders.title') + ' :'"
-                    class="postInfo-container-item"
-                    prop="title"
-                  >
+                  <el-form-item :label="t('orders.title') + ' :'" class="postInfo-container-item" prop="title">
                     <el-input v-model="order.title" />
                   </el-form-item>
                 </el-col>
@@ -125,16 +78,9 @@
               </el-row>
 
               <el-row>
-                <el-col :span="20">
-                  <el-form-item
-                    :label="t(`orders.remark`) + ':'"
-                    prop="remark"
-                  >
-                    <el-input
-                      v-model="order.remark"
-                      :rows="4"
-                      type="textarea"
-                    />
+                <el-col :span="24">
+                  <el-form-item :label="t(`orders.remark`) + ':'" prop="remark"  class="postInfo-container-item">
+                    <el-input v-model="order.remark" :rows="4" type="textarea" />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -145,46 +91,24 @@
 
       <div class="title">
         <span>{{ t(`orders.inboundProduction`) }}</span>
-        <el-button
-          type="success"
-          @click="createProduction()"
-          >{{ t(`button.createProduction`) }}</el-button
-        >
+        <el-button type="success" @click="createProduction()">{{ t(`button.createProduction`) }}</el-button>
       </div>
 
       <el-form-item prop="production">
-        <el-table
-          :data="order.production"
-          border
-          fit
-          header-cell-class-name="table_header"
-          class="production"
-        >
-          <el-table-column
-            min-width="100px"
-            :label="t(`orders.productionID`)"
-            align="center"
-          >
+        <el-table :data="order.production" border fit header-cell-class-name="table_header" class="production">
+          <el-table-column min-width="100px" :label="t(`orders.productionID`)" align="center">
             <template #default="{ row }">
               <el-input v-model="row.productionID" />
             </template>
           </el-table-column>
 
-          <el-table-column
-            min-width="100px"
-            :label="t(`orders.productionName`)"
-            align="center"
-          >
+          <el-table-column min-width="100px" :label="t(`orders.productionName`)" align="center">
             <template #default="{ row }">
               <el-input v-model="row.productionName" />
             </template>
           </el-table-column>
 
-          <el-table-column
-            min-width="150px"
-            :label="t(`orders.specs`)"
-            align="center"
-          >
+          <el-table-column min-width="150px" :label="t(`orders.specs`)" align="center">
             <template #default="{ row }">
               <div class="specs">
                 <el-input v-model="row.specs1" /> ×
@@ -193,31 +117,19 @@
             </template>
           </el-table-column>
 
-          <el-table-column
-            min-width="80px"
-            :label="t(`orders.price`)"
-            align="center"
-          >
+          <el-table-column min-width="80px" :label="t(`orders.price`)" align="center">
             <template #default="{ row }">
               <el-input v-model="row.price" />
             </template>
           </el-table-column>
 
-          <el-table-column
-            min-width="80px"
-            :label="t(`orders.quantity`)"
-            align="center"
-          >
+          <el-table-column min-width="80px" :label="t(`orders.quantity`)" align="center">
             <template #default="{ row }">
               <el-input v-model="row.quantity" />
             </template>
           </el-table-column>
 
-          <el-table-column
-            min-width="90px"
-            :label="t(`orders.total`)"
-            align="center"
-          >
+          <el-table-column min-width="90px" :label="t(`orders.total`)" align="center">
             <template #default="{ row }">
               {{ (row.price * row.quantity).toFixed(2) }}
             </template>
@@ -230,29 +142,15 @@
             class-name="small-padding fixed-width"
           >
             <template #default="{ row, $index }">
-              <el-button
-                type="danger"
-                size="small"
-                @click="delProduction($index)"
-                >{{ t(`button.delete`) }}
-              </el-button>
+              <el-button type="danger" size="small" @click="delProduction($index)">{{ t(`button.delete`) }} </el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-form-item>
 
       <div class="submit_order_button">
-        <el-button
-          type="primary"
-          size="large"
-          @click="submitForm(orderFormRef)"
-          >{{ t('button.submit') }}</el-button
-        >
-        <el-button
-          size="large"
-          @click="router.go(-1)"
-          >{{ t('button.cancel') }}</el-button
-        >
+        <el-button type="primary" size="large" @click="submitForm(orderFormRef)">{{ t('button.submit') }}</el-button>
+        <el-button size="large" @click="router.go(-1)">{{ t('button.cancel') }}</el-button>
       </div>
     </el-form>
   </div>
@@ -269,9 +167,9 @@ import { useMap } from '../hooks/useMap'
 
 import { obj2Option } from '@/utils/array'
 
-import { Order } from '../data.d'
+import { UpdateDTO } from '../data.d'
 
-import { createInboundOrder, getDetail, updateInboundOrder } from '../service'
+import { createOrder, detailOrder, updateOrder } from '../service'
 
 const route = useRoute()
 const router = useRouter()
@@ -294,13 +192,14 @@ const rules = reactive({
 })
 
 const orderFormRef = ref()
-const order = reactive<Order>({
+const order = reactive<UpdateDTO>({
+  id: 0,
   orderID: '',
   type: 0,
-  area: '',
+  area: 'area-1',
   supplier: '',
   contact: '',
-  number: +'',
+  phone: '',
   title: '',
   documenter: '',
   remark: '',
@@ -321,7 +220,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid) => {
     if (!valid) return
     // 存在id则为 '更新订单信息' 业务，不存在则为 '创建订单' 业务
-    const res = route.query.id ? await updateInboundOrder(order) : await createInboundOrder(order)
+    const res = route.query.id ? await updateOrder(order) : await createOrder(order)
 
     if (res.code === 20000) {
       ElNotification({
@@ -352,7 +251,7 @@ const delProduction = (index: number) => {
 }
 
 const getData = async () => {
-  const res = await getDetail(+route.query.id!)
+  const res = await detailOrder(+route.query.id!)
   if (res.code === 20000) {
     Object.assign(order, res.data)
   }
@@ -391,16 +290,6 @@ if (route.query.id) {
     position: absolute;
     right: 10px;
     top: 0px;
-  }
-}
-
-.article-textarea :deep() {
-  textarea {
-    padding-right: 40px;
-    resize: none;
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid #bfcbd9;
   }
 }
 .title {

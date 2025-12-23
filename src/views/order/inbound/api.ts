@@ -1,30 +1,31 @@
 import { Http } from '@/network/request'
-import { Inbound, SearchData, InboundDetail, Audit, Order, Export } from './data.d'
+import { CreateDTO, ListVO, SearchDTO, UpdateDTO, AuditDTO } from './data.d'
+import { List } from '@/types/common'
 
-export function fetchList(params?: SearchData) {
-  return Http.get<SearchData, Inbound>('/inbound/list', { params })
+export function page(params?: SearchDTO) {
+  return Http.get<SearchDTO, List<ListVO>>('/inbound/list', { params })
 }
 
-export function fetchDetail(id: number) {
-  return Http.get<{ id: number }, InboundDetail>('/inbound/detail', { params: { id } })
+export function detailById(id: ListVO['id']) {
+  return Http.get<Pick<ListVO, 'id'>, ListVO>('/inbound/detail', { params: { id } })
 }
 
-export function fetchAllData(area: string) {
-  return Http.get<{ area: string }, Export[]>('/inbound/all', { params: { area } })
+export function all(area: ListVO['area']) {
+  return Http.get<Pick<ListVO, 'area'>, ListVO[]>('/inbound/all', { params: { area } })
 }
 
-export function createOrder(data: Order) {
-  return Http.post<Order, boolean>('/inbound/create', data)
+export function create(data: CreateDTO) {
+  return Http.post<CreateDTO, boolean>('/inbound/create', data)
 }
 
-export function updateOrder(data: Order) {
-  return Http.post<Order, boolean>('/inbound/update', data)
+export function update(data: UpdateDTO) {
+  return Http.post<UpdateDTO, boolean>('/inbound/update', data)
 }
 
-export function remove(id: number) {
-  return Http.delete<{ id: number }, boolean>('/inbound/remove', { params: { id } })
+export function remove(id: ListVO['id']) {
+  return Http.delete<Pick<ListVO, 'id'>, boolean>('/inbound/remove', { params: { id } })
 }
 
-export function audit(data: Audit) {
-  return Http.put<Audit, boolean>('/inbound/audit', data)
+export function audit(data: AuditDTO) {
+  return Http.put<AuditDTO, boolean>('/inbound/audit', data)
 }

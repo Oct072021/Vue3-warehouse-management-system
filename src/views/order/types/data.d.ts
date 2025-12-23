@@ -1,4 +1,4 @@
-import { Pagination } from '@/types/pagination.d'
+import { Pagination } from '@/types/pagination'
 
 // public interface && area
 export interface BaseData {
@@ -11,11 +11,8 @@ export interface BaseData {
   documenter: string
   status: number
   auditor: string
-}
-
-export interface Detail {
   contact: string
-  number: number | undefined
+  phone: string
   remark: string
   reason: string
   production: Production[]
@@ -30,11 +27,9 @@ interface Production {
   price: number | undefined
 }
 
-export interface Search implements Pagination {
-	limit?: number
-	page?: number
-	type?: number
-	orderID?: string
-	status?: number
-	area?: string
+export interface Search extends Pagination {
+  type?: number
+  orderID?: string
+  status?: number
+  area: string
 }
