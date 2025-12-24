@@ -1,21 +1,15 @@
-import { ListData } from '@/types/common'
-import { BaseData, Search, Detail, Total } from '../types/data.d'
+import { BaseData, Search } from '../types/data'
 
-export interface OutboundData extends BaseData {
-	client: string
+export interface ListVO extends BaseData {
+  client: string
 }
 
-export type OutboundDetail = Omit<OutboundData & Detail, 'title'>
+export type SearchDTO = Search
 
-export type Outbound = ListData<OutboundData>
-
-export type SearchData = Search
-
-export interface Audit {
-	status: number
-	detail: InboundDetail
+export interface AuditDTO {
+  status: number
+  detail: ListVO
 }
 
-export type Order = Omit<OutboundData & Detail, 'status' | 'auditor' | 'reason' | 'id'>
-
-export type Export = OutboundData & Detail
+export type UpdateDTO = Omit<ListVO, 'status' | 'auditor' | 'reason'>
+export type CreateDTO = Omit<UpdateDTO, 'id'>
